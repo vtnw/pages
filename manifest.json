@@ -9,7 +9,7 @@
       "type": "image/png"
     },
     {
-      "src": "images/splash.png",
+      "src": "./images/splash.png",
       "sizes": "1280x720",
       "type": "image/png"
     }
