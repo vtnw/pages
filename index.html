@@ -26,6 +26,7 @@
             for (var i = 0; i < items.length; i++) {
                 var a = document.createElement('a');
                 a.setAttribute('href', items[i].link);
+                a.setAttribute('style', 'line-height:25px;');
                 a.innerHTML = items[i].name;
                 d.appendChild(a);
                 d.appendChild(document.createElement('br'));
@@ -39,6 +40,8 @@
             items.push(item);
             setCache(items);
             loadLinks();
+            document.getElementById("tbName").value = "";
+            document.getElementById("tbLink").value = "http://";
         }
         function getCache() {
             var items = JSON.parse(localStorage.getItem("links"));
