@@ -6,19 +6,6 @@
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
 </head>
-<body onload=javascript:go();>
-<a href="http://m.tamil.thehindu.com">Tamil Hindu</a><br>
-<a href="http://tamil.oneindia.com">Oneindia Tamil</a><br>
-<a href="http://m.tamil.thehindu.com">Tamil Hindukq</a><br>
+<body onload='javascript:location.href=decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));'>
 </body>
-    <script lang="javascript">
-        function go(){
-            var url=decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent('u').replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
-            alert(url);
-            location.href=url;
-            }
-
-  
-
-        </script>
 </html>
