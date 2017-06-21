@@ -13,15 +13,11 @@
 </body>
     <script lang="javascript">
         function go(){
-            alert('');
-            alert(get('name'));
-            let params = (new(document.location)).searchParams;
-            let name = params.get("name");
-            alert(name);
+            var url=return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent('u').replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
+            location.href=url;
             }
-        function get(key) {  
-  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
-}  
+
+  
 
         </script>
 </html>
