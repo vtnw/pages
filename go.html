@@ -6,9 +6,16 @@
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
 </head>
-<body>
+<body onload=javascript:go();>
 <a href="http://m.tamil.thehindu.com">Tamil Hindu</a><br>
 <a href="http://tamil.oneindia.com">Oneindia Tamil</a><br>
 <a href="http://m.tamil.thehindu.com">Tamil Hindu</a><br>
 </body>
+    <script lang="javascript">
+        function go(){
+            let params = (new(document.location)).searchParams;
+            let name = params.get("name");
+            alert(name);
+            }
+        </script>
 </html>
