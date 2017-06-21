@@ -11,7 +11,7 @@
     <div>
         <input type="text" value="http://" id="tbLink" style="width:95%" /><br>
         <input type="text" value="" id="tbName" style="width:95%" /><br>
-        <input type="button" value="Add" id="btnAdd" onclick="add();" />
+        <input type="button" value="Add1" id="btnAdd" onclick="add();" />
         <input type="button" value="Clear" id="btnCancel" onclick="reset();" />
         <hr />
     </div>
@@ -26,7 +26,7 @@
             for (var i = 0; i < items.length; i++) {
                 var a = document.createElement('a');
                 a.setAttribute('href', items[i].link);
-                a.setAttribute('style', 'line-height:25px;');
+                a.setAttribute('style', 'line-height:40px;');
                 a.innerHTML = items[i].name;
                 d.appendChild(a);
                 d.appendChild(document.createElement('br'));
