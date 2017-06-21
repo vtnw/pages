@@ -14,9 +14,14 @@
     <script lang="javascript">
         function go(){
             alert('');
+            alert(get('name'));
             let params = (new(document.location)).searchParams;
             let name = params.get("name");
             alert(name);
             }
+        function get(key) {  
+  return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
+}  
+
         </script>
 </html>
