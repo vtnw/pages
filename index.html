@@ -5,20 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE =edge">
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
-    <title>Browse</title>
+    <title>Bookmarks</title>
 </head>
-<body>
-    <form name="frm" action="#" onsubmit="return go();">
+<body onload="loadLinks();">
     <div>
-        <input type="text" value="http://" id="tb" style="width:100%"></input><br>
-        <input type="submit" value="Submit" id="btn"></input>
+        <input type="text" value="http://" id="tbLink" style="width:95%" /><br>
+        <input type="text" value="" id="tbName" style="width:95%" /><br>
+        <input type="button" value="Add" id="btnAdd" onclick="add();" />
+        <input type="button" value="Clear" id="btnCancel" onclick="reset();" />
+        <hr />
+    </div>
+    <div id="dvLinks">
     </div>
     </form>
     <script lang="javascript">
-        function go()
-        {
-            window.location.href = document.getElementById('tb').value;
-            return false;
+        function loadLinks() {
+            var items = getCache();
+            clearDiv();
+            var d = document.getElementById("dvLinks");
+            for (var i = 0; i < items.length; i++) {
+                var a = document.createElement('a');
+                a.setAttribute('href', items[i].link);
+                a.innerHTML = items[i].name;
+                d.appendChild(a);
+                d.appendChild(document.createElement('br'));
+            }
+        }
+        function add() {
+            var n = document.getElementById("tbName").value;
+            var l = document.getElementById("tbLink").value;
+            var item = { "name": n, "link": l };
+            var items = getCache();
+            items.push(item);
+            setCache(items);
+            loadLinks();
+        }
+        function getCache() {
+            var items = JSON.parse(localStorage.getItem("links"));
+            if (items == null) {
+                items = [];
+            }
+            return items;
+        }
+        function setCache(items) {
+            localStorage.setItem("links", JSON.stringify(items));
+        }
+        function clearDiv() {
+            document.getElementById("dvLinks").innerHTML = "";
+        }
+        function reset() {
+            clearDiv();
+            localStorage.setItem("links", null);
         }
     </script>
 </body>
