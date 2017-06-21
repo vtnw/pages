@@ -1,7 +1,7 @@
 {
-  "short_name": "Launch",
+  "short_name": "Link",
   "name": "Loading...",
-  "start_url": "./?utm_source=web_app_manifest",
+
   "icons": [
     {
       "src": "./images/icon.png",
