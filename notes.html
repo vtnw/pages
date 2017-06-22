@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <title>Notes</title>
+</head>
+<body onload="showNotes();">
+    <div>
+        <div id="dvNoteList">
+            <input type="button" value="Add" id="btnAdd" />
+            <div id="dvNotes">
+            </div>
+        </div>    
+        <div id="dvNoteView" style="display:none";>
+        
+        </div>
+        <div id="dvNoteEdit" style="display:none";>
+            <input type="button" value="Save" id="btnSave" />
+            <input type="button" value="Delete" id="btnDelete" />
+            <input type="button" value="Cancel" id="btnCancel" />
+            <textarea id="tbNote" style="width:99%;height:85vh;border:none;overflow: auto;outline: none;-webkit-box-shadow: none;"></textarea>
+        </div>
+    </div>
+    <script lang="javascript">
+        document.getElementById("btnAdd").addEventListener("click", function () {
+            showDiv("dvNoteList", false);
+            showDiv("dvNoteEdit", true);
+            document.getElementById("tbNote").value = "";
+            document.getElementById("tbNote").removeAttribute("noteId");
+        });
+        document.getElementById("btnSave").addEventListener("click", function () {
+            var notes = getNotes();
+            var noteId = document.getElementById("tbNote").getAttribute("noteId");
+            if (noteId == null) {
+                noteId = getIndex();                
+                var note = { "id": noteId, "note": document.getElementById("tbNote").value };
+                notes.push(note);
+            }
+            else{
+                var index = notes.findIndex((n => n.id == noteId));            
+                notes[index].note = document.getElementById("tbNote").value;
+            }
+            setNotes(notes);
+            showDiv("dvNoteEdit", false);
+            showDiv("dvNoteList", true);
+            showNotes();
+        });
+        document.getElementById("btnDelete").addEventListener("click", function () {
+            var notes = getNotes();
+            var noteId = document.getElementById("tbNote").getAttribute("noteId");
+            var index = notes.findIndex((n => n.id == noteId));            
+            notes.splice(index, 1);
+            setNotes(notes);
+            showDiv("dvNoteEdit", false);
+            showDiv("dvNoteList", true);
+            showNotes();
+        });
+        document.getElementById("btnCancel").addEventListener("click", function () {
+            showDiv("dvNoteEdit", false);
+            showDiv("dvNoteList", true);
+        });
+        function showDiv(id, status) {
+            document.getElementById(id).style.display = (status) ? "block" : "none";
+        }
+        function getNotes() {
+            var notes = JSON.parse(localStorage.getItem("notes"));
+            if (notes == null) {
+                notes = [];
+            }
+            return notes;
+        }
+        function setNotes(notes) {
+            localStorage.setItem("notes", JSON.stringify(notes));
+        }
+        function getIndex() {
+            var index = localStorage.getItem("index");
+             if (index == null) {
+                index = 0;
+            }
+            else {
+                index = parseInt(index);
+            }
+            index = index + 1;
+            localStorage.setItem("index", index);
+            return index;
+        }
+        function clearNotes() {
+            document.getElementById("dvNotes").innerHTML = "";
+        }
+        function showNotes() {
+            var items = getNotes();            
+            clearNotes();            
+            var d = document.getElementById("dvNotes");            
+            for (var i = 0; i < items.length; i++) {
+                var a = document.createElement('a');
+                a.setAttribute('href', "#");
+                a.setAttribute('id', items[i].id);
+                a.setAttribute('note', items[i].note);
+                a.setAttribute('style', 'line-height:30px;');
+                a.innerHTML = items[i].note.substring(0, 20);
+                a.addEventListener("click", function () {
+                    editNote(this.getAttribute("id"), this.getAttribute("note"));
+                });
+                d.appendChild(a);
+                d.appendChild(document.createElement('br'));
+            }
+            document.getElementById("tbNote").value = "";
+        }
+        function editNote(id, note) {
+            showDiv("dvNoteList", false);
+            showDiv("dvNoteEdit", true);
+            document.getElementById("tbNote").value = note;
+            document.getElementById("tbNote").setAttribute("noteId", id);
+        }
+    </script>
+</body>
+</html>
