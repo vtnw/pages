@@ -92,10 +92,11 @@
                 var a = document.createElement('a');
                 a.setAttribute('href', "#");
                 a.setAttribute('id', items[i].id);
+                a.setAttribute('note', items[i].note);
                 a.setAttribute('style', 'line-height:30px;');
                 a.innerHTML = items[i].note.substring(0, 10);
                 a.addEventListener("click", function () {
-                    editNote(this.getAttribute("id"), this.innerHTML);
+                    editNote(this.getAttribute("id"), this.getAttribute("note"));
                 });
                 d.appendChild(a);
                 d.appendChild(document.createElement('br'));
