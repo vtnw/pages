@@ -1,8 +1,6 @@
 document.getElementById("btnEdit").addEventListener("click", function () {
-    var items = getCache();
-    var d = document.getElementById("dvEdit");
     document.getElementById("tbData").value = localStorage.getItem("links");
-    d.style.display = "block";
+    document.getElementById("dvEdit").style.display = "block";
 }
 document.getElementById("btnAdd").addEventListener("click", function () {
     var n = document.getElementById("tbName").value;
@@ -26,7 +24,8 @@ document.getElementById("btnClear").addEventListener("click", function () {
 }
 document.getElementById("btnSave").addEventListener("click", function () {
     localStorage.setItem("links", document.getElementById("tbData").value);
-    cancel();
+    document.getElementById("tbData").value = "";
+    document.getElementById("dvEdit").style.display = "none";
     loadLinks();
 }
 document.getElementById("btnCancel").addEventListener("click", function () {
