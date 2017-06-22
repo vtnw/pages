@@ -12,10 +12,13 @@
         <input type="text" value="" id="tbLink" style="width:99%" /><br>
         <input type="text" value="" id="tbName" style="width:50%" />
         <input type="button" value="Add" id="btnAdd" onclick="add();" />
-        <input type="button" value="Clear" id="btnCancel" onclick="reset();" />
+        <input type="button" value="Edit" id="btnEdit" onclick="editLinks();" />
+        <input type="button" value="Clear" id="Button1" onclick="reset();" />
         <hr />
     </div>
-    <div id="dvLinks">
+    <div id="dvLinks"></div>
+    <div id="dvEdit" style="display:none";>
+        <input type="button" value="Save" id="btnSave" onclick="save();" />
     </div>
     </form>
     <script lang="javascript">
@@ -31,6 +34,16 @@
                 d.appendChild(a);
                 d.appendChild(document.createElement('br'));
             }
+        }
+        function editLinks() {
+            var items = getCache();
+            var d = document.getElementById("dvEdit");
+            var t = document.createElement('textarea');
+            t.setAttribute('id', "tbData");
+            t.setAttribute('style', "width:99%;height:100px;");
+            d.appendChild(t);
+            document.getElementById("tbData").value = localStorage.getItem("links");
+            d.style.display = "block";
         }
         function add() {
             var n = document.getElementById("tbName").value;
@@ -59,6 +72,11 @@
         function reset() {
             clearDiv();
             localStorage.setItem("links", null);
+        }
+        function save() {
+            localStorage.setItem("links", document.getElementById("tbData").value);
+            document.getElementById("dvEdit").style.display = "none";
+            loadLinks();
         }
     </script>
 </body>
