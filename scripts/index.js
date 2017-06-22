@@ -1,3 +1,38 @@
+document.getElementById("btnEdit").addEventListener("click", function () {
+    var items = getCache();
+    var d = document.getElementById("dvEdit");
+    document.getElementById("tbData").value = localStorage.getItem("links");
+    d.style.display = "block";
+}
+document.getElementById("btnAdd").addEventListener("click", function () {
+    var n = document.getElementById("tbName").value;
+    var l = document.getElementById("tbLink").value;
+
+    if (n != '' && l != '') {
+        var item = { "name": n, "link": l };
+        var items = getCache();
+        items.push(item);
+        setCache(items);
+        loadLinks();
+        document.getElementById("tbName").value = "";
+        document.getElementById("tbLink").value = "";
+    }
+}
+document.getElementById("btnClear").addEventListener("click", function () {
+    if (confirm("Clear?")) {
+        clearDiv();
+        localStorage.setItem("links", null);
+    }
+}
+document.getElementById("btnSave").addEventListener("click", function () {
+    localStorage.setItem("links", document.getElementById("tbData").value);
+    cancel();
+    loadLinks();
+}
+document.getElementById("btnCancel").addEventListener("click", function () {
+    document.getElementById("tbData").value = "";
+    document.getElementById("dvEdit").style.display = "none";
+}
 function loadLinks() {
     var items = getCache();
     clearDiv();
@@ -19,32 +54,6 @@ function loadLinks() {
         d.appendChild(document.createElement('br'));
     }
 }
-function editLinks() {
-    var items = getCache();
-    var d = document.getElementById("dvEdit");
-    if (document.getElementById("tbData") == null) {
-        var t = document.createElement('textarea');
-        t.setAttribute('id', "tbData");
-        t.setAttribute('style', "width:99%;height:100px;");
-        d.appendChild(t);
-    }
-    document.getElementById("tbData").value = localStorage.getItem("links");
-    d.style.display = "block";
-}
-function add() {
-    var n = document.getElementById("tbName").value;
-    var l = document.getElementById("tbLink").value;
-
-    if (n != '' && l != '') {
-        var item = { "name": n, "link": l };
-        var items = getCache();
-        items.push(item);
-        setCache(items);
-        loadLinks();
-        document.getElementById("tbName").value = "";
-        document.getElementById("tbLink").value = "";
-    }
-}
 function getCache() {
     var items = JSON.parse(localStorage.getItem("links"));
     if (items == null) {
@@ -57,19 +66,4 @@ function setCache(items) {
 }
 function clearDiv() {
     document.getElementById("dvLinks").innerHTML = "";
-}
-function reset() {
-    if (confirm("Clear?")) {
-        clearDiv();
-        localStorage.setItem("links", null);
-    }
-}
-function save() {
-    localStorage.setItem("links", document.getElementById("tbData").value);
-    cancel();
-    loadLinks();
-}
-function cancel() {
-    document.getElementById("tbData").value = "";
-    document.getElementById("dvEdit").style.display = "none";
 }
