@@ -42,8 +42,9 @@ function loadLinks() {
         a.addEventListener("click", function () {
             if (document.getElementById("cbx").checked) {
                 alert(this.getAttribute("link"));
-                window.open(this.getAttribute("link"));
-                return true;
+                window.open(this.getAttribute("link"), "_blank");
+                alert(this.getAttribute("link"));
+                return false;
             } else {
                 window.location.href = this.getAttribute("link");
             }
