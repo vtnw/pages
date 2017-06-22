@@ -37,13 +37,13 @@ function loadLinks() {
     var d = document.getElementById("dvLinks");
     for (var i = 0; i < items.length; i++) {
         var a = document.createElement('a');
-        a.setAttribute("href", "#");
+        a.setAttribute("href", items[i].link);
         a.setAttribute("link", items[i].link);
         a.addEventListener("click", function () {
             if (document.getElementById("cbx").checked) {
                 alert(this.getAttribute("link"));
                 window.open(this.getAttribute("link"));
-                return true;
+                return false;
             } else {
                 window.location.href = this.getAttribute("link");
             }
