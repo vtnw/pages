@@ -43,7 +43,7 @@ function loadLinks() {
             if (document.getElementById("cbx").checked) {
                 alert(this.getAttribute("link"));
                 window.open(this.getAttribute("link"));
-                return false;
+                return true;
             } else {
                 window.location.href = this.getAttribute("link");
             }
