@@ -21,13 +21,15 @@
             <input type="button" value="Save" id="btnSave" />
             <input type="button" value="Delete" id="btnDelete" />
             <input type="button" value="Cancel" id="btnCancel" />
-            <textarea id="tbNote" style="width:99%;height:80vh;border:none;"></textarea>
+            <textarea id="tbNote" style="width:99%;height:100vh;border:none;overflow: auto;outline: none;-webkit-box-shadow: none;"></textarea>
         </div>
     </div>
     <script lang="javascript">
         document.getElementById("btnAdd").addEventListener("click", function () {
             showDiv("dvNoteList", false);
             showDiv("dvNoteEdit", true);
+            document.getElementById("tbNote").value = "";
+            document.getElementById("tbNote").setAttribute("noteId", null);
         });
         document.getElementById("btnSave").addEventListener("click", function () {
             var notes = getNotes();
