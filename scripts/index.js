@@ -37,12 +37,7 @@ function loadLinks() {
     var d = document.getElementById("dvLinks");
     for (var i = 0; i < items.length; i++) {
         var a = document.createElement('a');
-        if (document.getElementById("cbx").checked) {
-            a.setAttribute("href", "javascript:window.open('" + items[i].link + "');");
-        }
-        else {
-            a.setAttribute("href", items[i].link);
-        }
+        a.setAttribute("href", "javascript: alert('');if(document.getElementById('cbx').checked){window.open('" + items[i].link + "');}else{window.location.href='" + items[i].link + "';}");
         a.setAttribute("style", "line-height:30px;");
         a.innerHTML = items[i].name;
         d.appendChild(a);
