@@ -1,11 +1,10 @@
 document.getElementById("btnEdit").addEventListener("click", function () {
     document.getElementById("tbData").value = localStorage.getItem("links");
     document.getElementById("dvEdit").style.display = "block";
-}
+});
 document.getElementById("btnAdd").addEventListener("click", function () {
     var n = document.getElementById("tbName").value;
     var l = document.getElementById("tbLink").value;
-
     if (n != '' && l != '') {
         var item = { "name": n, "link": l };
         var items = getCache();
@@ -15,23 +14,23 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         document.getElementById("tbName").value = "";
         document.getElementById("tbLink").value = "";
     }
-}
+});
 document.getElementById("btnClear").addEventListener("click", function () {
     if (confirm("Clear?")) {
         clearDiv();
         localStorage.setItem("links", null);
     }
-}
+});
 document.getElementById("btnSave").addEventListener("click", function () {
     localStorage.setItem("links", document.getElementById("tbData").value);
     document.getElementById("tbData").value = "";
     document.getElementById("dvEdit").style.display = "none";
     loadLinks();
-}
+});
 document.getElementById("btnCancel").addEventListener("click", function () {
     document.getElementById("tbData").value = "";
     document.getElementById("dvEdit").style.display = "none";
-}
+});
 function loadLinks() {
     var items = getCache();
     clearDiv();
