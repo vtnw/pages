@@ -15,12 +15,13 @@
         <input type="button" value="Edit" id="btnEdit" onclick="editLinks();" />
         <input type="button" value="Clear" id="Button1" onclick="reset();" />
         <hr />
-    </div>
-    <div id="dvLinks"></div>
+    </div>    
     <div id="dvEdit" style="display:none";>
         <input type="button" value="Save" id="btnSave" onclick="save();" />
+        <input type="button" value="Cancel" id="btnCancel" onclick="cancel();" />
     </div>
-    </form>
+    <div id="dvLinks"></div>
+
     <script lang="javascript">
         function loadLinks() {
             var items = getCache();
@@ -38,23 +39,28 @@
         function editLinks() {
             var items = getCache();
             var d = document.getElementById("dvEdit");
-            var t = document.createElement('textarea');
-            t.setAttribute('id', "tbData");
-            t.setAttribute('style', "width:99%;height:100px;");
-            d.appendChild(t);
+            if (document.getElementById("tbData") == null) {
+                var t = document.createElement('textarea');
+                t.setAttribute('id', "tbData");
+                t.setAttribute('style', "width:99%;height:100px;");
+                d.appendChild(t);
+            }
             document.getElementById("tbData").value = localStorage.getItem("links");
             d.style.display = "block";
         }
         function add() {
             var n = document.getElementById("tbName").value;
             var l = document.getElementById("tbLink").value;
-            var item = { "name": n, "link": l };
-            var items = getCache();
-            items.push(item);
-            setCache(items);
-            loadLinks();
-            document.getElementById("tbName").value = "";
-            document.getElementById("tbLink").value = "";
+
+            if (n != '' && l != '') {
+                var item = { "name": n, "link": l };
+                var items = getCache();
+                items.push(item);
+                setCache(items);
+                loadLinks();
+                document.getElementById("tbName").value = "";
+                document.getElementById("tbLink").value = "";
+            }
         }
         function getCache() {
             var items = JSON.parse(localStorage.getItem("links"));
@@ -70,13 +76,19 @@
             document.getElementById("dvLinks").innerHTML = "";
         }
         function reset() {
-            clearDiv();
-            localStorage.setItem("links", null);
+            if (confirm("Clear?")) {
+                clearDiv();
+                localStorage.setItem("links", null);
+            }
         }
         function save() {
             localStorage.setItem("links", document.getElementById("tbData").value);
-            document.getElementById("dvEdit").style.display = "none";
+            cancel();
             loadLinks();
+        }
+        function cancel() {
+            document.getElementById("tbData").value = "";
+            document.getElementById("dvEdit").style.display = "none";
         }
     </script>
 </body>
