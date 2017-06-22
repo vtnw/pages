@@ -38,17 +38,9 @@ function loadLinks() {
     for (var i = 0; i < items.length; i++) {
         var a = document.createElement('a');
         a.setAttribute("href", items[i].link);
-        a.setAttribute("link", items[i].link);
-        a.addEventListener("click", function () {
-            if (document.getElementById("cbx").checked) {
-                alert(this.getAttribute("link"));
-                window.open(this.getAttribute("link"), "_blank");
-                alert(this.getAttribute("link"));
-                return false;
-            } else {
-                window.location.href = this.getAttribute("link");
+        if (document.getElementById("cbx").checked) {
+                a.setAttribute("target", "_blank");
             }
-        });
         a.setAttribute("style", "line-height:30px;");
         a.innerHTML = items[i].name;
         d.appendChild(a);
