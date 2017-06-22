@@ -37,10 +37,12 @@ function loadLinks() {
     var d = document.getElementById("dvLinks");
     for (var i = 0; i < items.length; i++) {
         var a = document.createElement('a');
-        a.setAttribute("href", items[i].link);
         if (document.getElementById("cbx").checked) {
-                a.setAttribute("target", "_blank");
-            }
+            a.setAttribute("href", "javascript:window.open('" + items[i].link + "');");
+        }
+        else {
+            a.setAttribute("href", items[i].link);
+        }
         a.setAttribute("style", "line-height:30px;");
         a.innerHTML = items[i].name;
         d.appendChild(a);
