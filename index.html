@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE =edge">
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
+    <title>Links</title>
+    <script src="scripts/index.js"></script>
 </head>
 <body onload="loadLinks();">
     <div>
         <input type="text" value="" id="tbName" style="width:50%" />
         <input type="button" value="Add" id="btnAdd" onclick="add();" />
         <input type="button" value="Edit" id="btnEdit" onclick="editLinks();" />
-        <input type="button" value="Clear" id="Button1" onclick="reset();" /><br>
+        <input type="button" value="Clear" id="btnClear" onclick="reset();" />
+        <input type="checkbox" value="" id="cbx" /><br>
         <input type="text" value="" id="tbLink" style="width:99%" />
         <hr />
     </div>    
@@ -20,75 +23,5 @@
         <input type="button" value="Cancel" id="btnCancel" onclick="cancel();" />
     </div>
     <div id="dvLinks"></div>
-
-    <script lang="javascript">
-        function loadLinks() {
-            var items = getCache();
-            clearDiv();
-            var d = document.getElementById("dvLinks");
-            for (var i = 0; i < items.length; i++) {
-                var a = document.createElement('a');
-                a.setAttribute('href', items[i].link);
-                a.setAttribute('style', 'line-height:30px;');
-                a.innerHTML = items[i].name;
-                d.appendChild(a);
-                d.appendChild(document.createElement('br'));
-            }
-        }
-        function editLinks() {
-            var items = getCache();
-            var d = document.getElementById("dvEdit");
-            if (document.getElementById("tbData") == null) {
-                var t = document.createElement('textarea');
-                t.setAttribute('id', "tbData");
-                t.setAttribute('style', "width:99%;height:100px;");
-                d.appendChild(t);
-            }
-            document.getElementById("tbData").value = localStorage.getItem("links");
-            d.style.display = "block";
-        }
-        function add() {
-            var n = document.getElementById("tbName").value;
-            var l = document.getElementById("tbLink").value;
-
-            if (n != '' && l != '') {
-                var item = { "name": n, "link": l };
-                var items = getCache();
-                items.push(item);
-                setCache(items);
-                loadLinks();
-                document.getElementById("tbName").value = "";
-                document.getElementById("tbLink").value = "";
-            }
-        }
-        function getCache() {
-            var items = JSON.parse(localStorage.getItem("links"));
-            if (items == null) {
-                items = [];
-            }
-            return items;
-        }
-        function setCache(items) {
-            localStorage.setItem("links", JSON.stringify(items));
-        }
-        function clearDiv() {
-            document.getElementById("dvLinks").innerHTML = "";
-        }
-        function reset() {
-            if (confirm("Clear?")) {
-                clearDiv();
-                localStorage.setItem("links", null);
-            }
-        }
-        function save() {
-            localStorage.setItem("links", document.getElementById("tbData").value);
-            cancel();
-            loadLinks();
-        }
-        function cancel() {
-            document.getElementById("tbData").value = "";
-            document.getElementById("dvEdit").style.display = "none";
-        }
-    </script>
 </body>
 </html>
