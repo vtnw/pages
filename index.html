@@ -10,17 +10,18 @@
 </head>
 <body onload="loadLinks();">
     <div>
-        <input type="text" value="" id="tbName" style="width:50%;border:1px solid grey;" />
+        <input type="text" value="" id="tbName" style="width:50%;border:1px solid #cccccc;" />
         <input type="button" value="Add" id="btnAdd" />
         <input type="button" value="Edit" id="btnEdit" />
         <input type="button" value="Clear" id="btnClear" />
         <input type="checkbox" value="" id="cbx" style="vertical-align: bottom;" /><br/>
-        <input type="text" value="" id="tbLink" style="width:99%" />
+        <input type="text" value="" id="tbLink" style="width:99%;border:1px solid #cccccc" />
         <hr />
     </div>    
     <div id="dvEdit" style="display:none";>
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Cancel" id="btnCancel" />
+        <textarea id="tbData" style="width:99%;height:100px;border:1px solid #cccccc;"></textarea>
     </div>
     <div id="dvLinks"></div>
 </body>
