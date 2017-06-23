@@ -5,21 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE =edge">
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
-    <title>Links</title>    
+    <link rel="stylesheet" src="styles/index.css">
+    <title>Links</title>
 </head>
 <body onload="loadLinks();">
     <div>
-        <input type="text" value="" id="tbName" style="width:50%;border:1px solid #cccccc;" />
+        <input type="text" value="" id="tbSearch" />
+        <input type="checkbox" id="cbxDefine" />
+        <input type="button" value="Search" id="btnSearch" />
+        <input type="button" value="Browse" id="btnBrowse" />
+        <input type="button" value="Manage" id="btnManage" />
+        <hr />
+    </div>
+    <div id="dvLinkAdd" style="display:none;">
+        <input type="text" value="" id="tbName" />
+        <input type="text" value="" id="tbLink" />
         <input type="button" value="Add" id="btnAdd" />
         <input type="button" value="Edit" id="btnEdit" />
         <input type="button" value="Clear" id="btnClear" />
-        <input type="text" value="" id="tbLink" style="width:99%;border:1px solid #cccccc" />
+        <div id="dvEdit" style="display:none";>
+            <input type="button" value="Save" id="btnSave" />
+            <input type="button" value="Cancel" id="btnCancel" />
+            <textarea id="tbData"></textarea>
+        </div>
         <hr />
-    </div>    
-    <div id="dvEdit" style="display:none";>
-        <input type="button" value="Save" id="btnSave" />
-        <input type="button" value="Cancel" id="btnCancel" />
-        <textarea id="tbData" style="width:99%;height:100px;border:1px solid #cccccc;"></textarea>
     </div>
     <div id="dvLinks"></div>
     <script src="scripts/index.js" async></script>
