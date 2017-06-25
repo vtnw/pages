@@ -35,13 +35,13 @@ document.getElementById("btnDict").addEventListener("click", function () {
     var q ="define " + document.getElementById("tbSearch").value;
     window.location.href = "https://www.google.co.in/search?q=" + q;
 });
-document.getElementById("btnTran").addEventListener("click", function () {
-    var q = document.getElementById("tbSearch").value;
-    window.location.href = "https://www.google.co.in/search?q=" + q;
-});
 document.getElementById("btnSearch").addEventListener("click", function () {
     var q = document.getElementById("tbSearch").value;
     window.location.href = "https://www.google.co.in/search?q=" + q;
+});
+document.getElementById("btnTran").addEventListener("click", function () {
+    var q = document.getElementById("tbSearch").value;
+    window.location.href = "https://translate.google.com/m/translate#auto/ta/" + q;
 });
 document.getElementById("btnManage").addEventListener("click", function () {
     if(document.getElementById("dvLinkAdd").style.display == "none"){
