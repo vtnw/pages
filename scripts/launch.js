@@ -31,19 +31,17 @@ document.getElementById("btnCancel").addEventListener("click", function () {
     document.getElementById("tbData").value = "";
     document.getElementById("dvEdit").style.display = "none";
 });
-document.getElementById("btnSearch").addEventListener("click", function () {
-    var q = document.getElementById("tbSearch").value;
-    if(document.getElementById("cbxDefine").checked){
-        q = "define " + q;
-    }
+document.getElementById("btnDict").addEventListener("click", function () {
+    var q ="define " + document.getElementById("tbSearch").value;
     window.location.href = "https://www.google.co.in/search?q=" + q;
 });
-document.getElementById("btnBrowse").addEventListener("click", function () {
-    var q = "http://" + document.getElementById("tbSearch").value;
-    if(document.getElementById("cbxDefine").checked){
-        q = q + ".com";
-    }
-    window.location.href = q;
+document.getElementById("btnTran").addEventListener("click", function () {
+    var q = document.getElementById("tbSearch").value;
+    window.location.href = "https://www.google.co.in/search?q=" + q;
+});
+document.getElementById("btnSearch").addEventListener("click", function () {
+    var q = document.getElementById("tbSearch").value;
+    window.location.href = "https://www.google.co.in/search?q=" + q;
 });
 document.getElementById("btnManage").addEventListener("click", function () {
     if(document.getElementById("dvLinkAdd").style.display == "none"){
