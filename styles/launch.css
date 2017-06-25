@@ -1,0 +1,32 @@
+ ::-webkit-scrollbar { 
+            display: none; 
+        }
+        input {
+            margin-bottom: 5px;
+            border-radius:25px;
+            
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+        }
+        input[type=text] {
+            width:94%;
+            border:1px solid #cccccc;
+            padding: 5px 10px 5px 10px;
+        }
+        textarea {
+            width:94%;
+            height:100px;
+            border:1px solid #cccccc;
+            border-radius:25px;
+            outline: none;
+            padding: 10px;
+            font-size: 14px;
+           
+        }
+        input[type=checkbox] {
+            vertical-align: middle;
+        }
+        input[type=button] {
+             border: none;
+        }
