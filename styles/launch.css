@@ -13,6 +13,8 @@
             width:94%;
             border:1px solid #cccccc;
             padding: 5px 10px 5px 10px;
+            font-size:20px;
+            border-radius:35px;
         }
         textarea {
             width:94%;
