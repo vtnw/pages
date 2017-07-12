@@ -194,7 +194,8 @@ function sortItems(s) {
     } else if (s == 2) {
         items.sort(function(a, b) {return a.planned - b.planned});
     } else if (s == 3) {
-        items.sort(function(a, b) {return a.actual - b.actual});
+        alert("");
+        items.sort(function(a, b) {return a.actual - b.actual;});
     }
     setCache(items);
 }
