@@ -100,18 +100,19 @@ function AddEntry(id, category, planned, actual) {
     b.setAttribute("type", "button");
     b.setAttribute("value", "+");
     b.className = "btnAddAmt";
-    b.addEventListener("click", function () {
+    b.addEventListener("click", function () {        
         var id = this.getAttribute("id");
         var items = getCache();
         var i = items.findIndex((i => i.id == id));
         var tbA = document.getElementById("tAmount" + id);
         var spnA = document.getElementById("sAmount" + id);
-        
-        items[i].actual = parseInt(items[i].actual) + parseInt(tbA.value);
-        spnA.innerHTML = items[i].actual;
-        spnA.className = (items[i].actual > items[i].planned) ? "spnAmtRed" : "spnAmt";
-        tbA.value = "";
-        setCache(items);
+        if(tbA != '') {
+            items[i].actual = parseInt(items[i].actual) + parseInt(tbA.value);
+            spnA.innerHTML = items[i].actual;
+            spnA.className = (items[i].actual > items[i].planned) ? "spnAmtRed" : "spnAmt";
+            tbA.value = "";
+            setCache(items);
+        }
     });
     d.appendChild(b);
 
