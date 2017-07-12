@@ -19,10 +19,22 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         updateTotal(items);
     }
 });
+document.getElementById("btnReset").addEventListener("click", function () {
+    if (confirm("Reset?")) {
+        var items = getCache();
+      
+    for (var i = 0; i < items.length; i++) {
+        items[i].actual=0;
+    }
+    setCache(items);
+    loadList();
+    }
+});
 document.getElementById("btnClear").addEventListener("click", function () {
     if (confirm("Clear?")) {
         clearDiv();
         setCache(null);
+        document.getElementById("dvTotal").style.display = "none";
     }
 });
 document.getElementById("btnSave").addEventListener("click", function () {
