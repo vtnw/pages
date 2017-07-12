@@ -4,15 +4,15 @@ document.getElementById("btnAdd").addEventListener("click", function () {
     var a = document.getElementById("tbActual").value;
     var i = getIndex();
     
-    if (c != '' && a != '') {
+    if (c != '') {
         var item = { id: i, category: c, planned: p, actual: a };
         var items = getCache();
         items.push(item);
         setCache(items);
         AddEntry(i, c, p, a);
         document.getElementById("tbCategory").value = "";
-        document.getElementById("tbPlanned").value = "0";
-        document.getElementById("tbActual").value = "0";
+        document.getElementById("tbPlanned").value = "";
+        document.getElementById("tbActual").value = "";
     }
 });
 document.getElementById("btnClear").addEventListener("click", function () {
