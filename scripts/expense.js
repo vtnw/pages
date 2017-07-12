@@ -79,6 +79,7 @@ function updateTotal(items) {
         totP = totP + items[i].planned;
         totA = totA + items[i].actual;
     }
+    alert(items);alert(items.length);alert(totP);alert(totA);
     if(items != null && items.length > 0) {
         document.getElementyId("spnTotalP").innerHTML = totP;
         document.getElementById("spnTotalA").innerHTML = totA;
