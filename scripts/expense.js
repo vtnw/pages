@@ -65,7 +65,10 @@ document.getElementById("ddlMonth").addEventListener("change", function () {
     loadList();
 });
 document.getElementById("ddlSort").addEventListener("change", function () {
-    sortItems(document.getElementById("ddlSort").selectedIndex);
+    var val = document.getElementById("ddlSort").selectedIndex;
+    alert(val);
+    sortItems(val);
+    loadList();
 });
 
 function initialize() {
