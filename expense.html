@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <link rel="stylesheet" href="styles/expense.css">
+    <title>Expense</title>
+</head>
+<body onload="initialize();">
+    <div>
+        <select id="ddlMonth">
+            <option value="201706">Jun 2017</option>
+            <option value="201707">Jul 2017</option>
+            <option value="201708">Aug 2017</option>
+            <option value="201709">Sep 2017</option>
+            <option value="201710">Oct 2017</option>
+            <option value="201711">Nov 2017</option>
+            <option value="201712">Dec 2017</option>
+        </select>
+        <input type="button" value="Edit" id="btnEdit" />
+        <input type="button" value="Clear" id="btnClear" />
+        <div id="dvEdit" style="display:none";>
+            <input type="button" value="Save" id="btnSave" />
+            <input type="button" value="Cancel" id="btnCancel" />
+            <textarea id="tbData"></textarea>
+        </div>
+        <hr />
+    </div>
+    <div style="font-weight:bold;">
+        <span class="spnCtg">Category</span>
+        <span class="spnAmt">Planned</span>
+        <span class="spnAmt">Actual</span>
+        <span></span>
+    </div>
+    <div id="dvExpenses"></div>
+    <div>
+        <input type="text" class="tbCat" value="" id="tbCategory" />
+        <input type="text" class="tbAmount" value="0" id="tbPlanned" />
+        <input type="text" class="tbAmount" value="0" id="tbActual" />
+        <input type="button" class="btnAdd" value="+" id="btnAdd" />
+    </div>
+    <script src="scripts/expense.js" async></script>
+</body>
+</html>
