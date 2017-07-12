@@ -85,9 +85,11 @@ function updateTotal(items) {
         document.getElementyId("spnTotalP").innerHTML = totP;
         document.getElementById("spnTotalA").innerHTML = totA;
         document.getElementById("dvTotal").style.display = "block";
+        alert(document.getElementById("dvTotal").style.display);
     }
     else {
         document.getElementById("dvTotal").style.display = "none";
+        alert(document.getElementById("dvTotal").style.display);
     }
 }
 function AddEntry(id, category, planned, actual) {
