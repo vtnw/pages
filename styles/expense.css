@@ -29,11 +29,11 @@ span {
     font-size: 16px;
 }
 .spnCtg {
-	width:140px;
+	width:130px;
 	display:inline-block;
 }
 .spnAmt {
-	width:83px;
+	width:60px;
 	display:inline-block;
 }
 .btnAddAmt {
@@ -45,7 +45,7 @@ span {
 	margin-left:5px;
 }
 .tbAmount {
-    width:60px;
+    width:50px;
 }
 .tbCat {
     width:125px;
