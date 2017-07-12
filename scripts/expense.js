@@ -189,7 +189,7 @@ function getIndex() {
 function sortItems(s) {
     var items = getCache();
     items.sort(function(a, b) {
-        if (s == 0) {
+        /*if (s == 0) {
             return a.id - b.id;
             }
         else if (s == 1) {
@@ -200,7 +200,8 @@ function sortItems(s) {
             }
         else if (s == 3) {
             return a.actual - b.actual;
-            }
+            }*/
+        return a.actual - b.actual;
     });
     setCache(items);
 }
