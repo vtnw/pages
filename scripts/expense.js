@@ -77,7 +77,7 @@ function AddEntry(id, category, planned, actual) {
     var s = document.createElement('span');
     s.id = "sPlanned" + id;
     s.innerHTML = planned;
-    s.className = "spnAmt";
+    s.className = "spnAmtP";
     d.appendChild(s);
 
     var s = document.createElement('span');
