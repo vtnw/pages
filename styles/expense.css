@@ -29,7 +29,7 @@ span {
     font-size: 16px;
 }
 .spnCtg {
-	width:130px;
+	width:140px;
 	display:inline-block;	
 }
 .spnAmtP {
@@ -61,7 +61,7 @@ span {
 	margin-left:5px;
 }
 .tbAmount {
-    width:50px;
+    width:45px;
 }
 .tbCat {
     width:125px;
