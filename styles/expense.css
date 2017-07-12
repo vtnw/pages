@@ -39,6 +39,7 @@ span {
 .spnAmtHead{
 	width:55px;
 	display:inline-block;
+	font-weight:bold;
 }
 .btnAddAmt {
 	width:25px;
@@ -56,6 +57,7 @@ span {
 }
 .spnCtgHead {
     width:125px;
+    font-weight:bold;
     display:inline-block;
 }
 select {
