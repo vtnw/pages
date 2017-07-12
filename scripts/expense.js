@@ -68,7 +68,6 @@ document.getElementById("ddlMonth").addEventListener("change", function () {
 });
 document.getElementById("ddlSort").addEventListener("change", function () {
     var val = document.getElementById("ddlSort").selectedIndex;
-    alert(val);
     sortItems(val);
     loadList();
 });
@@ -188,20 +187,14 @@ function getIndex() {
 }
 function sortItems(s) {
     var items = getCache();
-    items.sort(function(a, b) {
-        /*if (s == 0) {
-            return a.id - b.id;
-            }
-        else if (s == 1) {
-            return a.category.localeCompare(b.category);
-            }
-        else if (s == 2) {
-            return a.planned - b.planned;
-            }
-        else if (s == 3) {
-            return a.actual - b.actual;
-            }*/
-        return a.actual - b.actual;
-    });
+    if (s == 0) {
+        items.sort(function(a, b) {return a.id - b.id});
+    } else if (s == 1) {
+        items.sort(function(a, b) {return a.category.localeCompare(b.category)});
+    } else if (s == 2) {
+        items.sort(function(a, b) {return a.planned - b.planned});
+    } else if (s == 3) {
+        items.sort(function(a, b) {return a.actual - b.actual});
+    }
     setCache(items);
 }
