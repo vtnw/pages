@@ -1,0 +1,59 @@
+::-webkit-scrollbar { 
+    display: none; 
+}
+input {
+    margin-bottom: 5px;
+    border-radius:25px;
+            
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+}
+input[type=text] {
+    border:1px solid #cccccc;
+    padding: 5px 10px 5px 10px;
+}
+textarea {
+    width:94%;
+    height:100px;
+    border:1px solid #cccccc;
+    border-radius:25px;
+    outline: none;
+    padding: 10px;
+    font-size: 14px;           
+}
+input[type=button] {
+        border: none;
+}
+span {
+    font-size: 16px;
+}
+.spnCtg {
+	width:155px;
+	display:inline-block;
+}
+.spnAmt {
+	width:83px;
+	display:inline-block;
+}
+.btnAddAmt {
+	width:25px;
+	margin-left:10px;
+}
+.btnAdd {
+	width:25px;
+	margin-left:5px;
+}
+.tbAmount {
+    width:60px;
+}
+.tbCat {
+    width:125px;
+}
+select {
+    margin-bottom: 5px;
+    border-radius:25px;            
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+}
