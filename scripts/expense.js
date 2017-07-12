@@ -54,11 +54,13 @@ document.getElementById("btnEdit").addEventListener("click", function () {
 document.getElementById("btnAddCat").addEventListener("click", function () {
     if (document.getElementById("dvAdd").style.display == "none") {
         document.getElementById("dvAdd").style.display = "block";
+        document.getElementById("btnAddCat").value = "Close";
     } else {
         document.getElementById("dvAdd").style.display = "none";
         document.getElementById("tbCategory").value = "";
         document.getElementById("tbPlanned").value = "";
         document.getElementById("tbActual").value = "";
+        document.getElementById("btnAddCat").value = "Add";
     }
 });
 document.getElementById("ddlMonth").addEventListener("change", function () {
@@ -187,14 +189,18 @@ function getIndex() {
 function sortItems(s) {
     var items = getCache();
     items.sort(function(a, b) {
-        if (s == 0)
+        if (s == 0) {
             return a.id - b.id;
-        else if (s == 1)
+            }
+        else if (s == 1) {
             return a.category.localeCompare(b.category);
-        else if (s == 2)
+            }
+        else if (s == 2) {
             return a.planned - b.planned;
-        else if (s == 3)
+            }
+        else if (s == 3) {
             return a.actual - b.actual;
+            }
     });
     setCache(items);
 }
