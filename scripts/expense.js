@@ -83,6 +83,7 @@ function updateTotal(items) {
     if(items != null && items.length > 0) {
         document.getElementById("spnTotalP").innerHTML = totP;
         document.getElementById("spnTotalA").innerHTML = totA;
+        document.getElementById("spnTotalA").className = (totA > totP) ? "spnTotAR" : "spnTotAG";
         document.getElementById("dvTotal").style.display = "block";
     }
     else {
