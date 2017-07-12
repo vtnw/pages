@@ -88,7 +88,7 @@ function AddEntry(id, category, planned, actual) {
 
     var t = document.createElement('input');
     t.id = "tAmount" + id;
-    t.setAttribute("type", "text");
+    t.setAttribute("type", "number");
     t.className = "tbAmount";
     d.appendChild(t);
 
