@@ -1,7 +1,7 @@
 document.getElementById("btnAdd").addEventListener("click", function () {
     var c = document.getElementById("tbCategory").value;
-    var p = document.getElementById("tbPlanned").value;
-    var a = document.getElementById("tbActual").value;
+    var p = parseInt(document.getElementById("tbPlanned").value);
+    var a = parseInt(document.getElementById("tbActual").value);
     var i = getIndex();
     
     if (c != '') {
