@@ -1,8 +1,11 @@
 document.getElementById("btnAdd").addEventListener("click", function () {
     var c = document.getElementById("tbCategory").value;
-    var p = parseInt(document.getElementById("tbPlanned").value);
-    var a = parseInt(document.getElementById("tbActual").value);
+    var p = document.getElementById("tbPlanned").value;
+    var a = document.getElementById("tbActual").value;
     var i = getIndex();
+    
+    p = (p == '') ? 0 : p;
+    a = (a == '') ? 0 : a;
     
     if (c != '') {
         var item = { id: i, category: c, planned: p, actual: a };
