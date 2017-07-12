@@ -78,3 +78,22 @@ select {
     padding: 5px;
     font-size: 14px;
 }
+.spnTot {
+	width:135px;
+	display:inline-block;	
+}
+.spnTotP {
+	width:60px;
+	display:inline-block;
+	color:blue;
+}
+.spnTotAG {
+	width:60px;
+	display:inline-block;
+	color:green;
+}
+.spnTotAR {
+	width:60px;
+	display:inline-block;
+	color:red;
+}
