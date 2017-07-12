@@ -44,6 +44,9 @@ document.getElementById("btnAddCat").addEventListener("click", function () {
         document.getElementById("dvAdd").style.display = "block";
     } else {
         document.getElementById("dvAdd").style.display = "none";
+        document.getElementById("tbCategory").value = "";
+        document.getElementById("tbPlanned").value = "";
+        document.getElementById("tbActual").value = "";
     }
 });
 document.getElementById("ddlMonth").addEventListener("change", function () {
@@ -83,7 +86,7 @@ function AddEntry(id, category, planned, actual) {
     var s = document.createElement('span');
     s.id = "sAmount" + id;
     s.innerHTML = actual;
-    s.className = "spnAmt";
+    s.className = (actual > planned) ? "spnAmtRed" : "spnAmt";
     d.appendChild(s);
 
     var t = document.createElement('input');
@@ -106,6 +109,7 @@ function AddEntry(id, category, planned, actual) {
         
         items[i].actual = parseInt(items[i].actual) + parseInt(tbA.value);
         spnA.innerHTML = items[i].actual;
+        spnA.className = (items[i].actual > items[i].planned) ? "spnAmtRed" : "spnAmt";
         tbA.value = "";
         setCache(items);
     });
