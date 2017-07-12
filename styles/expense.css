@@ -50,6 +50,10 @@ span {
 .tbCat {
     width:125px;
 }
+.spncatH {
+    width:125px;
+    display:inline-block;
+}
 select {
     margin-bottom: 5px;
     border-radius:25px;            
