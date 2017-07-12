@@ -187,8 +187,10 @@ function getIndex() {
 }
 function sortItems(s) {
     var items = getCache();
+    alert(s);
     if (s == 0) {
         items.sort(function(a,b){return a.id - b.id});
+        alert(0);
     }
     if (s == 1) {
         items.sort(function(a,b){return a.category.localeCompare(b.category)});
@@ -198,6 +200,7 @@ function sortItems(s) {
     }
     if (s == 3) {
         items.sort(function(a,b){return a.actual - b.actual});
+        alert(3);
     }
     setCache(items);
 }
