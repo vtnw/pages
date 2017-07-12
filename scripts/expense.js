@@ -106,7 +106,7 @@ function AddEntry(id, category, planned, actual) {
         var i = items.findIndex((i => i.id == id));
         var tbA = document.getElementById("tAmount" + id);
         var spnA = document.getElementById("sAmount" + id);
-        if(tbA != '') {
+        if(tbA.value != '') {
             items[i].actual = parseInt(items[i].actual) + parseInt(tbA.value);
             spnA.innerHTML = items[i].actual;
             spnA.className = (items[i].actual > items[i].planned) ? "spnAmtRed" : "spnAmt";
