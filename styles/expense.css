@@ -43,7 +43,11 @@ span {
 	display:inline-block;
 	color:green;
 }
-
+.spnAmtRed {
+	width:60px;
+	display:inline-block;
+	color:red;
+}
 .spnAmtHead{
 	width:55px;
 	display:inline-block;
