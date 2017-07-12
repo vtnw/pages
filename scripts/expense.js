@@ -16,6 +16,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         document.getElementById("tbCategory").value = "";
         document.getElementById("tbPlanned").value = "";
         document.getElementById("tbActual").value = "";
+        updateTotal(items);
     }
 });
 document.getElementById("btnClear").addEventListener("click", function () {
@@ -66,10 +67,25 @@ function initialize() {
 }
 function loadList() {
     var items = getCache();
-    clearDiv();
-    
+    clearDiv();    
     for (var i = 0; i < items.length; i++) {
         AddEntry(items[i].id, items[i].category, items[i].planned, items[i].actual);
+    }
+    updateTotal(items);
+}
+function updateTotal(items) {
+    var totP, totA = 0;
+    for (var i = 0; i < items.length; i++) {
+        totP = totP + items[i].planned;
+        totA = totA + items[i].actual;
+    }
+    if(items != null && items.length > 0) {
+        document.getElementyId("spnTotalP").innerHTML = totP;
+        document.getElementById("spnTotalA").innerHTML = totA;
+        document.getElementById("dvTotal").style.display = "block";
+    }
+    else {
+        document.getElementById("dvTotal").style.display = "none";
     }
 }
 function AddEntry(id, category, planned, actual) {
@@ -115,6 +131,7 @@ function AddEntry(id, category, planned, actual) {
             spnA.className = (items[i].actual > items[i].planned) ? "spnAmtRed" : "spnAmt";
             tbA.value = "";
             setCache(items);
+            updateTotal(items);
         }
     });
     d.appendChild(b);
