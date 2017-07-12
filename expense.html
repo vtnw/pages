@@ -18,13 +18,20 @@
             <option value="201711">Nov 2017</option>
             <option value="201712">Dec 2017</option>
         </select>
+        <input type="button" value="Add" id="btnAddCat" />
         <input type="button" value="Edit" id="btnEdit" />
         <input type="button" value="Clear" id="btnClear" />
         <div id="dvEdit" style="display:none";>
             <input type="button" value="Save" id="btnSave" />
             <input type="button" value="Cancel" id="btnCancel" />
             <textarea id="tbData"></textarea>
-        </div>
+        </div>        
+    <div id="dvAdd" style="display:none;">
+        <input type="text" class="tbCat" value="" id="tbCategory" />
+        <input type="text" class="tbAmount" value="0" id="tbPlanned" />
+        <input type="text" class="tbAmount" value="0" id="tbActual" />
+        <input type="button" class="btnAdd" value="+" id="btnAdd" />
+    </div>
         <hr />
     </div>
     <div style="font-weight:bold;">
@@ -36,12 +43,6 @@
     <hr />
     <div id="dvExpenses"></div>
     <hr />
-    <div>
-        <input type="text" class="tbCat" value="" id="tbCategory" />
-        <input type="text" class="tbAmount" value="0" id="tbPlanned" />
-        <input type="text" class="tbAmount" value="0" id="tbActual" />
-        <input type="button" class="btnAdd" value="+" id="btnAdd" />
-    </div>
     <script src="scripts/expense.js" async></script>
 </body>
 </html>
