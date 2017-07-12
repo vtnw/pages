@@ -74,10 +74,11 @@ function loadList() {
     updateTotal(items);
 }
 function updateTotal(items) {
-    var totP, totA = 0;
+    var totP = 0;
+    var totA = 0;
     for (var i = 0; i < items.length; i++) {
-        totP = totP + items[i].planned;
-        totA = totA + items[i].actual;
+        totP = totP + parseInt(items[i].planned);
+        totA = totA + parseInt(items[i].actual);
     }
     alert(items);alert(items.length);alert(totP);alert(totA);
     if(items != null && items.length > 0) {
