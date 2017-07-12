@@ -39,6 +39,13 @@ document.getElementById("btnEdit").addEventListener("click", function () {
         document.getElementById("dvEdit").style.display = "none";
     }
 });
+document.getElementById("btnAddCat").addEventListener("click", function () {
+    if (document.getElementById("dvAdd").style.display == "none") {
+        document.getElementById("dvAdd").style.display = "block";
+    } else {
+        document.getElementById("dvAdd").style.display = "none";
+    }
+});
 document.getElementById("ddlMonth").addEventListener("change", function () {
     loadList();
 });
