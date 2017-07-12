@@ -187,15 +187,15 @@ function getIndex() {
 }
 function sortItems(s) {
     var items = getCache();
-    /*if (s == 0) {
-        items.sort(function(a, b) {return a.id - b.id});
+    if (s == 0) {
+        items.sort(function(a,b){return a.id - b.id});
     } else if (s == 1) {
-        items.sort(function(a, b) {return a.category.localeCompare(b.category)});
+        items.sort(function(a,b){return a.category.localeCompare(b.category)});
     } else if (s == 2) {
-        items.sort(function(a, b) {return a.planned - b.planned});
+        items.sort(function(a,b){return a.planned - b.planned});
     } else if (s == 3) {
-        alert("");*/
+        alert("");
         items.sort(function(a,b){return a.actual - b.actual;});
-    //}
+    }
     setCache(items);
 }
