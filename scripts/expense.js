@@ -37,22 +37,18 @@ document.getElementById("btnClear").addEventListener("click", function () {
         document.getElementById("dvTotal").style.display = "none";
     }
 });
-document.getElementById("btnSave").addEventListener("click", function () {
-    setCache(JSON.parse(document.getElementById("tbData").value));
-    document.getElementById("tbData").value = "";
-    document.getElementById("dvEdit").style.display = "none";
-    loadList();
-});
-document.getElementById("btnCancel").addEventListener("click", function () {
-    document.getElementById("tbData").value = "";
-    document.getElementById("dvEdit").style.display = "none";
-});
 document.getElementById("btnEdit").addEventListener("click", function () {
     if (document.getElementById("dvEdit").style.display == "none") {
         document.getElementById("tbData").value = JSON.stringify(getCache());
         document.getElementById("dvEdit").style.display = "block";
+        document.getElementById("btnEdit").value = "Save";
     } else {
+        setCache(JSON.parse(document.getElementById("tbData").value));
+        document.getElementById("tbData").value = "";
         document.getElementById("dvEdit").style.display = "none";
+        loadList();
+        document.getElementById("dvEdit").style.display = "none";
+        document.getElementById("btnEdit").value = "Edit";
     }
 });
 document.getElementById("btnAddCat").addEventListener("click", function () {
@@ -78,6 +74,7 @@ function initialize() {
     loadList();
 }
 function loadList() {
+    sortItems(0);
     var items = getCache();
     clearDiv();    
     for (var i = 0; i < items.length; i++) {
@@ -180,4 +177,11 @@ function getIndex() {
     index = index + 1;
     localStorage.setItem("index", index);
     return index;
+}
+function sortItems(s) {
+    var items = getCache();
+    items.sort(function(a, b) {
+        return a.category.localeCompare(b.category);
+    });
+    setCache(items);
 }
