@@ -36,6 +36,10 @@ span {
 	width:60px;
 	display:inline-block;
 }
+.spnAmtHead{
+	width:55px;
+	display:inline-block;
+}
 .btnAddAmt {
 	width:25px;
 	margin-left:10px;
