@@ -186,16 +186,16 @@ function getIndex() {
 }
 function sortItems(s) {
     var items = getCache();
-    if (s == 0) {
+    if (s == 1) {
         items.sort(function(a,b){return a.id - b.id});
     }
-    if (s == 1) {
+    if (s == 2) {
         items.sort(function(a,b){return a.category.localeCompare(b.category)});
     }
-    if (s == 2) {
+    if (s == 3) {
         items.sort(function(a,b){return a.planned - b.planned});
     }
-    if (s == 3) {
+    if (s == 4) {
         items.sort(function(a,b){return a.actual - b.actual});
     }
     setCache(items);
