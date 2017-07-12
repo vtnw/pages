@@ -31,11 +31,19 @@ span {
 .spnCtg {
 	width:130px;
 	display:inline-block;
+	color:brown;
+}
+.spnAmtP {
+	width:60px;
+	display:inline-block;
+	color:blue;
 }
 .spnAmt {
 	width:60px;
 	display:inline-block;
+	color:green;
 }
+
 .spnAmtHead{
 	width:55px;
 	display:inline-block;
