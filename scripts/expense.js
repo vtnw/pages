@@ -169,15 +169,15 @@ function clearDiv() {
     document.getElementById("dvExpenses").innerHTML = "";
 }
 function getIndex() {
-    var index = localStorage.getItem("index");
+    var index = localStorage.getItem("index_expense");
         if (index == null) {
-        index = 1;
+        index = 0;
     }
     else {
         index = parseInt(index);
     }
     index = index + 1;
-    localStorage.setItem("index", index);
+    localStorage.setItem("index_expense", index);
     return index;
 }
 function sortItems(s) {
