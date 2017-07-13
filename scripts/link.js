@@ -43,6 +43,7 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
 
 function loadLinks() {
     var items = getCache();
+    items.sort(function(a,b){return a.name.localeCompare(b.name)});
     clearDiv();
     var d = document.getElementById("dvLinks");
     for (var i = 0; i < items.length; i++) {
