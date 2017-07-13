@@ -66,11 +66,6 @@ document.getElementById("btnAddCat").addEventListener("click", function () {
 document.getElementById("ddlMonth").addEventListener("change", function () {
     loadList();
 });
-document.getElementById("ddlSort").addEventListener("change", function () {
-    var val = document.getElementById("ddlSort").selectedIndex;
-    sortItems(val);
-    loadList();
-});
 
 function initialize() {
     var today = new Date();
@@ -82,6 +77,7 @@ function initialize() {
 }
 function loadList() {
     var items = getCache();
+    items.sort(function(a,b){return a.category.localeCompare(b.category)});
     clearDiv();    
     for (var i = 0; i < items.length; i++) {
         AddEntry(items[i].id, items[i].category, items[i].planned, items[i].actual);
