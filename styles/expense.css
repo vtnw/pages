@@ -67,7 +67,7 @@ span {
     width:125px;
 }
 .spnCtgHead {
-    width:125px;
+    width:115px;
     font-weight:bold;
     display:inline-block;
 }
@@ -79,7 +79,7 @@ select {
     font-size: 14px;
 }
 .spnTotH {
-	width:135px;
+	width:125px;
 	display:inline-block;	
 }
 .spnTotP {
