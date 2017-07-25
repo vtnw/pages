@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html manifest="nocache.appcache">
-<body>
-<script lang="javascript">
-var currentdate = new Date(); 
-var datetime = "Last Sync: " + currentdate.getDate() + "/"
-                + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getFullYear() + " @ "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
-document.write(datetime);
-</script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <title>List</title>
+  </head>
+  <body onload="initialize();">
+    <div>
+      <input type="text" id="tbCategory" /><br/>
+      <input type="text" id="tbName" /><br/>
+      <input type="text" id="tbRemarks" /><br/>
+      <input type="text" id="tbQty" /><br/>
+      <input type="button" value="Add" id="btnAdd" />
+    </div>
+    <div id="dvList">
+    </div>
+    <script lang="javascript">
+      var masterData = [];
+      function addToDiv(item){
+        var d = document.getElementById("dvList");
+        
+        var s = document.createElement('span');
+        s.id = "sName" + id;
+        s.innerHTML = item.Name;
+        d.appendChild(s);
+
+        var s = document.createElement('span');
+        s.id = "sRemark" + id;
+        s.innerHTML = item.Remark;
+        d.appendChild(s);
+      }
+    </script>
+  </body>
 </html>
