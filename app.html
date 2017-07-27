@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html manifest="link.appcache">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles/link.css">
+    <title>Apps</title>
+</head>
+<body onload="loadLinks();">
+    <div>
+        <input type="button" value="Add" id="btnShowAdd" />
+        <input type="button" value="Edit" id="btnEdit" />
+        <input type="button" value="Clear" id="btnClear" />
+    </div>
+    <div id="dvLinkAdd" style="display:none;">
+        <input type="text" value="" id="tbName" />
+        <input type="button" value="+" class="btnAdd" id="btnAdd" />
+        <input type="text" value="" id="tbLink" class="tbLink" />
+    </div>
+    <div id="dvEdit" style="display:none";>
+        <textarea id="tbData"></textarea>
+    </div>
+    <hr />
+    <div id="dvLinks"></div>
+    <script src="scripts/link.js" async></script>
+</body>
+</html>
