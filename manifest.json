@@ -1,7 +1,5 @@
 {
   "short_name": "App",
-  "name": "App",
-  "name": "Loading",
   "icons": [
     {
       "src": "./images/icon.png",
@@ -10,6 +8,5 @@
     }
   ],
   "background_color": "blue",
-  "theme_color": "blue",
   "display": "standalone"
 }
