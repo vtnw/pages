@@ -50,6 +50,12 @@
             <option value="Selected">Selected</option>
             <option value="Unselected">Unselected</option>
         </select>
+        <select id="ddlMode">
+            <option value="View">View</option>
+            <option value="Edit">Edit</option>
+            <option value="Buy">Buy</option>
+        </select>
+        <span id="spnCount"></span>
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export" id="btnExport" />
         <input type="button" value="Import" id="btnImport" />
@@ -107,13 +113,16 @@
         function loadList() {
             document.getElementById("dvList").innerHTML = "";
             type = document.getElementById("ddlFilter").selectedIndex;
+            count = 0;
             for (i = 0; i < listData.length; i++) {
                 if((type == 0)
                    || (type == 1 && listData[i].Buy)
                    || (type == 2 && !listData[i].Buy)){
                         addToDiv(document.getElementById("dvList"), listData[i]);
+                    count = count+1;
                 }
             }
+            document.getElementById("spnCount").innerHTML = "(" + spnCount + ")";
         }
         function clearList() {
             type = document.getElementById("ddlFilter").selectedIndex;
