@@ -95,9 +95,10 @@
         var listData = [];
         function initialize() {
             listData = getCache();
-            loadList(0);
+            loadList();
         }
-        function loadList(type) {
+        function loadList() {
+            type = document.getElementById("ddlFilter").selectedIndex;
             for (i = 0; i < listData.length; i++) {
                 if((type == 0)
                    || (type == 1 && listData[i].Buy)
@@ -138,20 +139,18 @@
         function loadFile(replace) {
             var fileReader = new FileReader();
             fileReader.onload = function(event) {
-                importedData = JSON.parse(event.target.result);                
-                alert(importedData);
+                importedData = JSON.parse(event.target.result);
                 if(replace){
                     listData = importedData;
-                    alert(listData);
                 }
                 else{
                     for (i = 0; i < importedData.length; i++) {
+                        importedData[i].Id = getNextIndex();
                         listData.push(importedData[i]);
                     }
-                    alert(listData);
                 }
                 document.getElementById("dvList").innerHTML = "";
-                loadList(document.getElementById("ddlFilter").selectedIndex);
+                loadList();
             };
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
         }
