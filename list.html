@@ -105,6 +105,7 @@
             loadList();
         }
         function loadList() {
+            document.getElementById("dvList").innerHTML = "";
             type = document.getElementById("ddlFilter").selectedIndex;
             for (i = 0; i < listData.length; i++) {
                 if((type == 0)
@@ -139,8 +140,8 @@
             return item;
         }
         function filter(){
-            document.getElementById("dvList").innerHTML = "";
-            loadList(document.getElementById("ddlFilter").selectedIndex);
+            
+            loadList();
         }
         function saveList() {
             setCache(listData);
@@ -176,7 +177,6 @@
                         listData.push(importedData[i]);
                     }
                 }
-                document.getElementById("dvList").innerHTML = "";
                 loadList();
                 toggleSave(true);
             };
