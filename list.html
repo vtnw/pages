@@ -55,7 +55,7 @@
         <input type="button" value="Import" id="btnShowImport" />        
     </div>
     <div id="dvImport" style="display:none">
-        <input type="file" id"fileImport" />        
+        <input type="file" id="fileImport" />        
         <input type="button" value="Merge" id="btnMerge" />
         <input type="button" value="Replace" id="btnReplace" />
     </div>
@@ -78,11 +78,11 @@
             toggleImport(true);
         });
         document.getElementById("btnReplace").addEventListener("click", function () {
-            loadFile();
+            loadFile(1);
             toggleImport(false);
         });
         document.getElementById("btnMerge").addEventListener("click", function () {
-            loadFile();
+            loadFile(0);
             toggleImport(false);
         });
         document.getElementById("btnExport").addEventListener("click", function () {
@@ -135,10 +135,11 @@
             document.body.appendChild(a);
             a.click();
         }
-        function loadFile() {
+        function loadFile(o) {
             var fileReader = new FileReader();
             fileReader.onload = function(event) {
                 alert('');
+                alert(o);
                 alert(event.target.result);
                 importedData = JSON.stringify(event.target.result);                
                 listData = importedData;
