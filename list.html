@@ -77,7 +77,8 @@
             toggleImport(true);
         });
         document.getElementById("btnImport").addEventListener("click", function () {
-            toggleImport(true);
+            loadFile();
+            toggleImport(false);
         });
         document.getElementById("btnExport").addEventListener("click", function () {
             saveAsFile(JSON.stringify(listData));
