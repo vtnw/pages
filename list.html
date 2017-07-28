@@ -139,14 +139,19 @@
             var fileReader = new FileReader();
             fileReader.onload = function(event) {
                 importedData = JSON.parse(event.target.result);                
+                alert(importedData);
                 if(replace){
                     listData = importedData;
+                    alert(listData);
                 }
                 else{
                     for (i = 0; i < importedData.length; i++) {
-                        lisstData.push(importedData[i]);
+                        listData.push(importedData[i]);
                     }
+                    alert(listData);
                 }
+                document.getElementById("dvList").innerHTML = "";
+                loadList(document.getElementById("ddlFilter").selectedIndex);
             };
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
         }
