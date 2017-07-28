@@ -1,37 +1,163 @@
 <!DOCTYPE html>
 <html manifest="nocache.appcache">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE =edge">
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/icon.png" />
     <title>List</title>
-  </head>
-  <body onload="initialize();">
+    <style>
+        input[type=text] {
+            border: 1px solid #eeeeee;
+        }
+    </style>
+</head>
+<body onload="initialize();">
     <div>
-      <input type="text" id="tbCategory" /><br/>
-      <input type="text" id="tbName" /><br/>
-      <input type="text" id="tbRemarks" /><br/>
-      <input type="text" id="tbQty" /><br/>
-      <input type="button" value="Add" id="btnAdd" />
+        <input type="button" value="Add" id="btnAdd" />
+        <input type="button" value="Save" id="btnSave" />
+        <input type="button" value="Export Text" id="btnExportTxt" />
+        <input type="button" value="Export Data" id="btnExportData" />
+    </div>
+    <div>
+        <input type="text" id="tbNewType" /><input type="text" id="tbNewName" /><input type="text" id="tbNewRemark" /><input type="text" id="tbNewQuantity" /><input type="checkbox" id="cbNewBuy" />
     </div>
     <div id="dvList">
     </div>
     <script lang="javascript">
-      var masterData = [];
-      function addToDiv(item){
-        var d = document.getElementById("dvList");
-        
-        var s = document.createElement('span');
-        s.id = "sName" + id;
-        s.innerHTML = item.Name;
-        d.appendChild(s);
+        document.getElementById("btnAdd").addEventListener("click", function () {
+            addItem();
+        });
+        document.getElementById("btnSave").addEventListener("click", function () {
+            saveList();
+        });
+        document.getElementById("btnExportTxt").addEventListener("click", function () {
+            saveAsFile(document.getElementById("dvList").innerText);
+        });
+        document.getElementById("btnExportData").addEventListener("click", function () {
+            saveAsFile(JSON.stringify(listData));
+        });
 
-        var s = document.createElement('span');
-        s.id = "sRemark" + id;
-        s.innerHTML = item.Remark;
-        d.appendChild(s);
-      }
+        var listData = [];
+        function initialize() {
+            listData = getCache();
+            loadList();
+        }
+        function loadList() {
+            for (i = 0; i < listData.length; i++) {
+                addToDiv(document.getElementById("dvList"), listData[i]);
+            }
+        }
+        function saveToList(item) {
+            if (item.Id == null) {
+                item.Id = getNextIndex();
+                listData.push(item);
+            }
+            else {
+                i = listData.findIndex((d => d.Id == item.Id));
+                listData[i] = item;
+            }
+            return item;
+        }
+        function saveList() {
+            setCache(listData);
+        }
+        function saveAsFile(data) {
+            var a = document.createElement("a");
+            a.download = "list";
+            a.innerHTML = "export";
+            a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+            a.style.display = "none";
+            a.onclick = function (event) { document.body.removeChild(event.target); };
+            document.body.appendChild(a);
+            a.click();
+        }
+
+        function addToDiv(d, item) {
+            tb = document.createElement('input');
+            tb.setAttribute("type", "text");
+            tb.setAttribute("itemId", item.Id);
+            tb.id = "tbType" + item.Id;
+            tb.value = item.Type;
+            tb.addEventListener("blur", function () { saveItem(this); });
+            d.appendChild(tb);
+            tb = document.createElement('input');
+            tb.setAttribute("type", "text");
+            tb.setAttribute("itemId", item.Id);
+            tb.id = "tbName" + item.Id;
+            tb.value = item.Name;
+            tb.addEventListener("blur", function () { saveItem(this); });
+            d.appendChild(tb);
+            tb = document.createElement('input');
+            tb.setAttribute("type", "text");
+            tb.setAttribute("itemId", item.Id);
+            tb.id = "tbRemark" + item.Id;
+            tb.value = item.Remark;
+            tb.addEventListener("blur", function () { saveItem(this); });
+            d.appendChild(tb);
+            tb = document.createElement('input');
+            tb.setAttribute("type", "text");
+            tb.setAttribute("itemId", item.Id);
+            tb.id = "tbQuantity" + item.Id;
+            tb.value = item.Quantity;
+            tb.addEventListener("blur", function () { saveItem(this); });
+            d.appendChild(tb);
+            tb = document.createElement('input');
+            tb.setAttribute("type", "checkbox");
+            tb.setAttribute("itemId", item.Id);
+            tb.id = "cbBuy" + item.Id;
+            tb.checked = item.Buy;
+            tb.addEventListener("blur", function () { saveItem(this); });
+            d.appendChild(tb);
+            br = document.createElement("br");
+            d.appendChild(br);
+        }
+        function saveItem(element) {
+            id = element.getAttribute("itemId");
+            item = {
+                Id: id,
+                Type: document.getElementById("tbType" + id).value,
+                Name: document.getElementById("tbName" + id).value,
+                Remark: document.getElementById("tbRemark" + id).value,
+                Quantity: document.getElementById("tbQuantity" + id).value,
+                Buy: document.getElementById("cbBuy" + id).checked
+            }
+            saveToList(item);
+        }
+        function addItem() {
+            item = {
+                Id: null,
+                Type: document.getElementById("tbNewType").value,
+                Name: document.getElementById("tbNewName").value,
+                Remark: document.getElementById("tbNewRemark").value,
+                Quantity: document.getElementById("tbNewQuantity").value,
+                Buy: document.getElementById("cbNewBuy").checked
+            }
+            item = saveToList(item);
+            addToDiv(document.getElementById("dvList"), item);
+        }
+        function getNextIndex() {
+            var index = localStorage.getItem("index_list");
+            if (index == null) {
+                index = 0;
+            }
+            else {
+                index = parseInt(index);
+            }
+            index = index + 1;
+            localStorage.setItem("index_list", index);
+            return index;
+        }
+        function getCache() {
+            var items = JSON.parse(localStorage.getItem("list"));
+            if (items == null) {
+                items = [];
+            }
+            return items;
+        }
+        function setCache(items) {
+            localStorage.setItem("list", JSON.stringify(items));
+        }
     </script>
-  </body>
+</body>
 </html>
