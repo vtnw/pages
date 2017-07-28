@@ -52,7 +52,8 @@
         </select>
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export" id="btnExport" />
-        <input type="button" value="Import" id="btnImport" />         
+        <input type="button" value="Import" id="btnImport" />
+        <input type="button" value="Clear" id="btnClear" />
     </div>
     <div id="dvImport" style="display:none">
         <input type="file" id="fileImport" /><br />
@@ -86,7 +87,10 @@
             toggleImport();
         });
         document.getElementById("btnExport").addEventListener("click", function () {
-            saveAsFile(JSON.stringify(listData));
+            saveAsFile();
+        });
+        document.getElementById("btnClear").addEventListener("click", function () {
+            clearList();
         });
         document.getElementById("ddlFilter").addEventListener("change", function () {
             filter();
@@ -107,6 +111,17 @@
                 }
             }
         }
+        function clearList() {
+            type = document.getElementById("ddlFilter").selectedIndex;
+            revisedListData = [];
+            for (i = 0; i < listData.length; i++) {
+                if((type == 1 && !listData[i].Buy)
+                   || (type == 2 && listData[i].Buy)){
+                        revisedListData.push(listData[i]);
+                }
+            }
+            listData = revisedListData;
+        }
         function saveToList(item) {
             if (item.Id == null) {
                 item.Id = getNextIndex();
@@ -126,11 +141,19 @@
         function saveList() {
             setCache(listData);
         }
-        function saveAsFile(data) {
+        function saveAsFile() {
+            exportData = [];
+            for (i = 0; i < listData.length; i++) {
+                if((type == 0)
+                   || (type == 1 && listData[i].Buy)
+                   || (type == 2 && !listData[i].Buy)){
+                        exportData.push(listData[i]);
+                }
+            }
             var a = document.createElement("a");
             a.download = "list";
             a.innerHTML = "export";
-            a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+            a.href = window.URL.createObjectURL(new Blob([JSON.stringify(exportData)], { type: "text/plain" }));
             a.style.display = "none";
             a.onclick = function (event) { document.body.removeChild(event.target); };
             document.body.appendChild(a);
