@@ -78,11 +78,11 @@
             toggleImport(true);
         });
         document.getElementById("btnReplace").addEventListener("click", function () {
-            loadFile(1);
+            loadFile();
             toggleImport(false);
         });
         document.getElementById("btnMerge").addEventListener("click", function () {
-            loadFile(0);
+            loadFile();
             toggleImport(false);
         });
         document.getElementById("btnExport").addEventListener("click", function () {
@@ -138,8 +138,9 @@
         function loadFile() {
             var fileReader = new FileReader();
             fileReader.onload = function(event) {
-                importedData = JSON.stringify(event.target.result);
+                alert('');
                 alert(event.target.result);
+                importedData = JSON.stringify(event.target.result);                
                 listData = importedData;
             };
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
