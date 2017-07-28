@@ -12,17 +12,29 @@
             font-size:14px;
             padding:5px;
         }
-         #tbNewType, .type{
+        input[type=button] {
+            margin-bottom: 5px;
+            border-radius:25px;
+            border:none;
+            outline: none;
+            padding: 5px;
+            font-size: 14px;
+        }
+        .type{
             width:5%
         }
-        #tbNewQuantity, .qty{
+        .qty{
             width:10%
         }
-        #tbNewName, .name{
+        .name{
             width:35%
         }
-        #tbNewRemark, .rem{
+        .rem{
             width:30%
+        }
+        .hdr{
+            border:none;
+            font-weight:bold;
         }
         input[type=checkbox]{
             vertical-align:bottom;border:1px solid red;
@@ -31,12 +43,18 @@
 </head>
 <body onload="initialize();">
     <div>
-        <input type="button" value="Add" id="btnAdd" />
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export Text" id="btnExportTxt" />
         <input type="button" value="Export Data" id="btnExportData" />
         <input type="button" value="Import Data" id="btnImportData" />
         <hr/>
+    </div>
+    <div>
+        <input type="text" value="Group" class="type hdr">
+        <input type="text" value="Name" class="name hdr">
+        <input type="text" value="Remark" class="rem hdr">
+        <input type="text" value="Quantity" class="qty hdr">
+        <input type="button" value="+" id="btnAdd" class="add" />
     </div>
     <div id="dvList">
     </div>
