@@ -50,12 +50,12 @@
             <option value="Selected">Selected</option>
             <option value="Unselected">Unselected</option>
         </select>
+        <span id="spnCount"></span>
         <select id="ddlMode">
             <option value="View">View</option>
             <option value="Edit">Edit</option>
             <option value="Buy">Buy</option>
-        </select>
-        <span id="spnCount"></span>
+        </select>        
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export" id="btnExport" />
         <input type="button" value="Import" id="btnImport" />
@@ -122,7 +122,7 @@
                     count = count+1;
                 }
             }
-            document.getElementById("spnCount").innerHTML = "(" + spnCount + ")";
+            document.getElementById("spnCount").innerHTML = "(" + count + ")";
         }
         function clearList() {
             type = document.getElementById("ddlFilter").selectedIndex;
