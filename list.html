@@ -138,12 +138,14 @@
         function loadFile(replace) {
             var fileReader = new FileReader();
             fileReader.onload = function(event) {
-                importedData = JSON.stringify(event.target.result);                
+                importedData = JSON.parse(event.target.result);                
                 if(replace){
                     listData = importedData;
                 }
                 else{
-                    alert(importedData);
+                    for (i = 0; i < importedData.length; i++) {
+                        lisstData.push(importedData[i]);
+                    }
                 }
             };
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
