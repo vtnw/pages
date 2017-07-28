@@ -67,6 +67,7 @@
         });
         document.getElementById("btnSave").addEventListener("click", function () {
             saveList();
+            toggleSave(false);
         });
         document.getElementById("btnImport").addEventListener("click", function () {
             
@@ -101,6 +102,7 @@
                 i = listData.findIndex((d => d.Id == item.Id));
                 listData[i] = item;
             }
+            toggleSave(true);
             return item;
         }
         function filter(){
@@ -159,9 +161,8 @@
             tb.setAttribute("itemId", item.Id);
             tb.id = "cbBuy" + item.Id;
             tb.checked = item.Buy;
-            tb.addEventListener("change", function () { saveItem(this); });
-            dv.appendChild(tb);
-            
+            tb.addEventListener("click", function () { saveItem(this); });
+            dv.appendChild(tb);            
             if(addToTop){
                 d.insertBefore(dv, d.firstChild);
             } else{
@@ -179,6 +180,14 @@
                 Buy: document.getElementById("cbBuy" + id).checked
             }
             saveToList(item);
+        }
+        function toggleSave(status){
+            if (status) {
+                document.getElementById("btnSave").style.color == "red"
+            }
+            else{
+                document.getElementById("btnSave").style.color == "green"
+            }
         }
         function addItem() {
             item = {Id: null, Type: null, Name: null, Remark: null, Quantity: null, Buy: false};
