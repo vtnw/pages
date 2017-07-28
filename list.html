@@ -90,8 +90,10 @@
             saveAsFile();
         });
         document.getElementById("btnClear").addEventListener("click", function () {
-            clearList();
-            toggleSave(true);
+            if (confirm("Clear?")) {
+                clearList();
+                toggleSave(true);
+            }
         });
         document.getElementById("ddlFilter").addEventListener("change", function () {
             filter();
