@@ -20,8 +20,11 @@
             padding: 5px;
             font-size: 14px;
         }
+        input[type=checkbox]{
+            vertical-align:bottom;border:1px solid red;
+        }
         .type{
-            width:5%
+            width:7%
         }
         .qty{
             width:10%
@@ -30,14 +33,13 @@
             width:35%
         }
         .rem{
-            width:30%
+            width:28%
         }
         .hdr{
             border:none;
             font-weight:bold;
         }
-        input[type=checkbox]{
-            vertical-align:bottom;border:1px solid red;
+        #dvList{
         }
     </style>
 </head>
@@ -47,10 +49,16 @@
         <input type="button" value="Export Text" id="btnExportTxt" />
         <input type="button" value="Export Data" id="btnExportData" />
         <input type="button" value="Import Data" id="btnImportData" />
+        <select id="ddlMonth">
+            <option value="All">All</option>
+            <option value="Selected">Selected</option>
+            <option value="Unselected">Unselected</option>
+        </select>
         <hr/>
     </div>
     <div>
-        <input type="text" value="Group" class="type hdr"><input type="text" value="Name" class="name hdr"><input type="text" value="Remark" class="rem hdr"><input type="text" value="Quantity" class="qty hdr"><input type="button" value="+" id="btnAdd" class="add" />
+        <input type="text" value="Grp" class="type hdr"><input type="text" value="Name" class="name hdr"><input type="text" value="Remark" class="rem hdr"><input type="text" value="Qnty" class="qty hdr">
+        <input type="button" value="+" id="btnAdd" class="add" />
     </div>
     <div id="dvList">
     </div>
