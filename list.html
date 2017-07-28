@@ -91,6 +91,7 @@
         });
         document.getElementById("btnClear").addEventListener("click", function () {
             clearList();
+            toggleSave(true);
         });
         document.getElementById("ddlFilter").addEventListener("change", function () {
             filter();
@@ -121,6 +122,7 @@
                 }
             }
             listData = revisedListData;
+            loadList();
         }
         function saveToList(item) {
             if (item.Id == null) {
