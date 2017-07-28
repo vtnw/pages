@@ -52,9 +52,13 @@
         </select>
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export" id="btnExport" />
-        <input type="button" value="Import" id="btnImport" />
-        <hr/>
+        <input type="button" value="Import" id="btnShowImport" />        
     </div>
+    <div id="dvImport" style="display:none">
+        <input type="file" id"fileImport" />
+        <input type="button" value="Load" id="btnImport" />
+    </div>
+    <hr/>
     <div>
         <input type="text" value="Grp" class="type hdr"><input type="text" value="Name" class="name hdr"><input type="text" value="Remark" class="rem hdr"><input type="text" value="Qnty" class="qty hdr">
         <input type="button" value="+" id="btnAdd" class="add" />
@@ -69,8 +73,11 @@
             saveList();
             toggleSave(false);
         });
+        document.getElementById("btnShowImport").addEventListener("click", function () {
+            toggleImport(true);
+        });
         document.getElementById("btnImport").addEventListener("click", function () {
-            
+            toggleImport(true);
         });
         document.getElementById("btnExport").addEventListener("click", function () {
             saveAsFile(JSON.stringify(listData));
@@ -121,6 +128,14 @@
             a.onclick = function (event) { document.body.removeChild(event.target); };
             document.body.appendChild(a);
             a.click();
+        }
+        function loadFile() {
+            var fileReader = new FileReader();
+            fileReader.onload = function(event) {
+                importedData = JSON.stringify(event.target.result);
+                listData = importedData;
+            };
+            fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
         }
         function addToDiv(d, item, addToTop) {
             dv = document.createElement('div');            
@@ -189,6 +204,14 @@
                 document.getElementById("btnSave").style.color = "green"
             }
         }
+        function toggleImport(status){
+            if (status) {
+                document.getElementById("dvImport").style.display = "block";
+            }
+            else{
+                document.getElementById("dvImport").style.display = "none";
+            }
+        }        
         function addItem() {
             item = {Id: null, Type: null, Name: null, Remark: null, Quantity: null, Buy: false};
             item = saveToList(item);
