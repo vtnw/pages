@@ -52,7 +52,7 @@
         </select>
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export" id="btnExport" />
-        <input type="button" value="Import" id="btnShowImport" />        
+        <input type="button" value="Import" id="btnImport" />        
     </div>
     <div id="dvImport" style="display:none">
         <input type="file" id="fileImport" />        
@@ -74,7 +74,7 @@
             saveList();
             toggleSave(false);
         });
-        document.getElementById("btnShowImport").addEventListener("click", function () {
+        document.getElementById("btnImport").addEventListener("click", function () {
             toggleImport(true);
         });
         document.getElementById("btnReplace").addEventListener("click", function () {
@@ -151,6 +151,7 @@
                 }
                 document.getElementById("dvList").innerHTML = "";
                 loadList();
+                toggleSave(true);
             };
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
         }
@@ -224,9 +225,12 @@
         function toggleImport(status){
             if (status) {
                 document.getElementById("dvImport").style.display = "block";
+                document.getElementById("btnImport").value = "Cancel";
+                document.getElementById("fileImport").value = "";
             }
             else{
                 document.getElementById("dvImport").style.display = "none";
+                document.getElementById("btnImport").value = "Import";
             }
         }        
         function addItem() {
