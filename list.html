@@ -9,11 +9,11 @@
     <style>
         input[type=text] {
             border: 1px solid #eeeeee;
-        }        
-        #tbNewType, #tbNewQuantity{
+        }
+         #tbNewType, #tbNewQuantity, .type, .qty{
             width:10%
         }
-        #tbNewName, #tbNewRemark{
+        #tbNewName, #tbNewRemark, .name, .rem{
             width:35%
         }
     </style>
@@ -85,6 +85,7 @@
             tb.setAttribute("itemId", item.Id);
             tb.id = "tbType" + item.Id;
             tb.value = item.Type;
+            tb.className = "type";
             tb.addEventListener("blur", function () { saveItem(this); });
             d.appendChild(tb);
             tb = document.createElement('input');
@@ -92,6 +93,7 @@
             tb.setAttribute("itemId", item.Id);
             tb.id = "tbName" + item.Id;
             tb.value = item.Name;
+            tb.className = "name";
             tb.addEventListener("blur", function () { saveItem(this); });
             d.appendChild(tb);
             tb = document.createElement('input');
@@ -99,6 +101,7 @@
             tb.setAttribute("itemId", item.Id);
             tb.id = "tbRemark" + item.Id;
             tb.value = item.Remark;
+            tb.className = "remark";
             tb.addEventListener("blur", function () { saveItem(this); });
             d.appendChild(tb);
             tb = document.createElement('input');
@@ -106,6 +109,7 @@
             tb.setAttribute("itemId", item.Id);
             tb.id = "tbQuantity" + item.Id;
             tb.value = item.Quantity;
+            tb.className = "qty";
             tb.addEventListener("blur", function () { saveItem(this); });
             d.appendChild(tb);
             tb = document.createElement('input');
