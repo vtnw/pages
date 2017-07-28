@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html manifest="nocache.appcache">
+ <!DOCTYPE html>
+<html manifest="list.appcache">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE =edge">
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="images/icon.png" />
     <title>List</title>
     <style>
@@ -11,6 +12,7 @@
             border: 1px solid #eeeeee;
             font-size:14px;
             padding:5px;
+            color:inherit;
         }
         input[type=button],input[type=file] {
             margin-bottom: 5px;
@@ -45,15 +47,35 @@
 </head>
 <body onload="initialize();">
     <div>
+        <select id="ddlMode">
+            <option value="Edit">Edit</option>
+            <option value="Buy">Buy</option>
+        </select>
+        <span id="spnEdit">
         <select id="ddlFilter">
             <option value="All">All</option>
             <option value="Selected">Selected</option>
             <option value="Unselected">Unselected</option>
         </select>
         <span id="spnCount"></span>      
+        <input type="button" value=">>>" id="btnMore" />
+        </span>
+        <span id="spnBuy">
+        <select id="ddlFilterBuy">
+            <option value="All">All</option>
+            <option value="Bought">Bought</option>
+            <option value="Pending">Pending</option>
+        </select>
+        <span id="spnBoughtCount"></span>    
+        </span>
         <input type="button" value="Save" id="btnSave" />
+    </div>
+    <div id="dvEdit">
+    <div id="dvMore" style="display:none">
+        <input type="button" value="Add" id="btnAdd" class="add" />
         <input type="button" value="Export" id="btnExport" />
         <input type="button" value="Import" id="btnImport" />
+        <input type="button" value="Reset" id="btnReset" />
         <input type="button" value="Clear" id="btnClear" />
     </div>
     <div id="dvImport" style="display:none">
@@ -61,10 +83,10 @@
         <input type="button" value="Merge" id="btnMerge" />
         <input type="button" value="Replace" id="btnReplace" /> 
     </div>
+    </div>
     <hr/>
     <div>
         <input type="text" readonly value="Grp" class="type hdr"><input type="text" readonly value="Name" class="name hdr"><input type="text" readonly value="Remark" class="rem hdr"><input type="text" readonly value="Qnty" class="qty hdr">
-        <input type="button" value="+" id="btnAdd" class="add" />
     </div>
     <div id="dvList">
     </div>
@@ -78,6 +100,9 @@
         });
         document.getElementById("btnImport").addEventListener("click", function () {
             toggleImport();
+        });
+        document.getElementById("btnMore").addEventListener("click", function () {
+            toggleMore();
         });
         document.getElementById("btnReplace").addEventListener("click", function () {
             loadFile(1);
@@ -96,8 +121,17 @@
                 toggleSave(true);
             }
         });
+        document.getElementById("btnReset").addEventListener("click", function () {
+            resetSelection(confirm("Retain pending items?"));
+        });
         document.getElementById("ddlFilter").addEventListener("change", function () {
-            filter();
+            loadList();
+        });
+        document.getElementById("ddlFilterBuy").addEventListener("change", function () {
+            loadList();
+        });
+        document.getElementById("ddlMode").addEventListener("change", function () {
+            loadList();
         });
 
         var listData = [];
@@ -108,16 +142,23 @@
         function loadList() {
             document.getElementById("dvList").innerHTML = "";
             type = document.getElementById("ddlFilter").selectedIndex;
+            buyType = document.getElementById("ddlFilterBuy").selectedIndex;
+            mode = document.getElementById("ddlMode").selectedIndex;
             count = 0;
             for (i = 0; i < listData.length; i++) {
-                if((type == 0)
-                   || (type == 1 && listData[i].Buy)
-                   || (type == 2 && !listData[i].Buy)){
-                        addToDiv(document.getElementById("dvList"), listData[i]);
+                if((mode == 0 && type == 0)
+                   || (mode == 0 && type == 1 && listData[i].Buy)
+                   || (mode == 0 && type == 2 && !listData[i].Buy)
+                   || (mode == 1 && buyType == 0 && listData[i].Buy)
+                   || (mode == 1 && buyType == 1 && listData[i].Buy && listData[i].Bought)
+                   || (mode == 1 && buyType == 2 && listData[i].Buy && !listData[i].Bought)){
+                        addToDiv(document.getElementById("dvList"), listData[i], false, mode);
                     count = count+1;
                 }
             }
             document.getElementById("spnCount").innerHTML = "(" + count + ")";
+            document.getElementById("spnBoughtCount").innerHTML = "(" + count + ")";
+            toggleMode(mode);
         }
         function clearList() {
             type = document.getElementById("ddlFilter").selectedIndex;
@@ -131,6 +172,16 @@
             listData = revisedListData;
             loadList();
         }
+        function resetSelection(retainPending) {
+            for (i = 0; i < listData.length; i++) {
+                if(listData[i].Buy
+                  && (listData[i].Bought || !retainPending)){
+                    listData[i].Buy = false;
+                    listData[i].Bought = false;
+                }
+            }
+            loadList();
+        }
         function saveToList(item) {
             if (item.Id == null) {
                 item.Id = getNextIndex();
@@ -142,10 +193,6 @@
             }
             toggleSave(true);
             return item;
-        }
-        function filter(){
-            
-            loadList();
         }
         function saveList() {
             setCache(listData);
@@ -186,8 +233,12 @@
             };
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
         }
-        function addToDiv(d, item, addToTop) {
-            dv = document.createElement('div');            
+        function addToDiv(d, item, addToTop, mode) {
+            dv = document.createElement('div');
+            dv.id = "dvItem" + item.Id;
+            if(item.Buy) {
+                dv.style.color = (item.Bought) ? "green" : "blue";
+            }
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
             tb.setAttribute("itemId", item.Id);
@@ -195,6 +246,7 @@
             tb.value = item.Type;
             tb.className = "type";
             tb.addEventListener("blur", function () { saveItem(this); });
+            if (mode == 1) { tb.setAttribute("readOnly", "true");}
             dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
@@ -203,6 +255,7 @@
             tb.value = item.Name;
             tb.className = "name";
             tb.addEventListener("blur", function () { saveItem(this); });
+            if (mode == 1) { tb.setAttribute("readOnly", "true");}
             dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
@@ -211,6 +264,7 @@
             tb.value = item.Remark;
             tb.className = "rem";
             tb.addEventListener("blur", function () { saveItem(this); });
+            if (mode == 1) { tb.setAttribute("readOnly", "true");}
             dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
@@ -219,6 +273,7 @@
             tb.value = item.Quantity;
             tb.className = "qty";
             tb.addEventListener("blur", function () { saveItem(this); });
+            if (mode == 1) { tb.setAttribute("readOnly", "true");}
             dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "checkbox");
@@ -226,7 +281,16 @@
             tb.id = "cbBuy" + item.Id;
             tb.checked = item.Buy;
             tb.addEventListener("click", function () { saveItem(this); });
-            dv.appendChild(tb);            
+            if (mode == 1) { tb.style.display = "none";}
+            dv.appendChild(tb); 
+            tb = document.createElement('input');
+            tb.setAttribute("type", "checkbox");
+            tb.setAttribute("itemId", item.Id);
+            tb.id = "cbBought" + item.Id;
+            tb.checked = item.Bought;
+            tb.addEventListener("click", function () { saveItem(this); });
+            if (mode == 0) { tb.style.display = "none";}
+            dv.appendChild(tb); 
             if(addToTop){
                 d.insertBefore(dv, d.firstChild);
             } else{
@@ -241,9 +305,19 @@
                 Name: document.getElementById("tbName" + id).value,
                 Remark: document.getElementById("tbRemark" + id).value,
                 Quantity: document.getElementById("tbQuantity" + id).value,
-                Buy: document.getElementById("cbBuy" + id).checked
+                Buy: document.getElementById("cbBuy" + id).checked,
+                Bought: document.getElementById("cbBought" + id).checked
             }
             saveToList(item);
+            updateColor(item);
+        }
+        function updateColor(item) {
+            if(item.Buy){
+                document.getElementById("dvItem" + id).style.color = (item.Bought) ? "green" : "blue";
+            }
+            else {
+                document.getElementById("dvItem" + id).style.color = "black";
+            }
         }
         function toggleSave(status){
             if (status) {
@@ -264,10 +338,35 @@
                 document.getElementById("btnImport").value = "Import";
             }
         }        
+        function toggleMore(){
+            if (document.getElementById("dvMore").style.display == "none") {
+                document.getElementById("dvMore").style.display = "block";
+                document.getElementById("btnMore").value = "<<<";
+            }
+            else{
+                document.getElementById("dvMore").style.display = "none";
+                document.getElementById("btnMore").value = ">>>";
+            }
+        }        
+        function toggleMode(mode){
+            if (mode == 0) {
+                document.getElementById("spnEdit").style.display = "inline";
+                document.getElementById("dvEdit").style.display = "block";
+                document.getElementById("spnBuy").style.display = "none";
+                //document.getElementById("ddlFilterBuy").selectedIndex = 0;
+            }
+            else{
+                document.getElementById("spnEdit").style.display = "none";
+                document.getElementById("dvEdit").style.display = "none";
+                document.getElementById("spnBuy").style.display = "inline";
+                //document.getElementById("ddlFilter").selectedIndex = 0;
+            }
+        }        
         function addItem() {
-            item = {Id: null, Type: null, Name: null, Remark: null, Quantity: null, Buy: false};
+            item = {Id: null, Type: null, Name: null, Remark: null, Quantity: null, Buy: false, Bought: false};
             item = saveToList(item);
-            addToDiv(document.getElementById("dvList"), item, true);
+            mode = document.getElementById("ddlMode").selectedIndex;
+            addToDiv(document.getElementById("dvList"), item, true, mode);
         }
         function getNextIndex() {
             var index = localStorage.getItem("index_list");
