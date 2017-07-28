@@ -90,6 +90,7 @@
         }
 
         function addToDiv(d, item, addToTop) {
+            dv = document.createElement('div');            
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
             tb.setAttribute("itemId", item.Id);
@@ -98,11 +99,7 @@
             tb.className = "type";
             tb.placeholder = "type";
             tb.addEventListener("blur", function () { saveItem(this); });
-            if(addToTop){
-                d.insertBefore(tb, d.firstChild);
-            } else{
-                d.appendChild(tb);
-            }
+            dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
             tb.setAttribute("itemId", item.Id);
@@ -111,11 +108,7 @@
             tb.className = "name";
             tb.placeholder = "name";
             tb.addEventListener("blur", function () { saveItem(this); });
-            if(addToTop){
-                d.insertBefore(tb, d.firstChild);
-            } else{
-                d.appendChild(tb);
-            }
+            dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
             tb.setAttribute("itemId", item.Id);
@@ -124,11 +117,7 @@
             tb.className = "rem";
             tb.placeholder = "remark";
             tb.addEventListener("blur", function () { saveItem(this); });
-            if(addToTop){
-                d.insertBefore(tb, d.firstChild);
-            } else{
-                d.appendChild(tb);
-            }
+            dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "text");
             tb.setAttribute("itemId", item.Id);
@@ -137,24 +126,19 @@
             tb.className = "qty";
             tb.placeholder = "quantity";
             tb.addEventListener("blur", function () { saveItem(this); });
-            if(addToTop){
-                d.insertBefore(tb, d.firstChild);
-            } else{
-                d.appendChild(tb);
-            }
+            dv.appendChild(tb);
             tb = document.createElement('input');
             tb.setAttribute("type", "checkbox");
             tb.setAttribute("itemId", item.Id);
             tb.id = "cbBuy" + item.Id;
             tb.checked = item.Buy;
-            tb.addEventListener("blur", function () { saveItem(this); });
+            dv.appendChild(tb);
+            
             if(addToTop){
-                d.insertBefore(tb, d.firstChild);
+                d.insertBefore(dv, d.firstChild);
             } else{
-                d.appendChild(tb);
+                d.appendChild(dv);
             }
-            br = document.createElement("br");
-            d.appendChild(br);
         }
         function saveItem(element) {
             id = element.getAttribute("itemId");
