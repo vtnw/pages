@@ -159,6 +159,7 @@
             tb.setAttribute("itemId", item.Id);
             tb.id = "cbBuy" + item.Id;
             tb.checked = item.Buy;
+            tb.addEventListener("change", function () { saveItem(this); });
             dv.appendChild(tb);
             
             if(addToTop){
