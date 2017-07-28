@@ -53,6 +53,7 @@
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export" id="btnExport" />
         <input type="button" value="Import" id="btnImport" />        
+        <input type="button" value="Import" id="btnIdmport" />        
     </div>
     <div id="dvImport" style="display:none">
         <input type="file" id="fileImport" />        
@@ -75,15 +76,15 @@
             toggleSave(false);
         });
         document.getElementById("btnImport").addEventListener("click", function () {
-            toggleImport(true);
+            toggleImport();
         });
         document.getElementById("btnReplace").addEventListener("click", function () {
             loadFile(1);
-            toggleImport(false);
+            toggleImport();
         });
         document.getElementById("btnMerge").addEventListener("click", function () {
             loadFile(0);
-            toggleImport(false);
+            toggleImport();
         });
         document.getElementById("btnExport").addEventListener("click", function () {
             saveAsFile(JSON.stringify(listData));
@@ -222,8 +223,8 @@
                 document.getElementById("btnSave").style.color = "green"
             }
         }
-        function toggleImport(status){
-            if (status) {
+        function toggleImport(){
+            if (document.getElementById("dvImport").style.display == "none") {
                 document.getElementById("dvImport").style.display = "block";
                 document.getElementById("btnImport").value = "Cancel";
                 document.getElementById("fileImport").value = "";
