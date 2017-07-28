@@ -50,12 +50,7 @@
             <option value="Selected">Selected</option>
             <option value="Unselected">Unselected</option>
         </select>
-        <span id="spnCount"></span>
-        <select id="ddlMode">
-            <option value="View">View</option>
-            <option value="Edit">Edit</option>
-            <option value="Buy">Buy</option>
-        </select>        
+        <span id="spnCount"></span>      
         <input type="button" value="Save" id="btnSave" />
         <input type="button" value="Export" id="btnExport" />
         <input type="button" value="Import" id="btnImport" />
@@ -165,7 +160,7 @@
                 }
             }
             var a = document.createElement("a");
-            a.download = "list";
+            a.download = "list_" + getFormattedDate();
             a.innerHTML = "export";
             a.href = window.URL.createObjectURL(new Blob([JSON.stringify(exportData)], { type: "text/plain" }));
             a.style.display = "none";
@@ -295,6 +290,11 @@
         }
         function setCache(items) {
             localStorage.setItem("list", JSON.stringify(items));
+        }
+        function getFormattedDate(){
+            var d = new Date();
+            d = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
+            return d;
         }
     </script>
 </body>
