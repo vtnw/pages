@@ -135,16 +135,17 @@
             document.body.appendChild(a);
             a.click();
         }
-        function loadFile(o) {
+        function loadFile(replace) {
             var fileReader = new FileReader();
             fileReader.onload = function(event) {
-                alert('');
-                alert(o);
-                alert(event.target.result);
                 importedData = JSON.stringify(event.target.result);                
-                listData = importedData;
+                if(replace){
+                    listData = importedData;
+                }
+                else{
+                    alert(importedData);
+                }
             };
-            alert(document.getElementById("fileImport").files[0]);
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
         }
         function addToDiv(d, item, addToTop) {
