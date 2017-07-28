@@ -101,7 +101,7 @@
             tb.setAttribute("itemId", item.Id);
             tb.id = "tbRemark" + item.Id;
             tb.value = item.Remark;
-            tb.className = "remark";
+            tb.className = "rem";
             tb.addEventListener("blur", function () { saveItem(this); });
             d.appendChild(tb);
             tb = document.createElement('input');
