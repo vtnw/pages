@@ -35,7 +35,7 @@
             width:35%
         }
         .rem{
-            width:26%
+            width:25%
         }
         .hdr{
             border:none;
@@ -51,24 +51,20 @@
             <option value="Edit">Edit</option>
             <option value="Buy">Buy</option>
         </select>
-        <span id="spnEdit">
         <select id="ddlFilter">
             <option value="All">All</option>
             <option value="Selected">Selected</option>
             <option value="Unselected">Unselected</option>
         </select>
-        <span id="spnCount"></span>      
-        <input type="button" value=">>>" id="btnMore" />
-        </span>
-        <span id="spnBuy">
+        <span id="spnCount"></span>
         <select id="ddlFilterBuy">
             <option value="All">All</option>
             <option value="Bought">Bought</option>
             <option value="Pending">Pending</option>
         </select>
-        <span id="spnBoughtCount"></span>    
-        </span>
+        <span id="spnBoughtCount"></span>
         <input type="button" value="Save" id="btnSave" />
+        <input type="button" value=">>>" id="btnMore" />
     </div>
     <div id="dvEdit">
     <div id="dvMore" style="display:none">
@@ -350,16 +346,18 @@
         }        
         function toggleMode(mode){
             if (mode == 0) {
-                document.getElementById("spnEdit").style.display = "inline";
+                document.getElementById("spnCount").style.display = "inline";
                 document.getElementById("dvEdit").style.display = "block";
-                document.getElementById("spnBuy").style.display = "none";
-                //document.getElementById("ddlFilterBuy").selectedIndex = 0;
+                document.getElementById("spnBuyCount").style.display = "none";
+                document.getElementById("ddlFilterBuy").style.display = "none";
+                document.getElementById("ddlFilter").style.display = "inline";
             }
             else{
-                document.getElementById("spnEdit").style.display = "none";
+                document.getElementById("spnCount").style.display = "none";
                 document.getElementById("dvEdit").style.display = "none";
-                document.getElementById("spnBuy").style.display = "inline";
-                //document.getElementById("ddlFilter").selectedIndex = 0;
+                document.getElementById("spnBuyCount").style.display = "block";"
+                document.getElementById("ddlFilterBuy").style.display = "inline";
+                document.getElementById("ddlFilter").style.display = "none";
             }
         }        
         function addItem() {
