@@ -1,3 +1,5 @@
 CACHE MANIFEST
-#Version 20170801
+#Version 20170801.1
+scripts/list.js
+styles/list.css
 images/icon.png
