@@ -1,10 +1,12 @@
+var cacheName = "links" + decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+alert(cacheName);
 document.getElementById("btnEdit").addEventListener("click", function () {
     if(document.getElementById("dvEdit").style.display == "none"){
         document.getElementById("btnEdit").value = "Save";
-        document.getElementById("tbData").value = localStorage.getItem("links");
+        document.getElementById("tbData").value = localStorage.getItem(cacheName);
         document.getElementById("dvEdit").style.display = "block";
     } else {
-        localStorage.setItem("links", document.getElementById("tbData").value);
+        localStorage.setItem(cacheName, document.getElementById("tbData").value);
         document.getElementById("tbData").value = "";
         document.getElementById("dvEdit").style.display = "none";
         document.getElementById("btnEdit").value = "Edit";
@@ -28,7 +30,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
 document.getElementById("btnClear").addEventListener("click", function () {
     if (confirm("Clear?")) {
         clearDiv();
-        localStorage.setItem("links", null);
+        localStorage.setItem(cacheName, null);
     }
 });
 document.getElementById("btnShowAdd").addEventListener("click", function () {
@@ -56,14 +58,14 @@ function loadLinks() {
     }
 }
 function getCache() {
-    var items = JSON.parse(localStorage.getItem("links"));
+    var items = JSON.parse(localStorage.getItem(cacheName));
     if (items == null) {
         items = [];
     }
     return items;
 }
 function setCache(items) {
-    localStorage.setItem("links", JSON.stringify(items));
+    localStorage.setItem(cacheName, JSON.stringify(items));
 }
 function clearDiv() {
     document.getElementById("dvLinks").innerHTML = "";
