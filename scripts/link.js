@@ -1,5 +1,5 @@
 var cacheName = "links" + decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-alert(cacheName);
+
 document.getElementById("btnEdit").addEventListener("click", function () {
     if(document.getElementById("dvEdit").style.display == "none"){
         document.getElementById("btnEdit").value = "Save";
