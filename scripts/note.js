@@ -2,6 +2,7 @@ var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\
 var cacheName = "note" + u;
 var indexName = "index" + cacheName + u;
 var noteList = [];
+var ignoreTypeChange = false;
 
 //events
 document.getElementById("btnAdd").addEventListener("click", function () {
@@ -14,7 +15,9 @@ document.getElementById("btnExport").addEventListener("click", function () {
     saveAsFile(getSelectedType());
 });
 document.getElementById("ddlType").addEventListener("change", function () {
-    //loadList(getSelectedType());
+    if(!ignoreTypeChange){
+        loadList(getSelectedType());
+    }
 });
 
 //app functions
@@ -44,7 +47,9 @@ function addType(type){
        }
     }
     if (!exists) {
+        ignoreTypeChange = true;
         ddl.options[ddl.options.length] = new Option(type, type);
+        ignoreTypeChange = false;
     }
 }
 function clearList(type) {
