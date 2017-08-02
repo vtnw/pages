@@ -35,6 +35,7 @@ function getSelectedType() {
     return document.getElementById("ddlType")[document.getElementById("ddlType").selectedIndex].value;
 }
 function addType(type){
+    alert(type);
     ddl = document.getElementById("ddlType");
     for (i = 0; i < ddl.options.length; ++i){
        if (ddl.options[i].value == type){
