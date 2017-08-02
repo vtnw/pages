@@ -81,6 +81,7 @@ function addItem() {
 }
 function getType(text) {
     type = text.match(/(^|\s)(#[a-z\d-]+)/ig);
+    alert("-" + type + "-");
     if (type == null) {
         type = ["#n"];
     }
