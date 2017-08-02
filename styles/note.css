@@ -1,11 +1,5 @@
-.dvAction {
-    display:inline-table;
-    width:10%;
-    text-align:center;
-}
-.dvText {
-    display:inline-grid;
-    width:85%;
+html, body {
+    height: 100%;
 }
 .dvContainer {
     height: 85%;
@@ -17,9 +11,6 @@
 .dvNotes{
     height:80%;
     overflow:auto;
-}
-html, body {
-    height: 100%;
 }
 .btnAdd{
     height:50px;
