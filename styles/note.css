@@ -21,7 +21,8 @@ html, body {
     overflow:auto;
 }
 .btnAdd{
-    width:100px;
+    margin-left:80px;
+    width:80px;
 }
 .tbType {
     width:70px;
