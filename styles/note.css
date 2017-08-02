@@ -2,10 +2,10 @@ html, body {
     height: 100%;
 }
 .dvContainer {
-    height: 85%;
+    height: 99%;
 }
 .tbnote {
-    width:85%;
+    width:99%;
     height:100px;
     border:1px solid #cccccc;
     border-radius:10px;
