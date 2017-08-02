@@ -80,11 +80,11 @@ function addItem() {
     addType(item.Type);
 }
 function getType(text) {
-    type = text.match(/(^|\s)(#[a-z\d-]+)/ig);
+    type = text.match(/[#]+[A-Za-z0-9-_]+/g);
     if (type == null) {
         type = ["#n"];
     }
-    return type.trim();
+    return type;
 }
 function getNote(text) {
     return text.replace(/(^|\s)(#[a-z\d-]+)/ig, "");
