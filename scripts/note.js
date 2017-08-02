@@ -38,12 +38,15 @@ function addType(type){
     alert(type);
     ddl = document.getElementById("ddlType");
     for (i = 0; i < ddl.options.length; ++i){
+        alert(ddl.options[i].value);
+        var exists = false;
        if (ddl.options[i].value == type){
            exists = true;
            break;
        }
     }
     if (!exists) {
+        alert("");
         ddl.options[ddl.options.length] = new Option(type, type);
     }
 }
@@ -74,10 +77,10 @@ function addItem() {
         Note: getNote(document.getElementById("tbNote").value)
     }    
     addToList(item);
-    addToDiv("dvNotes", item);
-    addType(item.Type);
+    addToDiv("dvNotes", item);    
     document.getElementById("tbNote").value = "";
     document.getElementById("tbNote").focus();
+    addType(item.Type);
 }
 function getType(text) {
     type = text.match(/(^|\s)(#[a-z\d-]+)/ig);
