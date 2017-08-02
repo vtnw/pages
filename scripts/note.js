@@ -35,19 +35,15 @@ function getSelectedType() {
     return document.getElementById("ddlType")[document.getElementById("ddlType").selectedIndex].value;
 }
 function addType(type){
-    alert(type);
+    var exists = false;
     ddl = document.getElementById("ddlType");
-    alert(ddl);alert(ddl.options);alert(ddl.options.length);
     for (i = 0; i < ddl.options.length; ++i){
-        alert(ddl.options[i].value);
-        var exists = false;
        if (ddl.options[i].value == type){
            exists = true;
            break;
        }
     }
     if (!exists) {
-        alert("");
         ddl.options[ddl.options.length] = new Option(type, type);
     }
 }
