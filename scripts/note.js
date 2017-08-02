@@ -2,7 +2,6 @@ var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\
 var cacheName = "note" + u;
 var indexName = "index" + cacheName + u;
 var noteList = [];
-var ignoreTypeChange = false;
 
 //events
 document.getElementById("btnAdd").addEventListener("click", function () {
@@ -14,12 +13,11 @@ document.getElementById("btnClear").addEventListener("click", function () {
 document.getElementById("btnExport").addEventListener("click", function () {
     saveAsFile(getSelectedType());
 });
-document.getElementById("ddlType").addEventListener("change", function () {
-    if(!ignoreTypeChange){
-        ignoreTypeChange = true;
-        loadList(getSelectedType());
-        ignoreTypeChange = false;
-    }
+document.getElementById("btnBackup").addEventListener("click", function () {
+    saveAsFile(getSelectedType());
+});
+document.getElementById("btnFilter").addEventListener("click", function () {
+    loadList(getSelectedType());
 });
 
 //app functions
@@ -49,9 +47,7 @@ function addType(type){
        }
     }
     if (!exists) {
-        ignoreTypeChange = true;
         ddl.options[ddl.options.length] = new Option(type, type);
-        ignoreTypeChange = false;
     }
 }
 function clearList(type) {
