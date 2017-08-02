@@ -52,13 +52,13 @@ function clearList(type) {
     if (confirm("Reset index as well?")) {
         resetIndex();
     }
-    if (type == null) {
+    if (type == "#all") {
         noteList = [];
     }
     else {
         tempList = [];
         for (i = 0; i < noteList.length; i++) {
-            if (noteList[i].Type.indexOf(type) >= 0) {
+            if (noteList[i].Type.indexOf(type) < 0) {
                 tempList.push(noteList[i]);
             }
         }
