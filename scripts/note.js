@@ -41,11 +41,11 @@ function loadList(type) {
 function toggleMore(){
     if(document.getElementById("dvMore").style.display == "none"){
         document.getElementById("dvMore").style.display = "block"
-        document.getElementById("btnMore").value == "<<<"
+        document.getElementById("btnMore").value = "<<<"
     }
     else{
         document.getElementById("dvMore").style.display = "none"
-        document.getElementById("btnMore").value == ">>>"
+        document.getElementById("btnMore").value = ">>>"
     }
 }
 function getSelectedType() {
