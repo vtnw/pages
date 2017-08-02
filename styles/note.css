@@ -1,5 +1,9 @@
-html, body {
+html{
     height: 95%;
+    border:1px solid red;
+}
+body {
+    height: 100%;
     font-size:14px;
     font-family:Arial;
     border:1px solid red;
