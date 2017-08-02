@@ -14,16 +14,21 @@
         <div id="dvNotes" class="dvNotes"></div>
         <hr />
         <div>
-            <input type="button" value="Backup" id="btnBackup" />
-            <input type="button" value="Restore" id="btnRestore" />
-            <input type="button" value="Export" id="btnExport" />            
-            <input type="button" value="Clear" id="btnClear" />
+            <input type="text" value="#all" id="tbType" />
+            <input type="button" value="Filter" id="btnFilter" />            
             <input type="button" value="Save" id="btnAdd" class="btnAdd" />
-            <div id="dvImport" style="display:none">
-                <input type="file" id="fileImport" /><br />
-                <input type="button" value="Merge" id="btnMerge" />
-                <input type="button" value="Replace" id="btnReplace" />
-            </div>
+            <input type="button" value=">>>" id="btnMore" />
+            <div id="dvMore">
+                <input type="button" value="Backup" id="btnBackup" />
+                <input type="button" value="Restore" id="btnRestore" />
+                <input type="button" value="Export" id="btnExport" />            
+                <input type="button" value="Clear" id="btnClear" />
+                <div id="dvImport" style="display:none">
+                    <input type="file" id="fileImport" /><br />
+                    <input type="button" value="Merge" id="btnMerge" />
+                    <input type="button" value="Replace" id="btnReplace" />
+                </div>
+            </div>            
             <br/>
             <textarea class="tbnote" id="tbNote"></textarea>
         </div>
