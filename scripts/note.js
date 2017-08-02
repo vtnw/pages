@@ -22,7 +22,7 @@ document.getElementById("ddlType").addEventListener("change", function () {
 
 function toggleMore() {
     if (document.getElementById("dvMore").style.display == "none") {
-        document.getElementById("dvMore").style.display = "block";
+        document.getElementById("dvMore").style.display = "inline";
     }
     else {
         document.getElementById("dvMore").style.display = "none";
