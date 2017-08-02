@@ -1,6 +1,6 @@
 html, body {
     height: 100%;
-    font-size:12px;
+    font-size:14px;
     font-family:Arial;
 }
 .dvContainer {
@@ -13,6 +13,8 @@ html, body {
     border-radius:10px;
     outline: none;
     padding: 5px;
+    font-size:14px;
+    font-family:Arial;
 }
 .dvNotes{
     height:80%;
@@ -27,4 +29,6 @@ html, body {
     border-radius:5px;
     outline: none;
     padding: 2px;
+    font-size:14px;
+    font-family:Arial;
 }
