@@ -7,9 +7,6 @@ var noteList = [];
 document.getElementById("btnAdd").addEventListener("click", function () {
     addItem();
 });
-document.getElementById("btnMore").addEventListener("click", function () {
-    toggleMore();
-});
 document.getElementById("btnClear").addEventListener("click", function () {
     clearList(getSelectedType());
 });
@@ -19,15 +16,6 @@ document.getElementById("btnExport").addEventListener("click", function () {
 document.getElementById("ddlType").addEventListener("change", function () {
     loadList(getSelectedType());
 });
-
-function toggleMore() {
-    if (document.getElementById("dvMore").style.display == "none") {
-        document.getElementById("dvMore").style.display = "inline";
-    }
-    else {
-        document.getElementById("dvMore").style.display = "none";
-    }
-}
 
 //app functions
 function initialize() {
@@ -39,11 +27,14 @@ function loadList(type) {
     for (i = 0; i < noteList.length; i++) {
         if (type == "#all" || noteList[i].Type.indexOf(type) >= 0) {
             addToDiv("dvNotes", noteList[i]);
+            addType(noteList[i].Type);
         }
     }
 }
 function getSelectedType() {
     return document.getElementById("ddlType")[document.getElementById("ddlType").selectedIndex].value;
+}
+function addType(type){
 }
 function clearList(type) {
     if (confirm("Reset index as well?")) {
@@ -73,6 +64,7 @@ function addItem() {
     }    
     addToList(item);
     addToDiv("dvNotes", item);
+    addType(item.Type);
 }
 function getType(text) {
     type = text.match(/(^|\s)(#[a-z\d-]+)/ig);
