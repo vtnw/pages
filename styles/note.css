@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
     font-size:12px;
+    font-family:Arial;
 }
 .dvContainer {
     height: 80%;
