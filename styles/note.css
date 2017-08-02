@@ -11,18 +11,19 @@ html, body {
     border-radius:10px;
     outline: none;
     padding: 5px;
+    margin-top:10px;
 }
 .dvNotes{
     height:80%;
     overflow:auto;
 }
 .btnAdd{
-    width:30px;
+    width:100px;
 }
 .tbType {
-    width:20px;
+    width:70px;
     border:1px solid #cccccc;
-    border-radius:10px;
+    border-radius:5px;
     outline: none;
-    padding: 5px;
+    padding: 2px;
 }
