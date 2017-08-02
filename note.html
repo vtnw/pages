@@ -14,23 +14,24 @@
         <div id="dvNotes" class="dvNotes"></div>
         <hr />
         <div>
-            <input type="text" value="#all" id="tbType" />
+            <input type="text" value="#all" id="tbType" class="tbType" />
             <input type="button" value="Filter" id="btnFilter" />            
-            <input type="button" value="Save" id="btnAdd" class="btnAdd" />
+            <input type="button" value="Add" id="btnAdd" class="btnAdd" />
             <input type="button" value=">>>" id="btnMore" />
-            <div id="dvMore">
+            <div id="dvMore" style="display:none;">
                 <input type="button" value="Backup" id="btnBackup" />
                 <input type="button" value="Restore" id="btnRestore" />
                 <input type="button" value="Export" id="btnExport" />            
                 <input type="button" value="Clear" id="btnClear" />
-                <div id="dvImport" style="display:none">
+                <div id="dvRestore" style="display:none">
                     <input type="file" id="fileImport" /><br />
                     <input type="button" value="Merge" id="btnMerge" />
                     <input type="button" value="Replace" id="btnReplace" />
                 </div>
-            </div>            
-            <br/>
-            <textarea class="tbnote" id="tbNote"></textarea>
+            </div>                        
+            <div>
+                <textarea class="tbnote" id="tbNote"></textarea>
+            </div>
         </div>
     </div>
     <script src="scripts/note.js" async></script>
