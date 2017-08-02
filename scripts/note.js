@@ -75,6 +75,8 @@ function addItem() {
     addToList(item);
     addToDiv("dvNotes", item);
     addType(item.Type);
+    document.getElementById("tbNote").value = "";
+    document.getElementById("tbNote").focus();
 }
 function getType(text) {
     type = text.match(/(^|\s)(#[a-z\d-]+)/ig);
