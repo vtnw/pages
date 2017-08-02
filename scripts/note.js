@@ -13,16 +13,13 @@ document.getElementById("btnClear").addEventListener("click", function () {
 document.getElementById("btnExport").addEventListener("click", function () {
     saveAsFile(getSelectedType());
 });
-document.getElementById("btnBackup").addEventListener("click", function () {
-    saveAsFile(getSelectedType());
-});
 document.getElementById("btnFilter").addEventListener("click", function () {
     loadList(getSelectedType());
 });
 document.getElementById("btnMore").addEventListener("click", function () {
     toggleMore();
 });
-document.getElementById("btnRestore").addEventListener("click", function () {
+document.getElementById("btnImport").addEventListener("click", function () {
 });
 
 //app functions
