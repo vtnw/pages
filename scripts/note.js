@@ -19,36 +19,37 @@ document.getElementById("btnBackup").addEventListener("click", function () {
 document.getElementById("btnFilter").addEventListener("click", function () {
     loadList(getSelectedType());
 });
+document.getElementById("btnMore").addEventListener("click", function () {
+    toggleMore();
+});
+document.getElementById("btnRestore").addEventListener("click", function () {
+});
 
 //app functions
 function initialize() {
     noteList = getCache();
-    loadList("#all");
+    loadList(getSelectedType());
 }
 function loadList(type) {
     document.getElementById("dvNotes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         if (type == "#all" || noteList[i].Type.indexOf(type) >= 0) {
             addToDiv("dvNotes", noteList[i]);
-            addType(noteList[i].Type);
         }
     }
 }
-function getSelectedType() {
-    return null;
+function toggleMore(){
+    if(document.getElementById("dvMore").style.display == "none"){
+        document.getElementById("dvMore").style.display = "block"
+        document.getElementById("btnMore").value == "<<<"
+    }
+    else{
+        document.getElementById("dvMore").style.display = "none"
+        document.getElementById("btnMore").value == ">>>"
+    }
 }
-function addType(type){
-    var exists = false;
-    ddl = document.getElementById("ddlType");
-    for (i = 0; i < ddl.options.length; ++i){
-       if (ddl.options[i].value == type){
-           exists = true;
-           break;
-       }
-    }
-    if (!exists) {
-        ddl.options[ddl.options.length] = new Option(type, type);
-    }
+function getSelectedType() {
+    return document.getElementById("tbType").value;
 }
 function clearList(type) {
     if (confirm("Reset index as well?")) {
@@ -80,7 +81,6 @@ function addItem() {
     addToDiv("dvNotes", item);    
     document.getElementById("tbNote").value = "";
     document.getElementById("tbNote").focus();
-    addType(item.Type);
 }
 function getType(text) {
     type = text.match(/[#]+[A-Za-z0-9-_]+/g);
