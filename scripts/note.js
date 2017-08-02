@@ -81,6 +81,7 @@ function addItem() {
     addToDiv("dvNotes", item);    
     document.getElementById("tbNote").value = "";
     document.getElementById("tbNote").focus();
+    document.getElementById("dvNotes").scrollTop = 0;
 }
 function getType(text) {
     type = text.match(/[#]+[A-Za-z0-9-_]+/g);
