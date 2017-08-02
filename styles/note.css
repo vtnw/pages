@@ -5,7 +5,7 @@ html, body {
     height: 85%;
 }
 .tbnote {
-    width:100%;
+    width:80%;
     height:100px;
 }
 .dvNotes{
@@ -13,5 +13,4 @@ html, body {
     overflow:auto;
 }
 .btnAdd{
-    height:50px;
 }
