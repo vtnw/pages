@@ -37,6 +37,7 @@ function getSelectedType() {
 function addType(type){
     alert(type);
     ddl = document.getElementById("ddlType");
+    alert(ddl);alert(ddl.options);alert(ddl.options.length);
     for (i = 0; i < ddl.options.length; ++i){
         alert(ddl.options[i].value);
         var exists = false;
