@@ -14,7 +14,7 @@ document.getElementById("btnExport").addEventListener("click", function () {
     saveAsFile(getSelectedType());
 });
 document.getElementById("ddlType").addEventListener("change", function () {
-    loadList(getSelectedType());
+    //loadList(getSelectedType());
 });
 
 //app functions
