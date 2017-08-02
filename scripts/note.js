@@ -35,6 +35,16 @@ function getSelectedType() {
     return document.getElementById("ddlType")[document.getElementById("ddlType").selectedIndex].value;
 }
 function addType(type){
+    ddl = document.getElementById("ddlType");
+    for (i = 0; i < ddl.options.length; ++i){
+       if (ddl.options[i].value == type){
+           exists = true;
+           break;
+       }
+    }
+    if (!exists) {
+        ddl.options[ddl.options.length] = new Option(type, type);
+    }
 }
 function clearList(type) {
     if (confirm("Reset index as well?")) {
