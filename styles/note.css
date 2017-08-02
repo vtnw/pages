@@ -4,8 +4,8 @@ html, body {
     font-family:Arial;
     overflow: auto; 
 }
-.dvContainer1 {
-    height: 80%;
+.dvContainer {
+    height: 50%;
 }
 .tbnote {
     width:95%;
@@ -18,7 +18,7 @@ html, body {
     font-family:Arial;
 }
 .dvNotes{
-    height:30%;
+    height:100%;
     overflow:auto;
 }
 .btnAdd{
