@@ -35,7 +35,7 @@ function loadList(type) {
     }
 }
 function getSelectedType() {
-    return document.getElementById("ddlType")[document.getElementById("ddlType").selectedIndex].value;
+    return null;
 }
 function addType(type){
     var exists = false;
