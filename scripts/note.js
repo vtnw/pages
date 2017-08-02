@@ -16,7 +16,9 @@ document.getElementById("btnExport").addEventListener("click", function () {
 });
 document.getElementById("ddlType").addEventListener("change", function () {
     if(!ignoreTypeChange){
+        ignoreTypeChange = true;
         loadList(getSelectedType());
+        ignoreTypeChange = false;
     }
 });
 
