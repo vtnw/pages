@@ -11,7 +11,7 @@ document.getElementById("btnClear").addEventListener("click", function () {
     clearList(getSelectedType());
 });
 document.getElementById("btnExport").addEventListener("click", function () {
-    export();
+    exportData();
 });
 document.getElementById("btnFilter").addEventListener("click", function () {
     loadList(getSelectedType());
@@ -45,7 +45,7 @@ function toggleMore(){
         document.getElementById("btnMore").value = ">>>"
     }
 }
-function export(){
+function exportData(){
     supportRestore = confirm("Support restore?");
     saveAsFile(getExportData(getSelectedType(), supportRestore));
 }
