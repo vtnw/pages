@@ -202,7 +202,10 @@ function loadFile(replace) {
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
 }
 function addType(type, isSelected){
-    if(typeList.indexOf(type) < 0){
+    alert(JSON.stringify(typeList));
+    isNew = (typeList.findIndex(t => t.Name == type) < 0);
+    alert(isNew);
+    if(isNew){
         typeList.push({"Name": type, "Selected": isSelected});        
         spnType = document.createElement("span");
         spnType.innerHTML = type;
@@ -214,6 +217,7 @@ function addType(type, isSelected){
         });
         document.getElementById("dvTypes").appendChild(spnType);
     }
+    alert(JSON.stringify(typeList));
 }
 
 //common functions
