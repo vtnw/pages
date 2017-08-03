@@ -47,13 +47,15 @@ body {
 .spnTypeSel{
     color:red;
     border:1px solid red;
-    width:30px;
+    padding:5px 5px 5px 5px;
 }
 .spnType{
     color:black;
     border:1px solid grey;
     width:30px;
+    padding:5px 5px 5px 5px;
 }
 .dvTypes{
-    width:90%
+    width:90%;
+    margin:5px 5px 5px 5px;
 }
