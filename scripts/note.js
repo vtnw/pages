@@ -37,10 +37,7 @@ function initialize() {
 function loadTypeList(){
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
-        alert(noteList[i].Type);
-        alert(noteList[i].Type.length);
-        for (j = 0; i < noteList[i].Type.length; j++) {
-            alert(noteList[i].Type[j]);
+        for (j = 0; j < noteList[i].Type.length; j++) {
             addType(noteList[i].Type[j], true);
         }
     }
