@@ -265,24 +265,18 @@ function addType(type, isSelected){
 //common functions
 function getNextIndex() {
     var index = localStorage.getItem(indexName);
-    alert(index);
     if (index == null) {
         index = 0;
-        alert("null"+index);
     }
     else {
-        alert(index);
         index = parseInt(index);
-        alert(index);
     }    
     index = index + 1;
-    alert(index);
     localStorage.setItem(indexName, index);
-    alert(localStorage.getItem(indexName));
     return index;
 }
 function resetIndex() {
-    localStorage.setItem(indexName, null);
+    localStorage.removeItem(indexName);
 }
 function getCache() {
     var items = JSON.parse(localStorage.getItem(cacheName));
