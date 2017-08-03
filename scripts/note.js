@@ -32,6 +32,7 @@ document.getElementById("btnReplace").addEventListener("click", function () {
 //app functions
 function initialize() {
     noteList = getCache();
+    loadTypeList();
     loadList();
 }
 function loadTypeList(){
@@ -42,8 +43,7 @@ function loadTypeList(){
         }
     }
 }
-function loadList() {
-    loadTypeList();
+function loadList() {    
     document.getElementById("dvNotes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         if (isTypeSelected(noteList[i].Type)) {
@@ -95,6 +95,7 @@ function toggleFilter(){
     else{
         document.getElementById("btnFilter").value = "Filter";
         document.getElementById("dvTypes").style.display = "none";
+        loadList();
     }
 }
 function clearList() {
@@ -109,6 +110,7 @@ function clearList() {
     }
     noteList = tempList;
     setCache(noteList);
+    loadTypeList();
     loadList();
 }
 function addItem() {
@@ -198,7 +200,8 @@ function loadFile(replace) {
             importedData[i].Id = getNextIndex();
             noteList.push(importedData[i]);
         }
-        setCache(noteList);        
+        setCache(noteList);
+        loadTypeList();
         loadList();
     };
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
