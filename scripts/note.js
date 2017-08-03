@@ -7,17 +7,11 @@ var noteList = [];
 document.getElementById("btnAdd").addEventListener("click", function () {
     addItem();
 });
-document.getElementById("tbNote").addEventListener("focus", function () {
-    document.getElementById("dvContainer").className = "dvContainerHalf";
-});
-document.getElementById("tbNote").addEventListener("blur", function () {
-    document.getElementById("dvContainer").className = "dvContainerFull";
-});
 document.getElementById("btnClear").addEventListener("click", function () {
     clearList(getSelectedType());
 });
 document.getElementById("btnExport").addEventListener("click", function () {
-    saveAsFile(getSelectedType());
+    export();
 });
 document.getElementById("btnFilter").addEventListener("click", function () {
     loadList(getSelectedType());
@@ -50,6 +44,10 @@ function toggleMore(){
         document.getElementById("dvMore").style.display = "none"
         document.getElementById("btnMore").value = ">>>"
     }
+}
+function export(){
+    supportRestore = confirm("Support restore?");
+    saveAsFile(getSelectedType(), getExportData(supportRestore));
 }
 function getSelectedType() {
     return document.getElementById("tbType").value;
@@ -122,7 +120,7 @@ function addToDiv(divName, item) {
     d = document.getElementById(divName);
     d.insertBefore(dvItem, d.firstChild);
 }
-function saveAsFile(type) {
+function saveAsFile(type, data) {
     exportData = [];
     for (i = 0; i < noteList.length; i++) {
         if (type == "#all" || noteList[i].Type.indexOf(type) >= 0){
@@ -132,11 +130,30 @@ function saveAsFile(type) {
     var a = document.createElement("a");
     a.download = "note" + type + "_" + getFormattedDate(false);
     a.innerHTML = "export";
-    a.href = window.URL.createObjectURL(new Blob([JSON.stringify(exportData)], { type: "text/plain" }));
+    a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
     a.style.display = "none";
     a.onclick = function (event) { document.body.removeChild(event.target); };
     document.body.appendChild(a);
     a.click();
+}
+function getExportData(supportRestore){
+    result = "";
+    if(supportRestore){        
+        for (i = 0; i < noteList.length; i++) {
+            if (type == "#all" || noteList[i].Type.indexOf(type) >= 0){
+                exportData.push(noteList[i]);
+            }
+        }
+        result = JSON.stringify(exportData);
+    }
+    else{
+        /*for (i = 0; i < noteList.length; i++) {
+            if (type == "#all" || noteList[i].Type.indexOf(type) >= 0){
+                result = result + noteList[i].Date;
+            }
+        }*/
+        result = document.getElementById("dvNotes").innerText;
+    }
 }
 function loadFile(replace) {
     var fileReader = new FileReader();
