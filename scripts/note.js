@@ -46,6 +46,7 @@ function loadList() {
     loadTypeList();
     document.getElementById("dvNotes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
+        alert(noteList[i].Type);
         if (isTypeSelected(noteList[i].Type)) {
             addToDiv("dvNotes", noteList[i]);
         }
