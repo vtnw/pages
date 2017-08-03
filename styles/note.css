@@ -6,9 +6,6 @@ body {
     font-size:14px;
     font-family:Arial;
 }
-#btnExport, #btnImport, #btnClear, #btnFilter, #btnTag{
-    width:50px;
-}
 .dvContainer {
     height: 50%;
 }
@@ -64,4 +61,7 @@ body {
 .dvTypes{
     width:95%;
     margin:5px 5px 5px 5px;
+}
+.btnType{
+    width:50px;
 }
