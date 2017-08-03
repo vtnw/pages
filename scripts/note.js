@@ -243,6 +243,7 @@ function addType(type, isSelected){
             if(document.getElementById("btnType").value == "Close"){
                 document.getElementById("tbNote").value = document.getElementById("tbNote").value + " " +this.innerHTML;
                 document.getElementById("dvTypes").style.display = "none";
+                document.getElementById("btnType").value = "#Tag";
             }
         });
         document.getElementById("dvTypes").appendChild(spnType);
