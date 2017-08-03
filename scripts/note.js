@@ -35,13 +35,8 @@ document.getElementById("btnType").addEventListener("click", function () {
 //app functions
 function initialize() {
     noteList = getCache();
-    var t0 = performance.now();
     loadTypeList();
-    var t1 = performance.now();
     loadList();
-    var t2 = performance.now();
-    console.log("Call to note took " + (t1 - t0) + " milliseconds.")
-    console.log("Call to type took " + (t2 - t1) + " milliseconds.")
 }
 function loadTypeList(){
     typeList = [];
@@ -87,7 +82,7 @@ function exportData(){
 }
 function toggleImport(){
     resetToggle("btnImport");
-    if(document.getElementById("dvImport").style.display == "none"){
+    if(document.getElementById("btnImport").value == "Import"){
         document.getElementById("fileImport").value = "";
         document.getElementById("btnImport").value = "Close";
         document.getElementById("dvImport").style.display = "block";
@@ -99,7 +94,7 @@ function toggleImport(){
 }
 function toggleFilter(){
     resetToggle("btnFilter");
-    if(document.getElementById("dvTypes").style.display == "none"){
+    if(document.getElementById("btnFilter").value == "Filter"){
         document.getElementById("btnFilter").value = "Apply";
         document.getElementById("dvTypes").style.display = "block";
     }
