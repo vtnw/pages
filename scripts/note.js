@@ -125,7 +125,7 @@ function addItem() {
     addToDiv("dvNotes", item);
     addType(item.Type, true);
     for(l=0;l<item.Type.length;l++){
-        item.Type[l]);
+        alert(item.Type[l]);
         addType(item.Type[l], true);
     }
     document.getElementById("tbNote").value = "";
