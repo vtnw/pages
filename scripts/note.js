@@ -76,11 +76,11 @@ function toggleImport(){
         document.getElementById("fileImport").value = "";
         document.getElementById("btnImport").value = "Close";
         document.getElementById("btnImport").style.borderColor = "brown";
-        alert(document.getElementById("btnImport").style.borderColor);
         document.getElementById("dvImport").style.display = "block";
     }
     else{
         document.getElementById("btnImport").value = "Import";
+        document.getElementById("btnImport").style.borderColor = "";
         document.getElementById("dvImport").style.display = "none";
     }
 }
