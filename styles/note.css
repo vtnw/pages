@@ -6,10 +6,7 @@ body {
     font-size:14px;
     font-family:Arial;
 }
-.dvContainerFull {
-    height: 70%;
-}
-.dvContainerHalf {
+.dvContainer {
     height: 50%;
 }
 .tbnote {
