@@ -172,7 +172,7 @@ function saveAsFile(data) {
     a.innerHTML = "export";
     a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
     a.style.display = "none";
-    a.onclick = function (event) { document.body.removeChild(event.target); };
+    a.onclick = function (event) { alert(event.target);document.body.removeChild(event.target); };
     document.body.appendChild(a);
     a.click();
 }
