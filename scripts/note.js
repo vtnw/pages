@@ -268,7 +268,7 @@ function getNextIndex() {
     alert(index);
     if (index == null) {
         index = 0;
-        alert(index);
+        alert("null"+index);
     }
     else {
         alert(index);
