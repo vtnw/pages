@@ -75,7 +75,7 @@ function toggleImport(){
     if(document.getElementById("btnImport").value == "Import"){
         document.getElementById("fileImport").value = "";
         document.getElementById("btnImport").value = "Close";
-        document.getElementById("btnImport").style.borderColor = "brown";
+        document.getElementById("btnImport").style.borderColor = "green";
         document.getElementById("dvImport").style.display = "block";
     }
     else{
@@ -88,11 +88,13 @@ function toggleFilter(){
     resetToggle("btnFilter");
     if(document.getElementById("btnFilter").value == "Filter"){
         document.getElementById("btnFilter").value = "Apply";
+        document.getElementById("btnFilter").style.borderColor = "green";
         document.getElementById("dvTypes").style.display = "block";
     }
     else{        
         loadList();
         document.getElementById("btnFilter").value = "Filter";
+        document.getElementById("btnFilter").style.borderColor = "";
         document.getElementById("dvTypes").style.display = "none";                
     }
 }
