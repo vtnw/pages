@@ -88,7 +88,6 @@ function toggleImport(){
     }
 }
 function toggleFilter(){
-    alert(document.getElementById("dvTypes").style.display);
     if(document.getElementById("dvTypes").style.display == "none"){
         document.getElementById("btnFilter").value = "Apply";
         document.getElementById("dvTypes").style.display = "block";
