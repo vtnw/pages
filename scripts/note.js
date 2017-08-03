@@ -44,6 +44,7 @@ function loadTypeList(){
     }
 }
 function loadList() {    
+    alert('load');
     document.getElementById("dvNotes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         if (isTypeSelected(noteList[i].Type)) {
@@ -88,7 +89,7 @@ function toggleImport(){
     }
 }
 function toggleFilter(){
-    alert('load');
+    alert(document.getElementById("dvTypes").style.display);
     if(document.getElementById("dvTypes").style.display == "none"){
         document.getElementById("btnFilter").value = "Apply";
         document.getElementById("dvTypes").style.display = "block";
