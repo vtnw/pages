@@ -89,13 +89,13 @@ function toggleImport(){
     }
 }
 function toggleFilter(){
-    if(document.getElementById("dvFilter").style.display == "none"){
+    if(document.getElementById("dvTypes").style.display == "none"){
         document.getElementById("btnFilter").value = "Apply";
-        document.getElementById("dvFilter").style.display = "block";
+        document.getElementById("dvTypes").style.display = "block";
     }
     else{
         document.getElementById("btnFilter").value = "Filter";
-        document.getElementById("dvFilter").style.display = "none";
+        document.getElementById("dvTypes").style.display = "none";
     }
 }
 function clearList() {
