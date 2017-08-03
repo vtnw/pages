@@ -44,10 +44,10 @@ body {
 #fileImport, #btnMerge, #btnReplace{
     margin-top:5px;
 }
-.spnSelectedTags{
+.spnSelectedTag{
     color:green;
 }
-.spnTags{
+.spnTag{
     color:#777777;
 }
 .dvTags{
