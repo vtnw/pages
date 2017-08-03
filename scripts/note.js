@@ -100,13 +100,13 @@ function toggleFilter(){
 }
 function toggleType(){
     resetToggle("btnType");
-    if(document.getElementById("btnType").value == "#tag"){
+    if(document.getElementById("btnType").value == "Type"){
         document.getElementById("btnType").value = "Close";
         document.getElementById("btnType").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
     }
     else{        
-        document.getElementById("btnType").value = "#tag";
+        document.getElementById("btnType").value = "Type";
         document.getElementById("btnType").style.textDecoration = "";
         document.getElementById("dvTypes").style.display = "none";
     }
@@ -118,7 +118,7 @@ function resetToggle(source){
         document.getElementById("btnFilter").style.textDecoration = "";
     }    
     if(source != "btnType"){
-        document.getElementById("btnType").value = "#tag";
+        document.getElementById("btnType").value = "Type";
         document.getElementById("dvTypes").style.display = "none";
         document.getElementById("btnType").style.textDecoration = "";
     }    
@@ -260,7 +260,7 @@ function addType(type, isSelected){
                     document.getElementById("tbNote").value = this.innerHTML + " " + note;
                 }
                 document.getElementById("dvTypes").style.display = "none";
-                document.getElementById("btnType").value = "#tag";
+                document.getElementById("btnType").value = "Type";
                 document.getElementById("btnType").style.textDecoration = "";
                 document.getElementById("tbNote").focus();
             }
