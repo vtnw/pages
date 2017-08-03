@@ -2,19 +2,20 @@ var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\
 var cacheName = "note" + u;
 var indexName = "index" + cacheName + u;
 var noteList = [];
+var typeList = [{"Name": "#all", "Selected": true}];
 
 //events
 document.getElementById("btnAdd").addEventListener("click", function () {
     addItem();
 });
 document.getElementById("btnClear").addEventListener("click", function () {
-    clearList(getSelectedType());
+    clearList();
 });
 document.getElementById("btnExport").addEventListener("click", function () {
     exportData();
 });
 document.getElementById("btnFilter").addEventListener("click", function () {
-    loadList(getSelectedType());
+    toggleFilter();
 });
 document.getElementById("btnImport").addEventListener("click", function () {
     toggleImport();
@@ -31,15 +32,33 @@ document.getElementById("btnReplace").addEventListener("click", function () {
 //app functions
 function initialize() {
     noteList = getCache();
-    loadList(getSelectedType());
+    loadList();
 }
-function loadList(type) {
+function loadTypeList(){
+    document.getElementById("dvTags").innerHTML = "";
+    for (i = 0; i < noteList.length; i++) {
+        addType(noteList[i].Type, true);
+    }
+}
+function loadList() {
+    loadTypeList();
     document.getElementById("dvNotes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
-        if (type == "#all" || noteList[i].Type.indexOf(type) >= 0) {
+        if (isTypeSelected(noteList[i].Type)) {
             addToDiv("dvNotes", noteList[i]);
         }
     }
+}
+function isTypeSelected(type){
+    result = false;
+    for (i = 0; i < type.length; i++) {
+        sel = typeList.findIndex((t => t.Name == type[i] && t.Selected));
+        if(sel >= 0){
+            result = true;
+            break;
+        }
+    }
+    return result;
 }
 function toggleMore(){
     if(document.getElementById("dvMore").style.display == "none"){
@@ -53,8 +72,7 @@ function toggleMore(){
 }
 function exportData(){
     supportRestore = confirm("Support restore?");
-    type = getSelectedType();
-    saveAsFile(getExportData(type, supportRestore), type);
+    saveAsFile(getExportData(supportRestore));
 }
 function toggleImport(){
     if(document.getElementById("dvImport").style.display == "none"){
@@ -67,27 +85,29 @@ function toggleImport(){
         document.getElementById("dvImport").style.display = "none";
     }
 }
-function getSelectedType() {
-    return document.getElementById("tbType").value;
+function toggleFilter(){
+    if(document.getElementById("dvFilter").style.display == "none"){
+        document.getElementById("btnFilter").value = "Apply";
+        document.getElementById("dvFilter").style.display = "block";
+    }
+    else{
+        document.getElementById("btnFilter").value = "Filter";
+        document.getElementById("dvFilter").style.display = "none";
+    }
 }
-function clearList(type) {
+function clearList() {
     if (confirm("Reset index as well?")) {
         resetIndex();
     }
-    if (type == "#all") {
-        noteList = [];
-    }
-    else {
-        tempList = [];
-        for (i = 0; i < noteList.length; i++) {
-            if (noteList[i].Type.indexOf(type) < 0) {
-                tempList.push(noteList[i]);
-            }
+    tempList = [];
+    for (i = 0; i < noteList.length; i++) {
+        if (!isTypeSelected(noteList[i].Type)) {
+            tempList.push(noteList[i]);
         }
-        noteList = tempList;
     }
-    setCache(noteList);    
-    loadList(type);
+    noteList = tempList;
+    setCache(noteList);
+    loadList();
 }
 function addItem() {
     item = {
@@ -97,7 +117,8 @@ function addItem() {
         Note: getNote(document.getElementById("tbNote").value)
     }    
     addToList(item);
-    addToDiv("dvNotes", item);    
+    addToDiv("dvNotes", item);
+    addType(item.Type, true);
     document.getElementById("tbNote").value = "";
     document.getElementById("tbNote").focus();
     document.getElementById("dvNotes").scrollTop = 0;
@@ -138,9 +159,9 @@ function addToDiv(divName, item) {
     d = document.getElementById(divName);
     d.insertBefore(dvItem, d.firstChild);
 }
-function saveAsFile(data, type) {
+function saveAsFile(data) {
     var a = document.createElement("a");
-    a.download = "note" + type + "_" + getFormattedDate(false);
+    a.download = "note" + "_" + getFormattedDate(false);
     a.innerHTML = "export";
     a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
     a.style.display = "none";
@@ -148,12 +169,12 @@ function saveAsFile(data, type) {
     document.body.appendChild(a);
     a.click();
 }
-function getExportData(type, supportRestore){
+function getExportData(supportRestore){
     result = "";
     if(supportRestore){   
         exportData = [];
         for (i = 0; i < noteList.length; i++) {
-            if (type == "#all" || noteList[i].Type.indexOf(type) >= 0){
+            if (IsTypeSelected(noteList[i].Type)){
                 exportData.push(noteList[i]);
             }
         }
@@ -175,10 +196,25 @@ function loadFile(replace) {
             importedData[i].Id = getNextIndex();
             noteList.push(importedData[i]);
         }
-        setCache(noteList);
-        loadList(getSelectedType());
+        setCache(noteList);        
+        loadList();
     };
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
+}
+function addType(type, isSelected){
+    if(tagList.indexOf(type) < 0){
+        tagList.push({"Name": type, "Selected": isSelected});        
+        spnTag = document.createElement("span");
+        dvNote.id = "dvNote" + item.Id;
+        spnTag.innerHTML = type;
+        spnTag.className = isSelected ? "spnTagSel" : "spnTag";    
+        spnTag.addEventListener("click", function () {
+            isSelected = (this.className == "spnTagSel");
+            this.className = isSelected ? "spnTag" : "spnTagSel";
+            tagList.findIndex(t => t.Name == this.innerText).Selected = !isSelected;
+        });
+        document.getElementById("dvTags").appendChild(spnTag);
+    }
 }
 
 //common functions
