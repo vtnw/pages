@@ -219,6 +219,7 @@ function addType(type, isSelected){
             isSelected = (this.className == "spnTypeSel");
             this.className = isSelected ? "spnType" : "spnTypeSel";
             typeList.findIndex(t => t.Name == this.innerText).Selected = !isSelected;
+            alert(JSON.stringify(typeList));
         });
         document.getElementById("dvTypes").appendChild(spnType);
     }
