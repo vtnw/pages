@@ -3,10 +3,10 @@ html{
     border:1px solid blue;
 }
 body {
-    height: 98%;
+    height: 97%;
     font-size:14px;
     font-family:Arial;
-    border:1px solid red;
+    border:1px solid green;
 }
 .dvContainer {
     height: 50%;
