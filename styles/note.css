@@ -44,7 +44,7 @@ body {
 #fileImport, #btnMerge, #btnReplace{
     margin-top:5px;
 }
-.spnSelectedTag{
+.spnTagSel{
     color:green;
 }
 .spnTag{
