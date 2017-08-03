@@ -41,3 +41,6 @@ body {
     color: #aaaaaa;
     font-size:12px;
 }
+#fileImport, #btnMerge, #btnReplace{
+    margin-top:5px;
+}
