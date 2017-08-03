@@ -57,8 +57,8 @@ body {
     margin:5px 5px 5px 5px;
 }
 .dvTypes{
-    width:90%;
+    width:100px;
     height:100px;
     overflow:auto;
-    border:1px solid blue;
+    border:1px solid red;
 }
