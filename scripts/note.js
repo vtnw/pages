@@ -47,7 +47,7 @@ function toggleMore(){
 }
 function export(){
     supportRestore = confirm("Support restore?");
-    saveAsFile(getSelectedType(), getExportData(supportRestore));
+    saveAsFile(getExportData(getSelectedType(), supportRestore));
 }
 function getSelectedType() {
     return document.getElementById("tbType").value;
@@ -120,13 +120,7 @@ function addToDiv(divName, item) {
     d = document.getElementById(divName);
     d.insertBefore(dvItem, d.firstChild);
 }
-function saveAsFile(type, data) {
-    exportData = [];
-    for (i = 0; i < noteList.length; i++) {
-        if (type == "#all" || noteList[i].Type.indexOf(type) >= 0){
-            exportData.push(noteList[i]);
-        }
-    }
+function saveAsFile(data) {
     var a = document.createElement("a");
     a.download = "note" + type + "_" + getFormattedDate(false);
     a.innerHTML = "export";
@@ -136,7 +130,7 @@ function saveAsFile(type, data) {
     document.body.appendChild(a);
     a.click();
 }
-function getExportData(supportRestore){
+function getExportData(type, supportRestore){
     result = "";
     if(supportRestore){        
         for (i = 0; i < noteList.length; i++) {
@@ -154,6 +148,7 @@ function getExportData(supportRestore){
         }*/
         result = document.getElementById("dvNotes").innerText;
     }
+    return result;
 }
 function loadFile(replace) {
     var fileReader = new FileReader();
