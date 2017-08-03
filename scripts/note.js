@@ -244,6 +244,7 @@ function addType(type, isSelected){
                 document.getElementById("tbNote").value = document.getElementById("tbNote").value + " " +this.innerHTML;
                 document.getElementById("dvTypes").style.display = "none";
                 document.getElementById("btnType").value = "#Tag";
+                document.getElementById("tbNote").focus();
             }
         });
         document.getElementById("dvTypes").appendChild(spnType);
