@@ -206,10 +206,10 @@ function addType(type, isSelected){
         typeList.push({"Name": type, "Selected": isSelected});        
         spnType = document.createElement("span");
         spnType.innerHTML = type;
-        spnType.className = isSelected ? "spnTagSel" : "spnTag";    
+        spnType.className = isSelected ? "spnTypeSel" : "spnType";    
         spnType.addEventListener("click", function () {
-            isSelected = (this.className == "spnTagSel");
-            this.className = isSelected ? "spnTag" : "spnTagSel";
+            isSelected = (this.className == "spnTypeSel");
+            this.className = isSelected ? "spnType" : "spnTypeSel";
             typeList.findIndex(t => t.Name == this.innerText).Selected = !isSelected;
         });
         document.getElementById("dvTypes").appendChild(spnType);
