@@ -124,6 +124,9 @@ function addItem() {
     addToList(item);
     addToDiv("dvNotes", item);
     addType(item.Type, true);
+    for{l=0;l<item.Type.length;l++){
+        addType(item.Type[l], true);
+    }
     document.getElementById("tbNote").value = "";
     document.getElementById("tbNote").focus();
     document.getElementById("dvNotes").scrollTop = 0;
