@@ -7,6 +7,12 @@ var noteList = [];
 document.getElementById("btnAdd").addEventListener("click", function () {
     addItem();
 });
+document.getElementById("tbNote").addEventListener("focus", function () {
+    document.getElementById("dvContainer").className = "dvContainerHalf";
+});
+document.getElementById("tbNote").addEventListener("blur", function () {
+    document.getElementById("dvContainer").className = "dvContainerFull";
+});
 document.getElementById("btnClear").addEventListener("click", function () {
     clearList(getSelectedType());
 });
