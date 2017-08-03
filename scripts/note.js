@@ -66,16 +66,6 @@ function isTypeSelected(type){
     }
     return result;
 }
-function toggleMore(){
-    if(document.getElementById("dvMore").style.display == "none"){
-        document.getElementById("dvMore").style.display = "block";
-        document.getElementById("btnMore").value = "<<<";
-    }
-    else{
-        document.getElementById("dvMore").style.display = "none";
-        document.getElementById("btnMore").value = ">>>";
-    }
-}
 function exportData(){
     supportRestore = confirm("Support restore?");
     saveAsFile(getExportData(supportRestore));
@@ -85,6 +75,7 @@ function toggleImport(){
     if(document.getElementById("btnImport").value == "Import"){
         document.getElementById("fileImport").value = "";
         document.getElementById("btnImport").value = "Close";
+        document.getElementById("btnImport").style.borderColor = "brown";
         document.getElementById("dvImport").style.display = "block";
     }
     else{
