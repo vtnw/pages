@@ -6,6 +6,9 @@ body {
     font-size:14px;
     font-family:Arial;
 }
+input[type=button]{
+    width:70px;
+}
 .dvContainer {
     height: 50%;
 }
