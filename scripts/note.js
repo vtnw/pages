@@ -218,7 +218,8 @@ function addType(type, isSelected){
         spnType.addEventListener("click", function () {
             isSelected = (this.className == "spnTypeSel");
             this.className = isSelected ? "spnType" : "spnTypeSel";
-            typeList.findIndex(t => t.Name == this.innerHTML).Selected = !isSelected;
+            alert(this.innerHTML);            
+            typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
             alert(JSON.stringify(typeList));
         });
         document.getElementById("dvTypes").appendChild(spnType);
