@@ -255,14 +255,14 @@ function addType(type, isSelected){
             if(document.getElementById("btnType").value == "Close"){
                 note = document.getElementById("tbNote").value;
                 if(note != null){
-                    document.getElementById("tbNote").value = note + " " +this.innerHTML;
+                    document.getElementById("tbNote").value = note + " " + this.innerHTML;
                 }
                 else{
                     document.getElementById("tbNote").value = this.innerHTML + " " + note;
                 }
                 document.getElementById("dvTypes").style.display = "none";
                 document.getElementById("btnType").value = "#Tag";
-                document.getElementById("tbNote").value.focus();
+                document.getElementById("tbNote").focus();
             }
         });
         document.getElementById("dvTypes").appendChild(spnType);
