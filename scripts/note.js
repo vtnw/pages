@@ -36,6 +36,7 @@ function initialize() {
     loadList();
 }
 function loadTypeList(){
+    alert(JSON.stringify(noteList[i]));
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         for (j = 0; j < noteList[i].Type.length; j++) {
