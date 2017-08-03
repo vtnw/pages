@@ -44,7 +44,6 @@ function loadTypeList(){
     }
 }
 function loadList() {    
-    alert('load');
     document.getElementById("dvNotes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         if (isTypeSelected(noteList[i].Type)) {
@@ -218,9 +217,7 @@ function addType(type, isSelected){
         spnType.addEventListener("click", function () {
             isSelected = (this.className == "spnTypeSel");
             this.className = isSelected ? "spnType" : "spnTypeSel";
-            alert(this.innerHTML);            
             typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
-            alert(JSON.stringify(typeList));
         });
         document.getElementById("dvTypes").appendChild(spnType);
     }
