@@ -254,7 +254,7 @@ function addType(type, isSelected){
             }
             if(document.getElementById("btnType").value == "Close"){
                 note = document.getElementById("tbNote").value;
-                if(note != null){
+                if(note != ""){
                     document.getElementById("tbNote").value = note + " " + this.innerHTML;
                 }
                 else{
