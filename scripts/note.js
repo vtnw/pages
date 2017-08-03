@@ -35,7 +35,7 @@ function initialize() {
     loadList();
 }
 function loadTypeList(){
-    document.getElementById("dvTags").innerHTML = "";
+    document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         addType(noteList[i].Type, true);
     }
@@ -202,18 +202,17 @@ function loadFile(replace) {
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
 }
 function addType(type, isSelected){
-    if(tagList.indexOf(type) < 0){
-        tagList.push({"Name": type, "Selected": isSelected});        
-        spnTag = document.createElement("span");
-        dvNote.id = "dvNote" + item.Id;
-        spnTag.innerHTML = type;
-        spnTag.className = isSelected ? "spnTagSel" : "spnTag";    
-        spnTag.addEventListener("click", function () {
+    if(typeList.indexOf(type) < 0){
+        typeList.push({"Name": type, "Selected": isSelected});        
+        spnType = document.createElement("span");
+        spnType.innerHTML = type;
+        spnType.className = isSelected ? "spnTagSel" : "spnTag";    
+        spnType.addEventListener("click", function () {
             isSelected = (this.className == "spnTagSel");
             this.className = isSelected ? "spnTag" : "spnTagSel";
-            tagList.findIndex(t => t.Name == this.innerText).Selected = !isSelected;
+            typeList.findIndex(t => t.Name == this.innerText).Selected = !isSelected;
         });
-        document.getElementById("dvTags").appendChild(spnTag);
+        document.getElementById("dvTypes").appendChild(spnType);
     }
 }
 
