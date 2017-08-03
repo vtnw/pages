@@ -172,20 +172,20 @@ function saveAsFile(data) {
     a.innerHTML = "export";
     a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
     a.style.display = "none";
-    //a.onclick = function (event) { alert(event.target);document.body.removeChild(event.target); };
+    a.onclick = function (event) { alert(event.target);document.body.removeChild(event.target); };
     document.body.appendChild(a);
     a.click();
 }
 function getExportData(supportRestore){
     result = "";
     if(supportRestore){   
-        exportData = [];
+        exportList = [];
         for (i = 0; i < noteList.length; i++) {
             if (isTypeSelected(noteList[i].Type)){
-                exportData.push(noteList[i]);
+                exportList.push(noteList[i]);
             }
         }
-        result = JSON.stringify(exportData);
+        result = JSON.stringify(exportList);
     }
     else{
         result = document.getElementById("dvNotes").innerText;
