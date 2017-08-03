@@ -28,6 +28,9 @@ document.getElementById("btnReplace").addEventListener("click", function () {
     loadFile(true);
     toggleImport();
 });
+document.getElementById("btnType").addEventListener("click", function () {
+    toggleType();
+});
 
 //app functions
 function initialize() {
@@ -102,6 +105,16 @@ function toggleFilter(){
         loadList();
         document.getElementById("btnFilter").value = "Filter";
         document.getElementById("dvTypes").style.display = "none";                
+    }
+}
+function toggleType(){
+    if(document.getElementById("btnType").value == "#Tag"){
+        document.getElementById("btnType").value = "Close";
+        document.getElementById("dvTypes").style.display = "block";
+    }
+    else{        
+        document.getElementById("btnType").value = "#Tag";
+        document.getElementById("dvTypes").style.display = "none";
     }
 }
 function clearList() {
@@ -222,9 +235,15 @@ function addType(type, isSelected){
         spnType.innerHTML = type;
         spnType.className = isSelected ? "spnTypeSel" : "spnType";    
         spnType.addEventListener("click", function () {
-            isSelected = (this.className == "spnTypeSel");
-            this.className = isSelected ? "spnType" : "spnTypeSel";
-            typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
+            if(document.getElementById("btnFilter").value == "Close"){
+                isSelected = (this.className == "spnTypeSel");
+                this.className = isSelected ? "spnType" : "spnTypeSel";
+                typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
+            }
+            if(document.getElementById("btnType").value == "Close"){
+                document.getElementById("tbNote").value = document.getElementById("tbNote").value + " " +this.innerHTML;
+                document.getElementById("dvTypes").style.display = "none";
+            }
         });
         document.getElementById("dvTypes").appendChild(spnType);
     }
