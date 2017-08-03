@@ -17,15 +17,15 @@ document.getElementById("btnFilter").addEventListener("click", function () {
     loadList(getSelectedType());
 });
 document.getElementById("btnImport").addEventListener("click", function () {
-    showImport(true);
+    toggleImport();
 });
 document.getElementById("btnMerge").addEventListener("click", function () {
     loadFile(false);
-    showImport(false);
+    toggleImport();
 });
 document.getElementById("btnReplace").addEventListener("click", function () {
     loadFile(true);
-    showImport(false);
+    toggleImport();
 });
 
 //app functions
@@ -56,8 +56,8 @@ function exportData(){
     type = getSelectedType();
     saveAsFile(getExportData(type, supportRestore), type);
 }
-function showImport(status){
-    if(status){
+function toggleImport(){
+    if(document.getElementById("dvImport").style.display == "none"){
         document.getElementById("btnImport").value = "Close";
         document.getElementById("dvImport").style.display = "block";
     }
