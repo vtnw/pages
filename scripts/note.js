@@ -17,6 +17,15 @@ document.getElementById("btnFilter").addEventListener("click", function () {
     loadList(getSelectedType());
 });
 document.getElementById("btnImport").addEventListener("click", function () {
+    showImport(true);
+});
+document.getElementById("btnMerge").addEventListener("click", function () {
+    loadFile(false);
+    showImport(false);
+});
+document.getElementById("btnReplace").addEventListener("click", function () {
+    loadFile(true);
+    showImport(false);
 });
 
 //app functions
@@ -34,18 +43,28 @@ function loadList(type) {
 }
 function toggleMore(){
     if(document.getElementById("dvMore").style.display == "none"){
-        document.getElementById("dvMore").style.display = "block"
-        document.getElementById("btnMore").value = "<<<"
+        document.getElementById("dvMore").style.display = "block";
+        document.getElementById("btnMore").value = "<<<";
     }
     else{
-        document.getElementById("dvMore").style.display = "none"
-        document.getElementById("btnMore").value = ">>>"
+        document.getElementById("dvMore").style.display = "none";
+        document.getElementById("btnMore").value = ">>>";
     }
 }
 function exportData(){
     supportRestore = confirm("Support restore?");
     type = getSelectedType();
     saveAsFile(getExportData(type, supportRestore), type);
+}
+function showImport(status){
+    if(status){
+        document.getElementById("btnImport").value = "Close";
+        document.getElementById("dvImport").style.display = "block";
+    }
+    else{
+        document.getElementById("btnImport").value = "Import";
+        document.getElementById("dvImport").style.display = "none";
+    }
 }
 function getSelectedType() {
     return document.getElementById("tbType").value;
@@ -142,7 +161,6 @@ function getExportData(type, supportRestore){
     else{
         result = document.getElementById("dvNotes").innerText;
     }
-    alert(result);
     return result;
 }
 function loadFile(replace) {
@@ -150,16 +168,14 @@ function loadFile(replace) {
     fileReader.onload = function (event) {
         importedData = JSON.parse(event.target.result);
         if (replace) {
-            listData = importedData;
+            noteList = [];
         }
-        else {
-            for (i = 0; i < importedData.length; i++) {
-                importedData[i].Id = getNextIndex();
-                listData.push(importedData[i]);
-            }
+        for (i = 0; i < importedData.length; i++) {
+            importedData[i].Id = getNextIndex();
+            noteList.push(importedData[i]);
         }
-        loadList();
-        toggleSave(true);
+        setCache(noteList);
+        loadList(getSelectedType());
     };
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
 }
