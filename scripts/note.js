@@ -55,7 +55,6 @@ function isTypeSelected(type){
     result = false;
     for (k = 0; k < type.length; k++) {
         sel = typeList.findIndex((t => t.Name == type[k] && t.Selected));
-        alert(k + "-" + type[k] + "-" + sel);
         if(sel >= 0){
             result = true;
             break;
