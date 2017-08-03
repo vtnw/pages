@@ -46,19 +46,16 @@ function loadList() {
     loadTypeList();
     document.getElementById("dvNotes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
-        alert(noteList[i].Type);
         if (isTypeSelected(noteList[i].Type)) {
             addToDiv("dvNotes", noteList[i]);
         }
     }
 }
 function isTypeSelected(type){
-    alert(type);
     result = false;
-    for (i = 0; i < type.length; i++) {
-        alert(i + "-" + type[i]);
-        sel = typeList.findIndex((t => t.Name == type[i] && t.Selected));
-        alert(i + "-" + type[i] + "-" + sel);
+    for (k = 0; k < type.length; k++) {
+        sel = typeList.findIndex((t => t.Name == type[k] && t.Selected));
+        alert(k + "-" + type[k] + "-" + sel);
         if(sel >= 0){
             result = true;
             break;
