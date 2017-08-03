@@ -37,7 +37,9 @@ function initialize() {
 function loadTypeList(){
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
-        addType(noteList[i].Type, true);
+        for (j = 0; i < noteList[i].Type.length; j++) {
+            addType(noteList[i].Type[j], true);
+        }
     }
 }
 function loadList() {
@@ -217,7 +219,6 @@ function addType(type, isSelected){
         });
         document.getElementById("dvTypes").appendChild(spnType);
     }
-    alert(JSON.stringify(typeList));
 }
 
 //common functions
