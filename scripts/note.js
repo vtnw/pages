@@ -36,7 +36,7 @@ function initialize() {
     loadList();
 }
 function loadTypeList(){
-    var noteList = [];
+    var typeList = [];
     //alert(JSON.stringify(noteList));
     //alert(JSON.stringify(typeList));
     document.getElementById("dvTypes").innerHTML = "";
@@ -46,7 +46,7 @@ function loadTypeList(){
             addType(noteList[i].Type[j], true);
         }
     }
-    alert(JSON.stringify(typeList));
+    //alert(JSON.stringify(typeList));
 }
 function loadList() {    
     document.getElementById("dvNotes").innerHTML = "";
