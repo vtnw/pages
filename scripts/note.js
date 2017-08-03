@@ -2,7 +2,7 @@ var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\
 var cacheName = "note" + u;
 var indexName = "index" + cacheName + u;
 var noteList = [];
-var typeList = [{"Name": "#all", "Selected": true}];
+var typeList = [];
 
 //events
 document.getElementById("btnAdd").addEventListener("click", function () {
@@ -36,17 +36,13 @@ function initialize() {
     loadList();
 }
 function loadTypeList(){
-    var typeList = [];
-    //alert(JSON.stringify(noteList));
-    //alert(JSON.stringify(typeList));
+    typeList = [];
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         for (j = 0; j < noteList[i].Type.length; j++) {
-            //alert(JSON.stringify(noteList[i].Type[j]));
             addType(noteList[i].Type[j], true);
         }
     }
-    //alert(JSON.stringify(typeList));
 }
 function loadList() {    
     document.getElementById("dvNotes").innerHTML = "";
@@ -183,7 +179,7 @@ function getExportData(supportRestore){
     if(supportRestore){   
         exportData = [];
         for (i = 0; i < noteList.length; i++) {
-            if (IsTypeSelected(noteList[i].Type)){
+            if (isTypeSelected(noteList[i].Type)){
                 exportData.push(noteList[i]);
             }
         }
