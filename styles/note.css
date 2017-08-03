@@ -45,8 +45,8 @@ body {
     margin-top:5px;
 }
 .spnTypeSel{
-    color:green;
-    border:1px solid green;
+    color:brown;
+    border:1px solid brown;
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
     display:inline-block;
@@ -60,6 +60,5 @@ body {
 }
 .dvTypes{
     width:95%;
-    border:1px solid red;
     margin:5px 5px 5px 5px;
 }
