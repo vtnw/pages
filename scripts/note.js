@@ -269,9 +269,9 @@ function getNextIndex() {
         index = 0;
     }
     else {
+        alert(index);
         index = parseInt(index);
-    }
-    alert(index);
+    }    
     index = index + 1;
     localStorage.setItem(indexName, index);
     return index;
