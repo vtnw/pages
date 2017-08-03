@@ -36,13 +36,17 @@ function initialize() {
     loadList();
 }
 function loadTypeList(){
-    alert(JSON.stringify(noteList));
+    var noteList = [];
+    //alert(JSON.stringify(noteList));
+    //alert(JSON.stringify(typeList));
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         for (j = 0; j < noteList[i].Type.length; j++) {
+            //alert(JSON.stringify(noteList[i].Type[j]));
             addType(noteList[i].Type[j], true);
         }
     }
+    alert(JSON.stringify(typeList));
 }
 function loadList() {    
     document.getElementById("dvNotes").innerHTML = "";
