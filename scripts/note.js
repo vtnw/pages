@@ -16,9 +16,6 @@ document.getElementById("btnExport").addEventListener("click", function () {
 document.getElementById("btnFilter").addEventListener("click", function () {
     loadList(getSelectedType());
 });
-document.getElementById("btnMore").addEventListener("click", function () {
-    toggleMore();
-});
 document.getElementById("btnImport").addEventListener("click", function () {
 });
 
@@ -47,7 +44,8 @@ function toggleMore(){
 }
 function exportData(){
     supportRestore = confirm("Support restore?");
-    saveAsFile(getExportData(getSelectedType(), supportRestore));
+    type = getSelectedType();
+    saveAsFile(getExportData(type, supportRestore), type);
 }
 function getSelectedType() {
     return document.getElementById("tbType").value;
@@ -120,7 +118,7 @@ function addToDiv(divName, item) {
     d = document.getElementById(divName);
     d.insertBefore(dvItem, d.firstChild);
 }
-function saveAsFile(data) {
+function saveAsFile(data, type) {
     var a = document.createElement("a");
     a.download = "note" + type + "_" + getFormattedDate(false);
     a.innerHTML = "export";
