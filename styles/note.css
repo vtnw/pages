@@ -49,15 +49,16 @@ body {
     border:1px solid green;
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
-    min-width:100px;
 }
 .spnType{
-    color:black;
-    border:1px solid black;
+    color:grey;
+    border:1px solid grey;
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
 }
 .dvTypes{
-    width:200px;
+    width:90%;
+    height:100px;
+    overflow:auto;
     border:1px solid blue;
 }
