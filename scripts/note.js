@@ -31,6 +31,12 @@ document.getElementById("btnReplace").addEventListener("click", function () {
 document.getElementById("btnType").addEventListener("click", function () {
     toggleType();
 });
+document.getElementById("tbNote").addEventListener("focus", function () {
+    document.getElementById("btnAdd").style.textDecoration = "underline";
+});
+document.getElementById("tbNote").addEventListener("blur", function () {
+    document.getElementById("btnAdd").style.textDecoration = "";
+});
 
 //app functions
 function initialize() {
@@ -144,6 +150,9 @@ function clearList() {
     loadList();
 }
 function addItem() {
+    if(document.getElementById("tbNote").value == ""){
+        return;
+    }
     item = {
         Id: getNextIndex(),
         Type: getType(document.getElementById("tbNote").value),
