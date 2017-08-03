@@ -130,7 +130,8 @@ function saveAsFile(data, type) {
 }
 function getExportData(type, supportRestore){
     result = "";
-    if(supportRestore){        
+    if(supportRestore){   
+        exportData = [];
         for (i = 0; i < noteList.length; i++) {
             if (type == "#all" || noteList[i].Type.indexOf(type) >= 0){
                 exportData.push(noteList[i]);
@@ -139,13 +140,9 @@ function getExportData(type, supportRestore){
         result = JSON.stringify(exportData);
     }
     else{
-        /*for (i = 0; i < noteList.length; i++) {
-            if (type == "#all" || noteList[i].Type.indexOf(type) >= 0){
-                result = result + noteList[i].Date;
-            }
-        }*/
         result = document.getElementById("dvNotes").innerText;
     }
+    alert(result);
     return result;
 }
 function loadFile(replace) {
