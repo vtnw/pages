@@ -45,10 +45,14 @@ body {
     margin-top:5px;
 }
 .spnTypeSel{
-    color:green;
+    color:red;
+    border:1px solid red;
+    width:30px;
 }
 .spnType{
-    color:#777777;
+    color:black;
+    border:1px solid grey;
+    width:30px;
 }
 .dvTypes{
     width:90%
