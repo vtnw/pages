@@ -95,6 +95,7 @@ function toggleFilter(){
     else{
         document.getElementById("btnFilter").value = "Filter";
         document.getElementById("dvTypes").style.display = "none";
+        alert('load');
         loadList();
     }
 }
