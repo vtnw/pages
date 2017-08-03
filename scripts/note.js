@@ -93,10 +93,10 @@ function toggleFilter(){
         document.getElementById("dvTypes").style.display = "block";
     }
     else{
-        document.getElementById("btnFilter").value = "Filter";
-        document.getElementById("dvTypes").style.display = "none";
         alert('load');
         loadList();
+        document.getElementById("btnFilter").value = "Filter";
+        document.getElementById("dvTypes").style.display = "none";                
     }
 }
 function clearList() {
