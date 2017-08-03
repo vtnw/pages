@@ -31,12 +31,6 @@ document.getElementById("btnReplace").addEventListener("click", function () {
 document.getElementById("btnType").addEventListener("click", function () {
     toggleType();
 });
-document.getElementById("tbNote").addEventListener("focus", function () {
-    document.getElementById("btnAdd").style.textDecoration = "underline";
-});
-document.getElementById("tbNote").addEventListener("blur", function () {
-    document.getElementById("btnAdd").style.textDecoration = "";
-});
 
 //app functions
 function initialize() {
