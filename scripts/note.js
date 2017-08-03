@@ -88,13 +88,13 @@ function toggleFilter(){
     resetToggle("btnFilter");
     if(document.getElementById("btnFilter").value == "Filter"){
         document.getElementById("btnFilter").value = "Apply";
-        document.getElementById("btnFilter").style.borderColor = "green";
+        document.getElementById("btnFilter").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
     }
     else{        
         loadList();
         document.getElementById("btnFilter").value = "Filter";
-        document.getElementById("btnFilter").style.borderColor = "";
+        document.getElementById("btnFilter").style.textDecoration = "";
         document.getElementById("dvTypes").style.display = "none";                
     }
 }
@@ -102,10 +102,12 @@ function toggleType(){
     resetToggle("btnType");
     if(document.getElementById("btnType").value == "#Tag"){
         document.getElementById("btnType").value = "Close";
+        document.getElementById("btnType").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
     }
     else{        
         document.getElementById("btnType").value = "#Tag";
+        document.getElementById("btnType").style.textDecoration = "";
         document.getElementById("dvTypes").style.display = "none";
     }
 }
@@ -113,14 +115,17 @@ function resetToggle(source){
     if(source != "btnFilter"){
         document.getElementById("btnFilter").value = "Filter";
         document.getElementById("dvTypes").style.display = "none";
+        document.getElementById("btnFilter").style.textDecoration = "";
     }    
     if(source != "btnType"){
         document.getElementById("btnType").value = "#Tag";
         document.getElementById("dvTypes").style.display = "none";
+        document.getElementById("btnType").style.textDecoration = "";
     }    
     if(source != "btnImport"){
         document.getElementById("btnImport").value = "Import";
         document.getElementById("dvImport").style.display = "none";
+        document.getElementById("btnImport").style.textDecoration = "";
     }
 }
 function clearList() {
