@@ -1,5 +1,5 @@
 html{
-    height: 99%;
+    height: 97%;
     border:1px solid blue;
 }
 body {
@@ -9,7 +9,7 @@ body {
     border:1px solid green;
 }
 .dvContainer {
-    height: 40%;
+    height: 50%;
 }
 .tbnote {
     width:96%;
