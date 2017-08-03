@@ -101,7 +101,7 @@ function addToDiv(divName, item) {
 
     dvDate = document.createElement('div');
     dvDate.id = "dvDate" + item.Id;
-    dvDate.innerHTML = item.Date;
+    dvDate.innerHTML = item.Date + " [" + item.Type + "]";
     dvDate.className = "dvDate";
     dvItem.appendChild(dvDate);
 
