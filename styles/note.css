@@ -45,15 +45,13 @@ body {
     margin-top:5px;
 }
 .spnTypeSel{
-    color:brown;
-    border:1px solid brown;
+    border:1px solid blue;
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
     display:inline-block;
 }
 .spnType{
-    color:grey;
-    border:1px solid grey;
+    border:1px solid #cccccc;
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
     display:inline-block;
