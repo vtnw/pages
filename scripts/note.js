@@ -97,6 +97,7 @@ function toggleImport(){
     }
 }
 function toggleFilter(){
+    document.getElementById("btnType").value = "#Tag";
     if(document.getElementById("dvTypes").style.display == "none"){
         document.getElementById("btnFilter").value = "Apply";
         document.getElementById("dvTypes").style.display = "block";
@@ -108,6 +109,7 @@ function toggleFilter(){
     }
 }
 function toggleType(){
+    document.getElementById("btnFilter").value = "Filter";
     if(document.getElementById("btnType").value == "#Tag"){
         document.getElementById("btnType").value = "Close";
         document.getElementById("dvTypes").style.display = "block";
@@ -115,6 +117,20 @@ function toggleType(){
     else{        
         document.getElementById("btnType").value = "#Tag";
         document.getElementById("dvTypes").style.display = "none";
+    }
+}
+function resetToggle(source){
+    if(source != "btnFilter"){
+        document.getElementById("btnFilter").value = "Filter";
+        document.getElementById("dvTypes").style.display = "none";
+    }    
+    if(source != "btnType"){
+        document.getElementById("btnType").value = "#Tag";
+        document.getElementById("dvTypes").style.display = "none";
+    }    
+    if(source != "btnImport"){
+        document.getElementById("btnImport").value = "Import";
+        document.getElementById("dvImport").style.display = "none";
     }
 }
 function clearList() {
@@ -235,7 +251,7 @@ function addType(type, isSelected){
         spnType.innerHTML = type;
         spnType.className = isSelected ? "spnTypeSel" : "spnType";    
         spnType.addEventListener("click", function () {
-            if(document.getElementById("btnFilter").value == "Close"){
+            if(document.getElementById("btnFilter").value == "Apply"){
                 isSelected = (this.className == "spnTypeSel");
                 this.className = isSelected ? "spnType" : "spnTypeSel";
                 typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
