@@ -86,6 +86,7 @@ function exportData(){
     saveAsFile(getExportData(supportRestore));
 }
 function toggleImport(){
+    resetToggle("btnImport");
     if(document.getElementById("dvImport").style.display == "none"){
         document.getElementById("fileImport").value = "";
         document.getElementById("btnImport").value = "Close";
@@ -97,7 +98,7 @@ function toggleImport(){
     }
 }
 function toggleFilter(){
-    document.getElementById("btnType").value = "#Tag";
+    resetToggle("btnFilter");
     if(document.getElementById("dvTypes").style.display == "none"){
         document.getElementById("btnFilter").value = "Apply";
         document.getElementById("dvTypes").style.display = "block";
@@ -109,7 +110,7 @@ function toggleFilter(){
     }
 }
 function toggleType(){
-    document.getElementById("btnFilter").value = "Filter";
+    resetToggle("btnType");
     if(document.getElementById("btnType").value == "#Tag"){
         document.getElementById("btnType").value = "Close";
         document.getElementById("dvTypes").style.display = "block";
