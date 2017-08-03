@@ -88,12 +88,12 @@ function toggleImport(){
     }
 }
 function toggleFilter(){
+    alert('load');
     if(document.getElementById("dvTypes").style.display == "none"){
         document.getElementById("btnFilter").value = "Apply";
         document.getElementById("dvTypes").style.display = "block";
     }
-    else{
-        alert('load');
+    else{        
         loadList();
         document.getElementById("btnFilter").value = "Filter";
         document.getElementById("dvTypes").style.display = "none";                
