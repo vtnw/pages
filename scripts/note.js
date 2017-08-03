@@ -253,9 +253,16 @@ function addType(type, isSelected){
                 typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
             }
             if(document.getElementById("btnType").value == "Close"){
-                document.getElementById("tbNote").value = document.getElementById("tbNote").value + " " +this.innerHTML;
+                note = document.getElementById("tbNote").value;
+                if(note != null){
+                    document.getElementById("tbNote").value = note + " " +this.innerHTML;
+                }
+                else{
+                    document.getElementById("tbNote").value = this.innerHTML + " " + note;
+                }
                 document.getElementById("dvTypes").style.display = "none";
                 document.getElementById("btnType").value = "#Tag";
+                document.getElementById("tbNote").value.focus();
             }
         });
         document.getElementById("dvTypes").appendChild(spnType);
