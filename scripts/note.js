@@ -58,6 +58,7 @@ function exportData(){
 }
 function toggleImport(){
     if(document.getElementById("dvImport").style.display == "none"){
+        document.getElementById("fileImport").value = "";
         document.getElementById("btnImport").value = "Close";
         document.getElementById("dvImport").style.display = "block";
     }
