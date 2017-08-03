@@ -52,9 +52,12 @@ function loadList() {
     }
 }
 function isTypeSelected(type){
+    alert(type);
     result = false;
     for (i = 0; i < type.length; i++) {
+        alert(i + "-" + type[i]);
         sel = typeList.findIndex((t => t.Name == type[i] && t.Selected));
+        alert(i + "-" + type[i] + "-" + sel);
         if(sel >= 0){
             result = true;
             break;
@@ -205,7 +208,6 @@ function loadFile(replace) {
 }
 function addType(type, isSelected){        
     isNew = (typeList.findIndex(t => t.Name == type) < 0);    
-    //alert(isNew + "-" + type);
     if(isNew){
         typeList.push({"Name": type, "Selected": isSelected});        
         spnType = document.createElement("span");
@@ -218,7 +220,6 @@ function addType(type, isSelected){
         });
         document.getElementById("dvTypes").appendChild(spnType);
     }
-    alert(JSON.stringify(typeList));
 }
 
 //common functions
