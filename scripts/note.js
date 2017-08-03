@@ -38,6 +38,7 @@ function loadTypeList(){
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         alert(noteList[i].Type);
+        alert(noteList[i].Type.length);
         for (j = 0; i < noteList[i].Type.length; j++) {
             alert(noteList[i].Type[j]);
             addType(noteList[i].Type[j], true);
@@ -207,7 +208,7 @@ function loadFile(replace) {
 }
 function addType(type, isSelected){        
     isNew = (typeList.findIndex(t => t.Name == type) < 0);    
-    alert(isNew + "-" + type);
+    //alert(isNew + "-" + type);
     if(isNew){
         typeList.push({"Name": type, "Selected": isSelected});        
         spnType = document.createElement("span");
