@@ -78,10 +78,12 @@
                 btnClear.value = "Clear";
                 btnClear.key = items[i].Key;
                 btnClear.addEventListener("click", function(){
-                    if(this.key == "[Total]"){
-                        localStorage.clear();
-                    } else {
-                        localStorage.removeItem(this.key);
+                    if(confirm("Clear?"){
+                        if(this.key == "[Total]"){
+                            localStorage.clear();
+                        } else {
+                            localStorage.removeItem(this.key);
+                        }
                     }
                 });
                 dvItem.appendChild(btnClear);
@@ -93,16 +95,26 @@
                 btnExport.key = items[i].Key;
                 btnExport.addEventListener("click", function(){
                     if(this.key == "[Total]"){
-                        alert(JSON.stringify(localStorage));
+                        saveAsFile(JSON.stringify(localStorage), "all");
                     } else {
-                        alert(JSON.stringify(localStorage.getItem(this.key)));
+                        saveAsFile(JSON.stringify(localStorage.getItem(this.key)), this.key);
                     }
                 });
-                dvItem.appendChild(btnClear);
+                dvItem.appendChild(btnExport);
             }
             
             document.getElementById("dvItems").appendChild(dvItem);
         }
+    }
+    function saveAsFile(data, key) {
+        var a = document.createElement("a");
+        a.download = "export" + "#" + key + "_" + getFormattedDate(false);
+        a.innerHTML = "export";
+        a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+        a.style.display = "none";
+        a.onclick = function (event) { document.body.removeChild(event.target); };
+        document.body.appendChild(a);
+        a.click();
     }
     showSize(calcSize());
   </script>
