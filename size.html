@@ -26,6 +26,7 @@
 <body>
     <div id="dvItems" class="dvItems">
     </div>
+    <input type="file" id="fileImport">
   <script lang="javascript">    
     function calcSize(){
         var items = [];
@@ -101,6 +102,18 @@
                     }
                 });
                 dvItem.appendChild(btnExport);
+                
+                var btnImport = document.createElement("input");
+                btnImport.setAttribute("type", "button");
+                btnImport.className = "btnImport";
+                btnImport.value = "Import";
+                btnImport.key = items[i].Key;
+                btnImport.addEventListener("click", function(){
+                    if(confirm("Replace?")){
+                        saveAsFile(localStorage.getItem(this.key), key);
+                    }
+                });
+                dvItem.appendChild(btnImport);
             }
             
             document.getElementById("dvItems").appendChild(dvItem);
@@ -115,6 +128,28 @@
         a.onclick = function (event) { document.body.removeChild(event.target); };
         document.body.appendChild(a);
         a.click();
+    }
+    function loadFile(key) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (event) {
+            localStorage.setItem(key, JSON.stringify(event.target.result));
+        };
+        fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
+    }
+    function getFormattedDate(includeSeparators) {
+        var d = new Date();
+        d = ('0' + (d.getMonth() + 1)).slice(-2)
+            + (includeSeparators ? "/" : "")
+            + ('0' + d.getDate()).slice(-2)
+            + (includeSeparators ? "/" : "")
+            + d.getFullYear()    
+            + (includeSeparators ? " " : "")
+            + ('0' + d.getHours()).slice(-2)
+            + (includeSeparators ? ":" : "")
+            + ('0' + d.getMinutes()).slice(-2)
+            + (includeSeparators ? ":" : "")
+            + ('0' + d.getSeconds()).slice(-2);
+        return d;
     }
     showSize(calcSize());
   </script>
