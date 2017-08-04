@@ -61,7 +61,7 @@
                 btnClear.value = "Clear";
                 btnClear.key = items[i].Key;
                 btnClear.addEventListener("click", function(){
-                    if(this.key == "[Total"]){
+                    if(this.key == "[Total]"){
                         localStorage.clear();
                     } else {
                         localStorage.removeItem(this.key);
@@ -75,7 +75,7 @@
                 btnExport.value = "Export";
                 btnExport.key = items[i].Key;
                 btnExport.addEventListener("click", function(){
-                    if(this.key == "[Total"]){
+                    if(this.key == "[Total]"){
                         alert(JSON.stringify(localStorage));
                     } else {
                         alert(JSON.stringify(localStorage.getItem(this.key)));
