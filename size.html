@@ -10,12 +10,11 @@
 <body>
     <div id="dvItems">
     </div>
-  <script lang="javascript">
-    calcSize();
-    showSize();
+  <script lang="javascript">    
     function calcSize(){
         var items = [];
         var total = 0;
+        var item;
         
         for(var key in localStorage){
             if(localStorage.hasOwnProperty(key)){
@@ -87,6 +86,8 @@
             document.getElementById("dvItems").appendChild(dvItem);
         }
     }
+    calcSize();
+    showSize();
   </script>
 </body>
 </html>
