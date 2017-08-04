@@ -9,10 +9,10 @@ document.getElementById("btnAdd").addEventListener("click", function () {
     addItem();
 });
 document.getElementById("btnClear").addEventListener("click", function () {
-    clearList();
+    toggleClear();
 });
 document.getElementById("btnExport").addEventListener("click", function () {
-    exportData();
+    toggleExport();
 });
 document.getElementById("btnFilter").addEventListener("click", function () {
     toggleFilter();
@@ -114,6 +114,34 @@ function toggleType(){
         document.getElementById("dvTypes").style.display = "none";
     }
 }
+function toggleClear(){
+    resetToggle("btnClear");
+    if(document.getElementById("btnClear").value == "Clear"){
+        document.getElementById("btnClear").value = "Apply";
+        document.getElementById("btnClear").style.textDecoration = "underline";
+        document.getElementById("dvTypes").style.display = "block";
+    }
+    else{
+        clearList();
+        document.getElementById("btnClear").value = "Clear";
+        document.getElementById("btnClear").style.textDecoration = "";
+        document.getElementById("dvTypes").style.display = "none";
+    }
+}
+function toggleExport(){
+    resetToggle("btnExport");
+    if(document.getElementById("btnExport").value == "Export"){
+        document.getElementById("btnExport").value = "Apply";
+        document.getElementById("btnExport").style.textDecoration = "underline";
+        document.getElementById("dvTypes").style.display = "block";
+    }
+    else{
+        exportData();
+        document.getElementById("btnExport").value = "Clear";
+        document.getElementById("btnExport").style.textDecoration = "";
+        document.getElementById("dvTypes").style.display = "none";
+    }
+}
 function resetToggle(source){
     if(source != "btnFilter"){
         document.getElementById("btnFilter").value = "Filter";
@@ -129,6 +157,16 @@ function resetToggle(source){
         document.getElementById("btnImport").value = "Import";
         document.getElementById("dvImport").style.display = "none";
         document.getElementById("btnImport").style.textDecoration = "";
+    }
+    if(source != "btnClear"){
+        document.getElementById("btnClear").value = "Clear";
+        document.getElementById("dvTypes").style.display = "none";
+        document.getElementById("btnClear").style.textDecoration = "";
+    }
+    if(source != "btnExport"){
+        document.getElementById("btnExport").value = "Export";
+        document.getElementById("dvTypes").style.display = "none";
+        document.getElementById("btnExport").style.textDecoration = "";
     }
 }
 function clearList() {
