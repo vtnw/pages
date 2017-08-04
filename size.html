@@ -7,29 +7,85 @@
     <link rel="icon" type="image/png" href="images/icon.png" />
     <link rel="manifest" href="manifest.json">
 </head>
-<body onload="updateSize();">
+<body>
+    <div id="dvItems">
+    </div>
   <script lang="javascript">
-    function updateSize(){
-        var allStrings = '';
-        var size1 = "";
-        var size2 = "";
-    var size3 = "";
-        var num = 0;
-        var num2 = 0;
-        for(var key in window.localStorage){
-            if(window.localStorage.hasOwnProperty(key)){
-                allStrings += window.localStorage[key];
-                num += ((window.localStorage[key].length*16)/(8*1024));
-                num2 += ((key.length*16)/(8*1024));
-                size1 += key + " : " + num + "\n";
+    calcSize();
+    showSize();
+    function calcSize(){
+        var items = [];
+        var total = 0;
+        
+        for(var key in localStorage){
+            if(localStorage.hasOwnProperty(key)){
+                item = {
+                    "Key" : key,
+                    "Data" : localStorage.getItem(key),
+                    "Size" : ((key.length + localStorage.getItem(key).length)*16)/(8*1024))
+                    };
+                items.push(item);
+                total += item.Size;
             }
         }
-        size1 += "Total : " + num;
-        size2 = allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
-        size3 = num2;
-        alert(size1);
-        alert(size2);
-        alert(size3);
+        items.push({
+            "Key" : "[Default]",
+            "Data" : null,
+            "Size" : 3
+            };
+        items.push({
+            "Key" : "[Total]",
+            "Data" : null,
+            "Size" : total
+            };
+    }
+    function showSize(items){
+        for(int i = 0; i < items.length; i++){
+            var dvItem = document.createElement("div");
+            dvItem.className = "dvItem";
+            
+            var spnKey = document.createElement("span");
+            spnKey.className = "spnKey";
+            spnKey.innerHTML = items[i].Key;
+            dvItem.appendChild(spnKey);
+            
+            var spnSize = document.createElement("span");
+            spnSize.className = "spnSize";
+            spnSize.innerHTML = items[i].Size.toFixed(2) + " kb";
+            dvItem.appendChild(spnSize);
+            
+            if(items[i].Key != "[Default]"){
+                var btnClear = document.createElement("input");
+                btnClear.setAttribute("type", "button");
+                btnClear.className = "btnClear";
+                btnClear.value = "Clear";
+                btnClear.key = items[i].Key;
+                btnClear.addEventListener("click", function(){
+                    if(this.key == "[Total"]){
+                        localStorage.clear();
+                    } else {
+                        localStorage.removeItem(this.key);
+                    }
+                });
+                dvItem.appendChild(btnClear);
+
+                var btnExport = document.createElement("input");
+                btnExport.setAttribute("type", "button");
+                btnExport.className = "btnExport";
+                btnExport.value = "Export";
+                btnExport.key = items[i].Key;
+                btnExport.addEventListener("click", function(){
+                    if(this.key == "[Total"]){
+                        alert(JSON.stringify(localStorage));
+                    } else {
+                        alert(JSON.stringify(localStorage.getItem(this.key)));
+                    }
+                });
+                dvItem.appendChild(btnClear);
+            }
+            
+            document.getElementById("dvItems").appendChild(dvItem);
+        }
     }
   </script>
 </body>
