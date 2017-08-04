@@ -59,11 +59,13 @@ function loadList() {
 function isTypeSelected(type){
     result = true;
     for (k = 0; k < typeList.length; k++) {
+        alert(typeList[k].IsSelected);alert(type.indexOf(typeList[k].Name));
         if(typeList[k].IsSelected && type.indexOf(typeList[k].Name) < 0){
             result = false;
             break;
         }
     }
+    alert(result);
     return result;
 }
 function hasSelection(){
