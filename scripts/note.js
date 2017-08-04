@@ -48,7 +48,7 @@ function loadTypeList(){
             }
         }
     }
-    typeList.sort(function(a,b){return  a.Name.localeCompare(b.Name)});
+    typeList = typeList.sort(function(a,b){return  a.Name.localeCompare(b.Name)});
     for (n = 0; n < typeList.length; n++) {
         addTypeToDiv(typeList[n].Name, typeList[n].Selected);
     }
