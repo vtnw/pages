@@ -240,7 +240,7 @@ function addToDiv(divName, item) {
 
     dvNote = document.createElement('div');
     dvNote.id = "dvNote" + item.Id;
-    dvNote.innerHTML = item.Note;
+    dvNote.innerHTML = item.Note.replace(/(?:\r\n|\r|\n)/g, '<br />');
     dvItem.className = "dvNote";
     dvItem.appendChild(dvNote);
 
@@ -272,7 +272,14 @@ function getExportData(supportRestore){
         result = JSON.stringify(exportList);
     }
     else{
-        result = document.getElementById("dvNotes").innerText;
+        //result = document.getElementById("dvNotes").innerText;
+        applyFilter = hasSelection();
+        for (i = 0; i < noteList.length; i++) {
+            if (!applyFilter || isTypeSelected(noteList[i].Type)){
+                exportList.push(noteList[i]);
+                result += noteList[i].Date + " [" + noteList[i].Type + "]\n" + noteList[i].Note + "\n\n";
+            }
+        }
     }
     return result;
 }
