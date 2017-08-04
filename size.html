@@ -105,7 +105,7 @@
                     if(this.key == "[Total]"){
                         saveAsFile(JSON.stringify(localStorage), "all");
                     } else {
-                        saveAsFile(JSON.stringify(localStorage.getItem(this.key)), this.key);
+                        saveAsFile(localStorage.getItem(this.key), this.key);
                     }
                 });
                 dvItem.appendChild(btnExport);
