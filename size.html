@@ -141,7 +141,7 @@
         function loadFile(key) {
             var fileReader = new FileReader();
             fileReader.onload = function (event) {
-                localStorage.setItem(key, JSON.stringify(event.target.result));
+                localStorage.setItem(key, event.target.result);
             };
             fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
         }
