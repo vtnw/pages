@@ -11,13 +11,20 @@
   <script lang="javascript">
     function updateSize(){
         var allStrings = '';
+        var size1 = "";
+        var size2 = "";
+        var num = 0;
         for(var key in window.localStorage){
             if(window.localStorage.hasOwnProperty(key)){
                 allStrings += window.localStorage[key];
+                num += ((window.localStorage[key].length*16)/(8*1024));
+                size1 += key + " : " + num + "\n";
             }
         }
-        size = allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
-        alert(size);
+        size1 = "Total : " + num;
+        size2 = allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
+        alert(size1);
+        alert(size2);
     }
   </script>
 </body>
