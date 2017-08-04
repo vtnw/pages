@@ -43,7 +43,7 @@ function loadTypeList(){
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         for (j = 0; j < noteList[i].Type.length; j++) {
-            addType(noteList[i].Type[j], true);
+            addType(noteList[i].Type[j], false);
         }
     }
 }
@@ -59,13 +59,11 @@ function loadList() {
 function isTypeSelected(type){
     result = true;
     for (k = 0; k < typeList.length; k++) {
-        alert(typeList[k].IsSelected);alert(type.indexOf(typeList[k].Name));
-        if(typeList[k].IsSelected && type.indexOf(typeList[k].Name) < 0){
+        if(typeList[k].Selected && type.indexOf(typeList[k].Name) < 0){
             result = false;
             break;
         }
     }
-    alert(result);
     return result;
 }
 function hasSelection(){
