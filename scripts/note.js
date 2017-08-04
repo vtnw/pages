@@ -63,7 +63,7 @@ function loadList() {
     }
 }
 function isTypeSelected(type){
-    result = true;
+    var result = true;
     for (k = 0; k < typeList.length; k++) {
         if(typeList[k].Selected && type.indexOf(typeList[k].Name) < 0){
             result = false;
@@ -76,7 +76,7 @@ function hasSelection(){
     return (typeList.findIndex(t => t.Selected)) >= 0;
 }
 function exportData(){
-    supportRestore = confirm("Support restore?");
+    var supportRestore = confirm("Support restore?");
     saveAsFile(getExportData(supportRestore));
 }
 function toggleImport(){
@@ -179,7 +179,7 @@ function clearList() {
     if (confirm("Reset index as well?")) {
         resetIndex();
     }
-    tempList = [];
+    var tempList = [];
     applyFilter = hasSelection();
     for (i = 0; i < noteList.length; i++) {
         if (applyFilter && !isTypeSelected(noteList[i].Type)) {
@@ -195,7 +195,7 @@ function addItem() {
     if(document.getElementById("tbNote").value == ""){
         return;
     }
-    item = {
+    var item = {
         Id: getNextIndex(),
         Type: getType(document.getElementById("tbNote").value),
         Date: getFormattedDate(true),
@@ -214,7 +214,7 @@ function addItem() {
     document.getElementById("dvNotes").scrollTop = 0;
 }
 function getType(text) {
-    type = text.match(/[#]+[A-Za-z0-9-_]+/g);
+    var type = text.match(/[#]+[A-Za-z0-9-_]+/g);
     if (type == null) {
         type = ["#n"];
     }
@@ -228,17 +228,17 @@ function addToList(item) {
     setCache(noteList);
 }
 function addToDiv(divName, item) {
-    dvItem = document.createElement('div');
+    var dvItem = document.createElement('div');
     dvItem.id = "dvItem" + item.Id;
     dvItem.className = "dvItem";
 
-    dvDate = document.createElement('div');
+    var dvDate = document.createElement('div');
     dvDate.id = "dvDate" + item.Id;
     dvDate.innerHTML = item.Date + " [" + item.Type + "]";
     dvDate.className = "dvDate";
     dvItem.appendChild(dvDate);
 
-    dvNote = document.createElement('div');
+    var dvNote = document.createElement('div');
     dvNote.id = "dvNote" + item.Id;
     dvNote.innerHTML = item.Note.replace(/(?:\r\n|\r|\n)/g, '<br />');
     dvItem.className = "dvNote";
@@ -260,31 +260,31 @@ function saveAsFile(data) {
     a.click();
 }
 function getExportData(supportRestore){
-    result = "";
+    var expResult = "";
     if(supportRestore){   
-        exportList = [];
+        var exportList = [];
         applyFilter = hasSelection();
         for (i = 0; i < noteList.length; i++) {
             if (!applyFilter || isTypeSelected(noteList[i].Type)){
                 exportList.push(noteList[i]);
             }
         }
-        result = JSON.stringify(exportList);
+        expResult = JSON.stringify(exportList);
     }
     else{
         applyFilter = hasSelection();
         for (i = 0; i < noteList.length; i++) {
             if (!applyFilter || isTypeSelected(noteList[i].Type)){
-                result += noteList[i].Date + " [" + noteList[i].Type + "]\n" + noteList[i].Note + "\n\n";
+                expResult += noteList[i].Date + " [" + noteList[i].Type + "]\n" + noteList[i].Note + "\n\n";
             }
         }
     }
-    return result;
+    return expResult;
 }
 function loadFile(replace) {
     var fileReader = new FileReader();
     fileReader.onload = function (event) {
-        importedData = JSON.parse(event.target.result);
+        var importedData = JSON.parse(event.target.result);
         if (replace) {
             noteList = [];
         }
@@ -305,7 +305,7 @@ function addTypeToList(type, isSelected){
     typeList.push({"Name": type, "Selected": isSelected});
 }
 function addTypeToDiv(type, isSelected){
-    spnType = document.createElement("span");
+    var spnType = document.createElement("span");
     spnType.innerHTML = type;
     spnType.className = isSelected ? "spnTypeSel" : "spnType";    
     spnType.addEventListener("click", function () {
@@ -317,7 +317,7 @@ function addTypeToDiv(type, isSelected){
                 typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
         }
         if(document.getElementById("btnType").value == "Close"){
-            note = document.getElementById("tbNote").value;
+            var note = document.getElementById("tbNote").value;
             if(note != ""){
                 document.getElementById("tbNote").value = note + " " + this.innerHTML;
             }
