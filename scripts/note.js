@@ -49,22 +49,26 @@ function loadTypeList(){
 }
 function loadList() {    
     document.getElementById("dvNotes").innerHTML = "";
+    applyFilter = hasSelection();
     for (i = 0; i < noteList.length; i++) {
-        if (isTypeSelected(noteList[i].Type)) {
+        if (!applyFilter || isTypeSelected(noteList[i].Type)) {
             addToDiv("dvNotes", noteList[i]);
         }
     }
 }
 function isTypeSelected(type){
-    result = false;
+    result = true;
     for (k = 0; k < type.length; k++) {
         sel = typeList.findIndex((t => t.Name == type[k] && t.Selected));
         if(sel >= 0){
-            result = true;
+            result = false;
             break;
         }
     }
     return result;
+}
+function hasSelection(){
+    return (typeList.findIndex(t => t.Selected)) >= 0;
 }
 function exportData(){
     supportRestore = confirm("Support restore?");
@@ -133,8 +137,9 @@ function clearList() {
         resetIndex();
     }
     tempList = [];
+    applyFilter = hasSelection();
     for (i = 0; i < noteList.length; i++) {
-        if (!isTypeSelected(noteList[i].Type)) {
+        if (applyFilter && !isTypeSelected(noteList[i].Type)) {
             tempList.push(noteList[i]);
         }
     }
@@ -212,8 +217,9 @@ function getExportData(supportRestore){
     result = "";
     if(supportRestore){   
         exportList = [];
+        applyFilter = hasSelection();
         for (i = 0; i < noteList.length; i++) {
-            if (isTypeSelected(noteList[i].Type)){
+            if (!applyFilter || isTypeSelected(noteList[i].Type)){
                 exportList.push(noteList[i]);
             }
         }
