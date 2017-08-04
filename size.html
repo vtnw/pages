@@ -118,7 +118,7 @@
                         btnImport.key = items[i].Key;
                         btnImport.addEventListener("click", function(){
                             if(confirm("Replace?")){
-                                loadFile(key);
+                                loadFile(this.key);
                             }
                         });
                         dvItem.appendChild(btnImport);
