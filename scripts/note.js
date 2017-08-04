@@ -294,7 +294,7 @@ function loadFile(replace) {
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
 }
 function isNewType(type){
-    return typeList.findIndex(t => t.Name == type) < 0); 
+    return typeList.findIndex(t => t.Name == type) < 0; 
 }
 function addTypeToList(type, isSelected){
     typeList.push({"Name": type, "Selected": isSelected});
