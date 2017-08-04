@@ -6,9 +6,23 @@
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/icon.png" />
     <link rel="manifest" href="manifest.json">
+    <style>
+        .spnKey{
+            width:70px;
+            border:1px solid #cccccc;
+            margin: 5px 5px 5px 5px;
+            padding: 5px 5px 5px 5px;
+        }
+        .spnSize{
+            width:70px;
+            border:1px solid #cccccc;
+            margin: 5px 5px 5px 5px;
+            padding: 5px 5px 5px 5px;
+        }
+    </style>
 </head>
 <body>
-    <div id="dvItems">
+    <div id="dvItems" class="dvItems">
     </div>
   <script lang="javascript">    
     function calcSize(){
@@ -32,6 +46,7 @@
             "Data" : null,
             "Size" : 3
             });
+        total += 3;
         items.push({
             "Key" : "[Total]",
             "Data" : null,
