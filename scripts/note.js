@@ -137,7 +137,7 @@ function toggleExport(){
     }
     else{
         exportData();
-        document.getElementById("btnExport").value = "Clear";
+        document.getElementById("btnExport").value = "Export";
         document.getElementById("btnExport").style.textDecoration = "";
         document.getElementById("dvTypes").style.display = "none";
     }
