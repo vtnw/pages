@@ -272,11 +272,9 @@ function getExportData(supportRestore){
         result = JSON.stringify(exportList);
     }
     else{
-        //result = document.getElementById("dvNotes").innerText;
         applyFilter = hasSelection();
         for (i = 0; i < noteList.length; i++) {
             if (!applyFilter || isTypeSelected(noteList[i].Type)){
-                exportList.push(noteList[i]);
                 result += noteList[i].Date + " [" + noteList[i].Type + "]\n" + noteList[i].Note + "\n\n";
             }
         }
