@@ -43,8 +43,14 @@ function loadTypeList(){
     document.getElementById("dvTypes").innerHTML = "";
     for (i = 0; i < noteList.length; i++) {
         for (j = 0; j < noteList[i].Type.length; j++) {
-            addType(noteList[i].Type[j], false);
+            if (isNewType(noteList[i].Type[j])){
+                addTypeToList(noteList[i].Type[j], false);
+            }
         }
+    }
+    typeList.sort(function(a,b){return a.Name - b.Name});
+    for (n = 0; n < typeList.length; n++) {
+        addTypeToDiv(typeList[n].Name, typeList[n].Selected);
     }
 }
 function loadList() {    
@@ -198,7 +204,10 @@ function addItem() {
     addToList(item);
     addToDiv("dvNotes", item);
     for(l=0;l<item.Type.length;l++){
-        addType(item.Type[l], true);
+        if(isNewType(item.Type[l])){
+            addTypeToList(item.Type[l], false);
+            addTypeToDiv(item.Type[l], false);
+        }
     }
     document.getElementById("tbNote").value = "";
     document.getElementById("tbNote").focus();
@@ -284,37 +293,39 @@ function loadFile(replace) {
     };
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
 }
-function addType(type, isSelected){        
-    isNew = (typeList.findIndex(t => t.Name == type) < 0);    
-    if(isNew){
-        typeList.push({"Name": type, "Selected": isSelected});        
-        spnType = document.createElement("span");
-        spnType.innerHTML = type;
-        spnType.className = isSelected ? "spnTypeSel" : "spnType";    
-        spnType.addEventListener("click", function () {
-            if(document.getElementById("btnFilter").value == "Apply"
-                || document.getElementById("btnExport").value == "Apply"
-                || document.getElementById("btnClear").value == "Apply"){
-                    isSelected = (this.className == "spnTypeSel");
-                    this.className = isSelected ? "spnType" : "spnTypeSel";
-                    typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
+function isNewType(type){
+    return typeList.findIndex(t => t.Name == type) < 0); 
+}
+function addTypeToList(type, isSelected){
+    typeList.push({"Name": type, "Selected": isSelected});
+}
+function addTypeToDiv(type, isSelected){
+    spnType = document.createElement("span");
+    spnType.innerHTML = type;
+    spnType.className = isSelected ? "spnTypeSel" : "spnType";    
+    spnType.addEventListener("click", function () {
+        if(document.getElementById("btnFilter").value == "Apply"
+            || document.getElementById("btnExport").value == "Apply"
+            || document.getElementById("btnClear").value == "Apply"){
+                isSelected = (this.className == "spnTypeSel");
+                this.className = isSelected ? "spnType" : "spnTypeSel";
+                typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
+        }
+        if(document.getElementById("btnType").value == "Close"){
+            note = document.getElementById("tbNote").value;
+            if(note != ""){
+                document.getElementById("tbNote").value = note + " " + this.innerHTML;
             }
-            if(document.getElementById("btnType").value == "Close"){
-                note = document.getElementById("tbNote").value;
-                if(note != ""){
-                    document.getElementById("tbNote").value = note + " " + this.innerHTML;
-                }
-                else{
-                    document.getElementById("tbNote").value = this.innerHTML + " " + note;
-                }
-                document.getElementById("dvTypes").style.display = "none";
-                document.getElementById("btnType").value = "Type";
-                document.getElementById("btnType").style.textDecoration = "";
-                document.getElementById("tbNote").focus();
+            else{
+                document.getElementById("tbNote").value = this.innerHTML + " " + note;
             }
-        });
-        document.getElementById("dvTypes").appendChild(spnType);
-    }
+            document.getElementById("dvTypes").style.display = "none";
+            document.getElementById("btnType").value = "Type";
+            document.getElementById("btnType").style.textDecoration = "";
+            document.getElementById("tbNote").focus();
+        }
+    });
+    document.getElementById("dvTypes").appendChild(spnType);
 }
 
 //common functions
