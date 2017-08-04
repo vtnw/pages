@@ -13,18 +13,23 @@
         var allStrings = '';
         var size1 = "";
         var size2 = "";
+    var size3 = "";
         var num = 0;
+        var num2 = 0;
         for(var key in window.localStorage){
             if(window.localStorage.hasOwnProperty(key)){
                 allStrings += window.localStorage[key];
                 num += ((window.localStorage[key].length*16)/(8*1024));
+                num2 += ((key.length*16)/(8*1024));
                 size1 += key + " : " + num + "\n";
             }
         }
         size1 += "Total : " + num;
         size2 = allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
+        size3 = num2;
         alert(size1);
         alert(size2);
+        alert(size3);
     }
   </script>
 </body>
