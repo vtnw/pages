@@ -292,10 +292,12 @@ function addType(type, isSelected){
         spnType.innerHTML = type;
         spnType.className = isSelected ? "spnTypeSel" : "spnType";    
         spnType.addEventListener("click", function () {
-            if(document.getElementById("btnFilter").value == "Apply"){
-                isSelected = (this.className == "spnTypeSel");
-                this.className = isSelected ? "spnType" : "spnTypeSel";
-                typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
+            if(document.getElementById("btnFilter").value == "Apply"
+                || document.getElementById("btnExport").value == "Apply"
+                || document.getElementById("btnClear").value == "Apply"){
+                    isSelected = (this.className == "spnTypeSel");
+                    this.className = isSelected ? "spnType" : "spnTypeSel";
+                    typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
             }
             if(document.getElementById("btnType").value == "Close"){
                 note = document.getElementById("tbNote").value;
