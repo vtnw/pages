@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html manifest="nocache.appcache">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <link rel="manifest" href="manifest.json">
+</head>
+<body onload="updateSize();">
+  <script lang="javascript">
+    function updateSize(){
+        var allStrings = '';
+        for(var key in window.localStorage){
+            if(window.localStorage.hasOwnProperty(key)){
+                allStrings += window.localStorage[key];
+            }
+        }
+        size = allStrings ? 3 + ((allStrings.length*16)/(8*1024)) + ' KB' : 'Empty (0 KB)';
+        alert(size);
+    }
+  </script>
+</body>
+</html>
