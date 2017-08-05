@@ -15,11 +15,17 @@
             display:inline-block;
         }
         .spnSize{
-            width:70px;
+            width:100px;
             border:1px solid #cccccc;
             margin: 5px 5px 5px 5px;
             padding: 5px 5px 5px 5px;
             display:inline-block;
+        }
+        body{
+            font-size:14px;
+        }
+        .tbKey{
+            border: 1px solid #cccccc;
         }
     </style>
 </head>
@@ -104,7 +110,7 @@
                 btnExport.key = items[i].Key;
                 btnExport.addEventListener("click", function(){
                     if(this.key == "[Total]"){
-                        saveAsFile(JSON.stringify(localStorage), "all");
+                        saveAsFile(localStorage, "all");
                     } else {
                         saveAsFile(localStorage.getItem(this.key), this.key);
                     }
