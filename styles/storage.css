@@ -1,0 +1,28 @@
+
+        .spnKey{
+            width:150px;
+            font-weight:bold;
+            border:1px solid #cccccc;
+            margin: 5px 5px 5px 5px;
+            padding: 5px 5px 5px 5px;
+            display:inline-block;
+        }
+        .spnSize{
+            width:150px;
+            border:1px solid #cccccc;
+            margin: 5px 5px 5px 5px;
+            padding: 5px 5px 5px 5px;
+            display:inline-block;
+        }
+        body{
+            font-size:14px;
+        }
+        .tbKey{
+            border: 1px solid #cccccc;
+        }
+        .dvItem{
+            text-align:center;
+        }
+        input[type=button]{
+            margin:10px 10px 20px 10px;
+        }
