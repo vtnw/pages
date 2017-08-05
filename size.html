@@ -30,15 +30,20 @@
         .dvItem{
             text-align:center;
         }
+        input[type=button]{
+            margin:10px 10px 20px 10px;
+        }
     </style>
 </head>
 <body>
     File: <input type="file" id="fileImport"><br>
     <hr>
-    <input type="text" id="tbKey" class="tbKey" placeholder="new key">
-    <input type="button" value="Import" id="btnImport">
-    <hr>
     <div id="dvItems" class="dvItems">
+        <div class="dvItem">
+            <input type="text" id="tbKey" class="tbKey" placeholder="new key">
+            <br/>
+            <input type="button" value="Import" id="btnImport">
+        </div>
     </div>
     
   <script lang="javascript">    
