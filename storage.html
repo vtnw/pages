@@ -4,37 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE =edge">
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="images/icon.png" />
     <link rel="manifest" href="manifest.json">
-    <style>
-        .spnKey{
-            width:150px;
-            font-weight:bold;
-            border:1px solid #cccccc;
-            margin: 5px 5px 5px 5px;
-            padding: 5px 5px 5px 5px;
-            display:inline-block;
-        }
-        .spnSize{
-            width:150px;
-            border:1px solid #cccccc;
-            margin: 5px 5px 5px 5px;
-            padding: 5px 5px 5px 5px;
-            display:inline-block;
-        }
-        body{
-            font-size:14px;
-        }
-        .tbKey{
-            border: 1px solid #cccccc;
-        }
-        .dvItem{
-            text-align:center;
-        }
-        input[type=button]{
-            margin:10px 10px 20px 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/storage.css">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <title>Storage</title>
 </head>
 <body>
     File: <input type="file" id="fileImport"><br>
@@ -47,7 +20,7 @@
         </div>
     </div>
     
-  <script lang="javascript">    
+<script src="scripts/storage.js" async></script>
       document.getElementById("btnImport").addEventListener("click", function(){
           loadFile(document.getElementById("tbKey").value);
       });
