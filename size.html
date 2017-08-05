@@ -83,7 +83,7 @@
             spnSize.innerHTML = items[i].Size.toFixed(2) + " kb";
             dvItem.appendChild(spnSize);
             
-            dvItem.appendChild("<br/>");
+            dvItem.appendChild(document.createElement("<br/>"));
             
             if(items[i].Key != "[Default]"){
                 var btnClear = document.createElement("input");
