@@ -80,7 +80,7 @@
         for(var i = 0; i < items.length; i++){
             var dvItem = document.createElement("div");
             dvItem.className = "dvItem";
-            if(items[i].Key != "[Default]"){
+            if(items[i].Key == "[Default]"){
                 dvItem.appendChild(document.createElement("hr"));
             }
             var spnKey = document.createElement("span");
