@@ -24,13 +24,14 @@
     </style>
 </head>
 <body>
+    File: <input type="file" id="fileImport"><br>
+    <hr>
+    <input type="text" id="tbKey" class="tbKey" placeholder="new key">
+    <input type="button" value="Import" id="btnImport">
+    <hr>
     <div id="dvItems" class="dvItems">
     </div>
-    <hr>
-    <input type="file" id="fileImport"><br>
-    <hr>
-    <input type="text" id="tbKey">
-    <input type="button" value="Import" id="btnImport">
+    
   <script lang="javascript">    
       document.getElementById("btnImport").addEventListener("click", function(){
           loadFile(document.getElementById("tbKey").value);
