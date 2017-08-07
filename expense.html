@@ -23,6 +23,10 @@
         <input type="button" value="Edit" id="btnEdit" />
         <input type="button" value="Clear" id="btnClear" />
         <input type="button" value="Reset" id="btnReset" />
+        <select id="ddlMode">
+            <option value="Summary">Summary</option>
+            <option value="Details">Details</option>
+        </select>
         <div id="dvEdit" style="display:none";>
             <textarea id="tbData"></textarea>
         </div>        
@@ -34,19 +38,23 @@
     </div>
         <hr />
     </div>
-    <div>
-        <span class="spnCtgHead">Category</span>
-        <span class="spnAmtHead">Plan</span>
-        <span class="spnAmtHead">Actual</span>
-    </div>
-    <hr />
-    <div id="dvExpenses"></div>
-    <hr />
-    <div id="dvTotal" style="display:none;">
-        <span class="spnTotH">Total</span>
-        <span id="spnTotalP" class="spnTotP"></span>
-        <span id="spnTotalA" class="spnTotAG"></span>
+    <div id="dvSummary">
+        <div>
+            <span class="spnCtgHead">Category</span>
+            <span class="spnAmtHead">Plan</span>
+            <span class="spnAmtHead">Actual</span>
+        </div>
         <hr />
+        <div id="dvExpenses"></div>
+        <hr />
+        <div id="dvTotal" style="display:none;">
+            <span class="spnTotH">Total</span>
+            <span id="spnTotalP" class="spnTotP"></span>
+            <span id="spnTotalA" class="spnTotAG"></span>
+            <hr />
+        </div>
+    </div>
+    <div id="dvDetails" style="display:none;">
     </div>
     <script src="scripts/expense.js" async></script>
 </body>
