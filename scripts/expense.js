@@ -11,7 +11,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         var item = { id: i, category: c, planned: p, actual: a };
         var items = getCache();
         items.Summary.push(item);
-        
+        alert(JSON.stringify(items));
         if(a != null && parseInt(a) > 0){
             var items.Details.push({date: getFormattedDate(true), name: c, amount: parseInt(a)});
         }
