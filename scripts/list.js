@@ -68,16 +68,19 @@
       toggleMode(mode);
   }
   function clearList() {
-      type = document.getElementById("ddlFilter").selectedIndex;
-      revisedListData = [];
-      for (i = 0; i < listData.length; i++) {
-          if((type == 1 && !listData[i].Buy)
-             || (type == 2 && listData[i].Buy)){
-                  revisedListData.push(listData[i]);
-          }
-      }
-      listData = revisedListData;
-      loadList();
+    if(confirm("Reset Index?")){
+      localStorage.setItem("index_list", null);
+    }
+    type = document.getElementById("ddlFilter").selectedIndex;
+    revisedListData = [];
+    for (i = 0; i < listData.length; i++) {
+        if((type == 1 && !listData[i].Buy)
+           || (type == 2 && listData[i].Buy)){
+                revisedListData.push(listData[i]);
+        }
+    }
+    listData = revisedListData;
+    loadList();
   }
   function resetSelection(retainPending) {
       for (i = 0; i < listData.length; i++) {
@@ -127,13 +130,12 @@
       fileReader.onload = function(event) {
           importedData = JSON.parse(event.target.result);
           if(replace){
-              listData = importedData;
+              listData = [];
           }
-          else{
-              for (i = 0; i < importedData.length; i++) {
-                  importedData[i].Id = getNextIndex();
-                  listData.push(importedData[i]);
-              }
+          for (i = 0; i < importedData.length; i++) {
+              importedData[i].Id = getNextIndex();
+              listData.push({Id: getNextIndex(), Type: importedData[i].Type, Remark: importedData[i].Remark, 
+                           Quantity: importedData[i].Quantity, Buy: importedData[i].Buy Bought: importedData[i].Bought});
           }
           loadList();
           toggleSave(true);
