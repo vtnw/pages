@@ -203,6 +203,10 @@ function getCache() {
     if (items == null) {
         items = { Summary: [], Details: []};
     }
+    else if(items.Summary == null){
+        items = {Summary: items, Details: []};
+        alert("Upgraded!");
+    }
     return items;
 }
 function setCache(items) {
