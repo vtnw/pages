@@ -134,8 +134,7 @@
           }
           for (i = 0; i < importedData.length; i++) {
               importedData[i].Id = getNextIndex();
-              listData.push({Id: getNextIndex(), Type: importedData[i].Type, Remark: importedData[i].Remark, 
-                           Quantity: importedData[i].Quantity, Buy: importedData[i].Buy Bought: importedData[i].Bought});
+              listData.push(importedData[i]);
           }
           loadList();
           toggleSave(true);
