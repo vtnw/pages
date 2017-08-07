@@ -108,6 +108,7 @@ select {
 .spnDetailAmount{
 	display:inline-block;
 	width:60px;
+	text-align:right;
 }
 .dvDetailItem{
 	border-bottom:1px solid #cccccc;
