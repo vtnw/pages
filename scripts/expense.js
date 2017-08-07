@@ -13,7 +13,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         items.Summary.push(item);
         alert(JSON.stringify(items));
         if(a != null && parseInt(a) > 0){
-            var items.Details.push({date: getFormattedDate(true), name: c, amount: parseInt(a)});
+            items.Details.push({date: getFormattedDate(true), name: c, amount: parseInt(a)});
         }
         setCache(items);
         AddEntry(i, c, p, a);
