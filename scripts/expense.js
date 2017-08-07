@@ -10,7 +10,11 @@ document.getElementById("btnAdd").addEventListener("click", function () {
     if (c != '') {
         var item = { id: i, category: c, planned: p, actual: a };
         var items = getCache();
-        items.push(item);
+        items.Summary.push(item);
+        
+        if(a != null && parseInt(a) > 0){
+            var items.Details.push({date: getFormattedDate(true), name: c, amount: parseInt(a)});
+        }
         setCache(items);
         AddEntry(i, c, p, a);
         document.getElementById("tbCategory").value = "";
@@ -22,12 +26,13 @@ document.getElementById("btnAdd").addEventListener("click", function () {
 document.getElementById("btnReset").addEventListener("click", function () {
     if (confirm("Reset?")) {
         var items = getCache();
-      
-    for (var i = 0; i < items.length; i++) {
-        items[i].actual=0;
-    }
-    setCache(items);
-    loadList();
+
+        for (var i = 0; i < items.Summary.length; i++) {
+            items.Summary[i].actual=0;
+        }
+        items.Details = [];
+        setCache(items);
+        loadList();
     }
 });
 document.getElementById("btnClear").addEventListener("click", function () {
@@ -66,6 +71,9 @@ document.getElementById("btnAddCat").addEventListener("click", function () {
 document.getElementById("ddlMonth").addEventListener("change", function () {
     loadList();
 });
+document.getElementById("ddlMode").addEventListener("change", function () {
+    toggleMode();
+});
 
 function initialize() {
     var today = new Date();
@@ -77,12 +85,45 @@ function initialize() {
 }
 function loadList() {
     var items = getCache();
-    items.sort(function(a,b){return a.category.localeCompare(b.category)});
+    items.Summary.sort(function(a,b){return a.category.localeCompare(b.category)});
     clearDiv();    
-    for (var i = 0; i < items.length; i++) {
-        AddEntry(items[i].id, items[i].category, items[i].planned, items[i].actual);
+    for (var i = 0; i < items.Summary.length; i++) {
+        AddEntry(items.Summary[i].id, items.Summary[i].category, items.Summary[i].planned, items.Summary[i].actual);
     }
-    updateTotal(items);
+    updateTotal(items.Summary);
+}
+function loadDetails(){
+    var dvDetail = document.getElementById("dvDetailList");
+    dvDetailList.innerHTML = "";
+    var dvDetailItem, spnName, spnDate, spnAmount;
+    for (var i = 0; i < items.Details.length; i++) {
+        dvDetailItem = document.createElement("div");
+        spnDetailDate = document.createElement("span");
+        spnDetailDate.innerHTML = items.Details[i].date;
+        spnDetailDate.className = "spnDetailDate";
+        dvDetailItem.appendChild(spnDetailDate);
+        spnDetailName = document.createElement("span");
+        spnDetailName.innerHTML = items.Details[i].name;
+        spnDetailName.className = "spnDetailName";
+        dvDetailItem.appendChild(spnDetailName);
+        spnDetailAmount = document.createElement("span");
+        spnDetailAmount.innerHTML = items.Details[i].amount;
+        spnDetailAmount.className = "spnDetailAmount";
+        dvDetailItem.appendChild(spnDetailAmount);
+        dvDetail.appendChild(dvDetailItem);
+    }
+}
+function toggleMode(){
+    if(document.getElementById("dlMode").selectedIndex == 0){
+        document.getElementById("dvSummary").style.display = "block";
+        document.getElementById("dvDetails").style.display = "none";
+        loadList();
+    }
+    else{
+        document.getElementById("dvSummary").style.display = "none";
+        document.getElementById("dvDetails").style.display = "block";
+        loadDetails();
+    }
 }
 function updateTotal(items) {
     var totP = 0;
@@ -135,16 +176,17 @@ function AddEntry(id, category, planned, actual) {
     b.addEventListener("click", function () {        
         var id = this.getAttribute("id");
         var items = getCache();
-        var i = items.findIndex((i => i.id == id));
+        var i = items.Summary.findIndex((i => i.id == id));
         var tbA = document.getElementById("tAmount" + id);
         var spnA = document.getElementById("sAmount" + id);
         if(tbA.value != '') {
-            items[i].actual = parseInt(items[i].actual) + parseInt(tbA.value);
-            spnA.innerHTML = items[i].actual;
-            spnA.className = (items[i].actual > items[i].planned) ? "spnAmtRed" : "spnAmt";
+            items.Summary[i].actual = parseInt(items.Summary[i].actual) + parseInt(tbA.value);
+            spnA.innerHTML = items.Summary[i].actual;
+            spnA.className = (items.Summary[i].actual > items.Summary[i].planned) ? "spnAmtRed" : "spnAmt";
             tbA.value = "";
+            items.Details.push({date: getFormattedDate(true), name: items.Summary[i].category, amount: parseInt(tbA.value)});
             setCache(items);
-            updateTotal(items);
+            updateTotal(items.Summary);
         }
     });
     d.appendChild(b);
@@ -158,7 +200,7 @@ function getMonth() {
 function getCache() {
     var items = JSON.parse(localStorage.getItem("expenses_" + getMonth()));
     if (items == null) {
-        items = [];
+        items = { Summary: [], Details: []};
     }
     return items;
 }
@@ -195,4 +237,19 @@ function sortItems(s) {
         items.sort(function(a,b){return a.actual - b.actual});
     }
     setCache(items);
+}
+function getFormattedDate(includeSeparators) {
+    var d = new Date();
+    d = ('0' + (d.getMonth() + 1)).slice(-2)
+        + (includeSeparators ? "/" : "")
+        + ('0' + d.getDate()).slice(-2)
+        + (includeSeparators ? "/" : "")
+        + d.getFullYear()    
+        + (includeSeparators ? " " : "")
+        + ('0' + d.getHours()).slice(-2)
+        + (includeSeparators ? ":" : "")
+        + ('0' + d.getMinutes()).slice(-2)
+        + (includeSeparators ? ":" : "")
+        + ('0' + d.getSeconds()).slice(-2);
+    return d;
 }
