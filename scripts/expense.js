@@ -114,7 +114,7 @@ function loadDetails(){
     }
 }
 function toggleMode(){
-    if(document.getElementById("dlMode").selectedIndex == 0){
+    if(document.getElementById("ddlMode").selectedIndex == 0){
         document.getElementById("dvSummary").style.display = "block";
         document.getElementById("dvDetails").style.display = "none";
         loadList();
