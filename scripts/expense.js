@@ -183,9 +183,9 @@ function AddEntry(id, category, planned, actual) {
         if(tbA.value != '') {
             items.Summary[i].actual = parseInt(items.Summary[i].actual) + parseInt(tbA.value);
             spnA.innerHTML = items.Summary[i].actual;
-            spnA.className = (items.Summary[i].actual > items.Summary[i].planned) ? "spnAmtRed" : "spnAmt";
-            tbA.value = "";
+            spnA.className = (items.Summary[i].actual > items.Summary[i].planned) ? "spnAmtRed" : "spnAmt";            
             items.Details.push({date: getFormattedDate(true), name: items.Summary[i].category, amount: parseInt(tbA.value)});
+            tbA.value = "";
             setCache(items);
             updateTotal(items.Summary);
         }
