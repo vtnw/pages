@@ -97,3 +97,15 @@ select {
 	display:inline-block;
 	color:red;
 }
+.spnDetailDate{
+	display:inline-block;
+	width:150px;
+}
+.spnDetailName{
+	display:inline-block;
+	width:100px;
+}
+.spnDetailAmount{
+	display:inline-block;
+	width:60px;
+}
