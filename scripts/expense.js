@@ -93,6 +93,7 @@ function loadList() {
     updateTotal(items.Summary);
 }
 function loadDetails(){
+    var items = getCache();
     var dvDetail = document.getElementById("dvDetailList");
     dvDetailList.innerHTML = "";
     var dvDetailItem, spnName, spnDate, spnAmount;
