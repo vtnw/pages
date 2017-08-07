@@ -99,6 +99,7 @@ function loadDetails(){
     var dvDetailItem, spnName, spnDate, spnAmount;
     for (var i = 0; i < items.Details.length; i++) {
         dvDetailItem = document.createElement("div");
+        dvDetailItem.className = "dvDetailItem";
         spnDetailDate = document.createElement("span");
         spnDetailDate.innerHTML = items.Details[i].date;
         spnDetailDate.className = "spnDetailDate";
