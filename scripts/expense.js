@@ -20,7 +20,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         document.getElementById("tbCategory").value = "";
         document.getElementById("tbPlanned").value = "";
         document.getElementById("tbActual").value = "";
-        updateTotal(items);
+        updateTotal(items.Summary);
     }
 });
 document.getElementById("btnReset").addEventListener("click", function () {
