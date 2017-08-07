@@ -69,7 +69,7 @@
   }
   function clearList() {
     if(confirm("Reset Index?")){
-      localStorage.setItem("index_list", null);
+      localStorage.removeItem("index_list");
     }
     type = document.getElementById("ddlFilter").selectedIndex;
     revisedListData = [];
