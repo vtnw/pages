@@ -99,7 +99,7 @@ select {
 }
 .spnDetailDate{
 	display:inline-block;
-	width:150px;
+	width:180px;
 }
 .spnDetailName{
 	display:inline-block;
@@ -108,4 +108,7 @@ select {
 .spnDetailAmount{
 	display:inline-block;
 	width:60px;
+}
+.dvDetailItem{
+	border-bottom:1px solid #cccccc;
 }
