@@ -73,6 +73,9 @@ document.getElementById("ddlMonth").addEventListener("change", function () {
 document.getElementById("ddlMode").addEventListener("change", function () {
     toggleMode();
 });
+document.getElementById("btnMore").addEventListener("click", function () {
+    toggleMore();
+});
 
 function initialize() {
     var today = new Date();
@@ -123,6 +126,18 @@ function toggleMode(){
     else{
         document.getElementById("dvSummary").style.display = "none";
         document.getElementById("dvDetails").style.display = "block";
+        loadDetails();
+    }
+}
+function toggleMore(){
+    if(document.getElementById("dvMore").style.display == "none"){
+        document.getElementById("dvMore").style.display = "block";
+        document.getElementById("btnMore").value = "<<<";
+        loadList();
+    }
+    else{
+        document.getElementById("dvMore").style.display = "none";
+        document.getElementById("btnMore").value = ">>>";
         loadDetails();
     }
 }
