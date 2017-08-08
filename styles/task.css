@@ -1,0 +1,52 @@
+html{
+    height: 97%;
+}
+body {
+    height: 97%;
+    font-size:14px;
+    font-family:Arial;
+}
+.dvContainer {
+    height: 100%;
+    border:1px solid red;
+}
+.dvTaskContainer{
+    height:70%;
+    border:1px solid green;
+    overflow:auto;
+}
+.tbTask {
+    width:200px;
+    border:1px solid #cccccc;
+    border-radius:5px;
+    outline: none;
+    padding: 2px;
+}
+.spnTime{
+    color:#555555;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+    width:30px;
+}
+.spnNote{
+    color:#555555;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+    width:200px;
+}
+.spnLater{
+    color:#555555;
+    border:1px solid #555555;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+}
+.spnDone{
+    color:#555555;
+    border:1px solid #555555;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+}
