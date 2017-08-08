@@ -11,7 +11,7 @@ body {
     border:1px solid red;
 }
 .dvTaskContainer{
-    height:70%;
+    height:80%;
     border:1px solid green;
     overflow:auto;
 }
@@ -34,7 +34,7 @@ body {
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
     display:inline-block;
-    width:200px;
+    width:180px;
 }
 .spnLater{
     color:#555555;
