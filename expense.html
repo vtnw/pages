@@ -19,17 +19,20 @@
             <option value="201711">Nov 2017</option>
             <option value="201712">Dec 2017</option>
         </select>
-        <input type="button" value="Add" id="btnAddCat" />
-        <input type="button" value="Edit" id="btnEdit" />
-        <input type="button" value="Clear" id="btnClear" />
-        <input type="button" value="Reset" id="btnReset" />
         <select id="ddlMode">
             <option value="Summary">Summary</option>
             <option value="Details">Details</option>
         </select>
+        <input type="button" value="Add" id="btnAddCat" />
+        <input type="button" value=">>>" id="btnMore" />
+        <div id="dvMore" style="display:none;">
+        <input type="button" value="Edit" id="btnEdit" />
+        <input type="button" value="Clear" id="btnClear" />
+        <input type="button" value="Reset" id="btnReset" />
         <div id="dvEdit" style="display:none";>
             <textarea id="tbData"></textarea>
-        </div>        
+        </div>       
+        </div>
     <div id="dvAdd" style="display:none;">
         <input type="text" class="tbCat" value="" id="tbCategory" placeholder="new category" />
         <input type="number" class="tbAmount" value="" id="tbPlanned" placeholder="plan" />
