@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html manifest="task.appcache">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles/task.css">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <title>Task</title>
+</head>
+<body onload="initialize();">
+    <div id="dvContainer" class="dvContainer">
+        <div id="dvTaskContainer" class="dvTaskContainer">
+            <div id="dvTasks" class="dvTasks"></div>
+        </div>
+        <div>
+            <hr />
+            <input type="text" id="tbTask" class="tbTask" value="" />
+            <input type="button" id="btnAdd" value="Add" />
+        </div>
+    </div>
+    <script src="scripts/task.js" async></script>
+</body>
+</html>
