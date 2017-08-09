@@ -98,7 +98,6 @@ function loadDetails(){
     var items = getCache();
     var dvDetail = document.getElementById("dvDetailList");
     dvDetailList.innerHTML = "";
-    items.Details.sort(function(a,b){return a.date.localeCompare(b.date)});
     var dvDetailItem, spnName, spnDate, spnAmount;
     for (var i = 0; i < items.Details.length; i++) {
         dvDetailItem = document.createElement("div");
@@ -115,7 +114,7 @@ function loadDetails(){
         spnDetailAmount.innerHTML = items.Details[i].amount;
         spnDetailAmount.className = "spnDetailAmount";
         dvDetailItem.appendChild(spnDetailAmount);
-        dvDetail.appendChild(dvDetailItem);
+        dvDetail.insertBefore(dvDetailItem, dvDetail.firstChild);
     }
 }
 function toggleMode(){
