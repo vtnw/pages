@@ -98,7 +98,7 @@ function loadDetails(){
     var items = getCache();
     var dvDetail = document.getElementById("dvDetailList");
     dvDetailList.innerHTML = "";
-    items.Details.sort(function(a,b){return b.date.localeCompare(a.date)});
+    items.Details.sort(function(a,b){return a.date.localeCompare(b.date)});
     var dvDetailItem, spnName, spnDate, spnAmount;
     for (var i = 0; i < items.Details.length; i++) {
         dvDetailItem = document.createElement("div");
