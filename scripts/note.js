@@ -327,7 +327,6 @@ function addTypeToDiv(type, isSelected){
             document.getElementById("dvTypes").style.display = "none";
             document.getElementById("btnType").value = "Type";
             document.getElementById("btnType").style.textDecoration = "";
-            document.getElementById("tbNote").focus();
         }
     });
     document.getElementById("dvTypes").appendChild(spnType);
