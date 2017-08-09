@@ -1,6 +1,6 @@
 var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));;
 var cacheName = "note" + u;
-var indexName = "index" + cacheName + u;
+var indexName = "index" + cacheName;
 var noteList = [];
 var typeList = [];
 
