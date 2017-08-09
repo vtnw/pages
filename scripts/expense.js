@@ -98,6 +98,7 @@ function loadDetails(){
     var items = getCache();
     var dvDetail = document.getElementById("dvDetailList");
     dvDetailList.innerHTML = "";
+    items.Details = items.Details.sort(function(a,b){return b.date.localCompare(a.date);});
     var dvDetailItem, spnName, spnDate, spnAmount;
     for (var i = 0; i < items.Details.length; i++) {
         dvDetailItem = document.createElement("div");
