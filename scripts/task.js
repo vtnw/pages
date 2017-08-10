@@ -141,7 +141,7 @@ function addTask() {
     loadTaskList();
     document.getElementById("tbTask").value = "";
     document.getElementById("tbTask").blur();
-    document.getElementById("dvTasks").scrollTop = 0;
+    document.getElementById("dvTaskContainer").scrollTop = 0;
 }
 function addTaskToList(task) {
     taskList.push(task);
