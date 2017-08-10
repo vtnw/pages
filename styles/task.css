@@ -34,17 +34,31 @@ body {
     display:inline-block;
     width:180px;
 }
+.spnTime{
+    color:brown;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+    width:30px;
+}
+.spnNote{
+    color:brown;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+    width:180px;
+}
 .spnLater{
     color:#555555;
     border:1px solid #555555;
-    padding:5px 5px 5px 5px;
+    padding:2px 2px 2px 2px;
     margin:5px 5px 5px 5px;
     display:inline-block;
 }
 .spnDone{
     color:#555555;
     border:1px solid #555555;
-    padding:5px 5px 5px 5px;
+    padding:2px 2px 2px 2px;
     margin:5px 5px 5px 5px;
     display:inline-block;
 }
