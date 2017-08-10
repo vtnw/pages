@@ -111,7 +111,7 @@ function addTask() {
     var dateValues = datePart.split("/");
     var date, month, year, hour, min;
     if (dateValues.length == 1) {
-        date = dateValues[0];
+        date = dateValues[0] ? dateValues[0] : today.getDate();
         month = today.getMonth();
         year = today.getFullYear();
     }
