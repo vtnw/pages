@@ -24,8 +24,8 @@ function getDateOnly(date){
 }
 function loadTaskList() {
     document.getElementById("dvTasks").innerHTML = "";
-    taskList = taskList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
-    var ;
+    taskList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
+    var currDate;
     for (var i = 0; i < taskList.length; i++) {
         if (taskList[i].status > 0) {
             var dvTask = document.createElement("div");
