@@ -130,7 +130,7 @@ function addTask() {
     hour = timeValues[0] ? timeValues[0] : "09";
     min = (timeValues.length > 1) ? timeValues[1] : "00";
     var fullDate = new Date(year, month, date, hour, min, 0, 0);
-    alert(fullDate);return;
+    
     var task = {
         id: getNextIndex(),
         createdDate: new Date(),
