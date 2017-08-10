@@ -123,7 +123,7 @@ function addTask() {
     if (dateValues.length == 3) {
         date = dateValues[1] ? dateValues[1] : today.getDate();
         month = dateValues[0] ? parseInt(dateValues[0]) - 1 : today.getMonth();
-        year = dateValues[2].length == 4 ? dateValues[2] : 2000 + parseInt(dateValues[2]);
+        year = dateValues[2] ?? (dateValues[2].length == 4 ? dateValues[2] : 2000 + parseInt(dateValues[2])) : today.getFullYear();
     }
     var timeValues = timePart.split(":");
     hour = timeValues[0] ? timeValues[0] : "09";
