@@ -55,6 +55,13 @@ body {
     display:inline-block;
     border-radius:5px;
 }
+.spnBtn{
+    border:1px solid #aaaaaa;
+    padding:2px 2px 2px 2px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+    border-radius:5px;
+}
 .btnAdd{
     width:65px;
 }
