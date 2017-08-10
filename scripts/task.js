@@ -38,7 +38,7 @@ function loadTaskList() {
                 currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
                 var dvDate = document.createElement("div");
                 dvDate.className = "dvDate";
-                dvDate.innerHTML = formatDate(taskList[i].eventDate,"mm/dd/yyyy");
+                dvDate.innerHTML = formatDate(taskList[i].eventDate,"mm/dd/yyyy ddd");
                 dvTask.appendChild(dvDate);                
             }
             
@@ -174,6 +174,7 @@ function clearCache() {
 }
 function formatDate(date, format){
     date = new Date(date);
+    var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     var result = "";
     switch(format){
         case "mm/dd/yyyy":{
@@ -182,6 +183,16 @@ function formatDate(date, format){
                     + ('0' + date.getDate()).slice(-2)
                     + "/"
                     + date.getFullYear();
+            break;
+        }
+        case "mm/dd/yyyy ddd":{
+            result = ('0' + (date.getMonth() + 1)).slice(-2)
+                    + "/"
+                    + ('0' + date.getDate()).slice(-2)
+                    + "/"
+                    + date.getFullYear()
+                    + " "
+                    + days[date.getDay()];
             break;
         }
         case "hh:mm":{
