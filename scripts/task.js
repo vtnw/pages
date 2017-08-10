@@ -42,7 +42,7 @@ function loadTaskList() {
                 var dvDate = document.createElement("div");
                 dvDate.className = "dvDate";
                 dvDate.innerHTML = formatDate(taskList[i].eventDate,"mm/dd/yyyy ddd");
-                var lineBreak = (currDate == formatDate(today, "yyyymmdd") ? "hr" : "br";
+                var lineBreak = (currDate == formatDate(today, "yyyymmdd")) ? "hr" : "br";
                 dvTask.appendChild(document.createElement(lineBreak));                
                 dvTask.appendChild(dvDate);                
                 currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
