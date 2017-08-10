@@ -24,37 +24,35 @@ function getDateOnly(date){
 }
 function loadTaskList() {
     document.getElementById("dvTasks").innerHTML = "";
-    taskList = taskList.sort(function (a, b) { return a.eventDate > b.eventDate; });
-    var task, currDate;
+    taskList = taskList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
+    var ;
     for (var i = 0; i < taskList.length; i++) {
-        task = taskList[i];
-        task.eventDate = new Date(task.eventDate);
-        if (task.status > 0) {
+        if (taskList[i].status > 0) {
             var dvTask = document.createElement("div");
             dvTask.className = "dvTask";
-            if (currDate == null || currDate.getTime() != getDateOnly(task.eventDate).getTime()) {
-                currDate = getDateOnly(task.eventDate);
+            if (currDate == null || currDate == formatDate(taskList[i].eventDate, "yyyymmdd")) {
+                currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
                 var dvDate = document.createElement("div");
                 dvDate.className = "dvDate";
-                dvDate.innerHTML = getFormattedDate(currDate, true, false, true);
+                dvDate.innerHTML = formatDate(taskList[i].eventDate,"mm/dd/yyyy");
                 dvTask.appendChild(dvDate);                
             }
 
             var spnTime = document.createElement("span");
             spnTime.className = "spnTime";
-            spnTime.innerHTML = getFormattedDate(task.eventDate, true, false, false, true, true);
+            spnTime.innerHTML = formatDate(taskList[i].eventDate,"hh:mm");
             dvTask.appendChild(spnTime);
 
             var spnNote = document.createElement("span");
             spnNote.className = "spnNote";
-            spnNote.innerHTML = task.note;
+            spnNote.innerHTML = taskList[i].note;
             dvTask.appendChild(spnNote);
 
             if (task.eventDate.getDate() <= today.getDate()) {
                 var spnLater = document.createElement("span");
                 spnLater.className = "spnLater";
                 spnLater.innerHTML = "Move";
-                spnLater.id = task.id;
+                spnLater.id = taskList[i].id;
                 spnLater.addEventListener("click", function () {
                     updateTaskStatus(this.id, 2);
                 });
@@ -63,7 +61,7 @@ function loadTaskList() {
                 var spnDone = document.createElement("span");
                 spnDone.className = "spnDone";
                 spnDone.innerHTML = "Done";
-                spnDone.id = task.id;
+                spnDone.id = taskList[i].id;
                 spnDone.addEventListener("click", function () {
                     updateTaskStatus(this.id, 0);
                 });
@@ -80,7 +78,7 @@ function updateTaskStatus(id, status) {
     var task;
     taskList[i].status = status;
     if (status == 2) {
-        task = taskList[i].note + " @ " + getFormattedDate(taskList[i].eventDate, true, false, false, true);
+        task = formatDate(taskList[i].eventDate, "mm/dd/yyyy-hh:mm") + " " + taskList[i].note);
         taskList.splice(i, 1);
     }
     setCache({ taskList: taskList, options: options });
@@ -94,7 +92,7 @@ function addTask() {
     var taskText = document.getElementById("tbTask").value;
     var part = taskText.split(" ");
     
-    var note = part[1].replace(part[0] + " ", "");
+    var note = taskText.replace(part[0] + " ", "");
     
     var dateTimePart = part[0].trim().split("-");
     
@@ -122,7 +120,6 @@ function addTask() {
     min = (timeValues.length > 1) ? timeValues[1] : "00";
     
     var fullDate = new Date(year, month, date, hour, min, 0, 0);
-    alert(fullDate);alert(note);
     
     var task = {
         id: getNextIndex(),
@@ -169,30 +166,54 @@ function setCache(items) {
 function clearCache() {
     localStorage.removeItem(cacheName);
 }
-function getFormattedDate(d, includeSeparators, changeHours, dateOnly, excludeSeconds, timeOnly) {
-    d = new Date(d);
-    var h = d.getHours();
-    var tt = "";
+function formatDate(date, format){
     var result = "";
-    if (changeHours) {
-        var tt = " am";
-        if (h == 0) { h = 12; } else if (h > 12) { h = h - 12; tt = " pm"; } else if (h == 12) { tt = " pm"; }
-    }
-    if (!timeOnly) {
-        result += ('0' + (d.getMonth() + 1)).slice(-2)
-            + (includeSeparators ? "/" : "")
-            + ('0' + d.getDate()).slice(-2)
-            + (includeSeparators ? "/" : "")
-            + d.getFullYear();
-    }
-
-    if (!dateOnly) {
-        result += (includeSeparators ? " " : "")
-            + ('0' + h).slice(-2)
-            + (includeSeparators ? ":" : "")
-            + ('0' + d.getMinutes()).slice(-2)
-            + (excludeSeconds ? "" : (includeSeparators ? ":" : "") + ('0' + d.getSeconds()).slice(-2))
-            + tt;
+    switch(format){
+        case "mm/dd/yyyy":{
+            result = ('0' + (date.getMonth() + 1)).slice(-2)
+                    + "/"
+                    + ('0' + date.getDate()).slice(-2)
+                    + "/"
+                    + date.getFullYear();
+            break;
+        }
+        case "hh:mm":{
+            result = ('0' + h).slice(-2)
+                    + ":"
+                    + ('0' + d.getMinutes()).slice(-2);
+            break;
+        }
+        case "mm/dd/yyyy hh:mm":{
+            result = ('0' + (date.getMonth() + 1)).slice(-2)
+                    + "/"
+                    + ('0' + date.getDate()).slice(-2)
+                    + "/"
+                    + date.getFullYear()
+                    + ('0' + h).slice(-2)
+                    + ":"
+                    + ('0' + d.getMinutes()).slice(-2);
+            break;
+        }
+        case "yyyymmddhhmm":{
+            result = date.getFullYear()
+                    + ('0' + (date.getMonth() + 1)).slice(-2)
+                    + ('0' + date.getDate()).slice(-2)
+                    + ('0' + h).slice(-2)
+                    + ('0' + d.getMinutes()).slice(-2);
+            break;
+        }
+        case "mm/dd/yyyy-hh:mm":{
+            result = ('0' + (date.getMonth() + 1)).slice(-2)
+                    + "/"
+                    + ('0' + date.getDate()).slice(-2)
+                    + "/"
+                    + date.getFullYear()
+                    + "-"
+                    + ('0' + h).slice(-2)
+                    + ":"
+                    + ('0' + d.getMinutes()).slice(-2);
+            break;
+        }
     }
     return result;
 }
