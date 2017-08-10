@@ -40,7 +40,7 @@ body {
     margin:5px 5px 5px 5px;
     display:inline-block;
     width:30px;
-    font-style:bold;
+    font-weight:bold;
 }
 .spnNoteAlarm{
     color:brown;
@@ -48,7 +48,7 @@ body {
     margin:5px 5px 5px 5px;
     display:inline-block;
     width:180px;
-    font-style:bold;
+    font-weight:bold;
 }
 .spnLater{
     color:#555555;
