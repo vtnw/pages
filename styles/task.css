@@ -1,17 +1,6 @@
-html{
-    height: 97%;
-}
 body {
-    height: 97%;
     font-size:14px;
     font-family:Arial;
-}
-.dvContainer {
-    height: 100%;
-}
-.dvTaskContainer{
-    height:88%;
-    overflow:auto;
 }
 .tbTask {
     width:96%;
@@ -19,7 +8,8 @@ body {
     border-radius:5px;
     outline: none;
     padding: 5px;
-    margin-top:10px
+    margin-top:10px;
+    margin-bottom:10px
 }
 .spnTime{
     padding:5px 5px 5px 5px;
