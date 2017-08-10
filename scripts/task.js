@@ -8,7 +8,13 @@ var today;
 //events
 document.getElementById("btnAdd").addEventListener("click", function () {
     addTask();
-})
+});
+document.getElementById("tbTask").addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        addTask();
+    }
+});
 
 //functions
 function initialize() {
@@ -136,6 +142,7 @@ function addTask() {
     };
     addTaskToList(task);
     loadTaskList();
+    document.getElementById("tbTask").value = "";
 }
 function addTaskToList(task) {
     taskList.push(task);
