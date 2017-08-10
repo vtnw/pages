@@ -116,13 +116,13 @@ function addTask() {
         year = today.getFullYear();
     }
     if (dateValues.length == 2) {
-        date = dateValues[1];
-        month = parseInt(dateValues[0]) - 1;
+        date = dateValues[1] ? dateValues[1] : today.getDate();
+        month = dateValues[0] ? parseInt(dateValues[0]) - 1 : today.getMonth();
         year = today.getFullYear();
     }
     if (dateValues.length == 3) {
-        date = dateValues[1];
-        month = parseInt(dateValues[0]) - 1;
+        date = dateValues[1] ? dateValues[1] : today.getDate();
+        month = dateValues[0] ? parseInt(dateValues[0]) - 1 : today.getMonth();
         year = dateValues[2].length == 4 ? dateValues[2] : 2000 + parseInt(dateValues[2]);
     }
     var timeValues = timePart.split(":");
