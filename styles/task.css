@@ -23,6 +23,20 @@ body {
     display:inline-block;
     width:180px;
 }
+.spnTimeDone{
+    color:green;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+    width:30px;
+}
+.spnNoteDone{
+    color:green;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+    width:180px;
+}
 .spnTimeAlarm{
     color:brown;
     padding:5px 5px 5px 5px;
