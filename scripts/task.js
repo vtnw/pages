@@ -167,6 +167,7 @@ function clearCache() {
     localStorage.removeItem(cacheName);
 }
 function formatDate(date, format){
+    date = new Date(date);
     var result = "";
     switch(format){
         case "mm/dd/yyyy":{
@@ -178,9 +179,9 @@ function formatDate(date, format){
             break;
         }
         case "hh:mm":{
-            result = ('0' + h).slice(-2)
+            result = ('0' + date.getHours()).slice(-2)
                     + ":"
-                    + ('0' + d.getMinutes()).slice(-2);
+                    + ('0' + date.getMinutes()).slice(-2);
             break;
         }
         case "mm/dd/yyyy hh:mm":{
@@ -189,17 +190,17 @@ function formatDate(date, format){
                     + ('0' + date.getDate()).slice(-2)
                     + "/"
                     + date.getFullYear()
-                    + ('0' + h).slice(-2)
+                    + ('0' + date.getHours()).slice(-2)
                     + ":"
-                    + ('0' + d.getMinutes()).slice(-2);
+                    + ('0' + date.getMinutes()).slice(-2);
             break;
         }
         case "yyyymmddhhmm":{
             result = date.getFullYear()
                     + ('0' + (date.getMonth() + 1)).slice(-2)
                     + ('0' + date.getDate()).slice(-2)
-                    + ('0' + h).slice(-2)
-                    + ('0' + d.getMinutes()).slice(-2);
+                    + ('0' + date.getHours()).slice(-2)
+                    + ('0' + date.getMinutes()).slice(-2);
             break;
         }
         case "mm/dd/yyyy-hh:mm":{
@@ -209,9 +210,9 @@ function formatDate(date, format){
                     + "/"
                     + date.getFullYear()
                     + "-"
-                    + ('0' + h).slice(-2)
+                    + ('0' + date.getHours()).slice(-2)
                     + ":"
-                    + ('0' + d.getMinutes()).slice(-2);
+                    + ('0' + date.getMinutes()).slice(-2);
             break;
         }
     }
