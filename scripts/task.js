@@ -12,10 +12,10 @@ document.getElementById("tbTask").addEventListener("keyup", function(event) {
     }
 });
 document.getElementById("spnClearAll").addEventListener("click", function(event) {
-    if (confirm("Clear all tasks?")) clearTaskList(true);
+    if (confirm("Clear all tasks?")) clearTaskList(false);
 });
 document.getElementById("spnClearDone").addEventListener("click", function(event) {
-    if (confirm("Clear done tasks?")) clearTaskList(false);
+    if (confirm("Clear done tasks?")) clearTaskList(true);
 });
 
 //functions
