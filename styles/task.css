@@ -10,7 +10,7 @@ body {
     height: 100%;
 }
 .dvTaskContainer{
-    height:85%;
+    height:88%;
     overflow:auto;
 }
 .tbTask {
@@ -49,5 +49,5 @@ body {
     display:inline-block;
 }
 .btnAdd{
-    width:70px;
+    width:100px;
 }
