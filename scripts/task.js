@@ -51,7 +51,8 @@ function loadTaskList(showDone) {
                 currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
             }
             
-            var notify = formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm");
+            var notify = formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm") 
+                            && taskList[i].status > 0;
 
             var spnTime = document.createElement("span");
             spnTime.className = notify ? "spnTimeAlarm" : (taskList[i].status > 0 ? "spnTime" : "spnTimeDone");
