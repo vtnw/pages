@@ -48,7 +48,7 @@ function loadTaskList() {
             spnNote.innerHTML = taskList[i].note;
             dvTask.appendChild(spnNote);
 
-            if (formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm") {
+            if (formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm")) {
                 var spnLater = document.createElement("span");
                 spnLater.className = "spnLater";
                 spnLater.innerHTML = "Move";
