@@ -6,9 +6,6 @@ var options = {};
 var today;
 
 //events
-document.getElementById("btnAdd").addEventListener("click", function () {
-    addTask();
-});
 document.getElementById("tbTask").addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
