@@ -17,23 +17,26 @@ document.getElementById("spnClearAll").addEventListener("click", function(event)
 document.getElementById("spnClearDone").addEventListener("click", function(event) {
     if (confirm("Clear done tasks?")) clearTaskList(true);
 });
+document.getElementById("spnShowAll").addEventListener("click", function(event) {
+    loadTaskList(true);
+}
 
 //functions
 function initialize() {
     today = new Date();
     today.setHours(23, 59, 59, 999);
     taskList = getCache();
-    loadTaskList();
+    loadTaskList(false);
 }
 function getDateOnly(date){
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 }
-function loadTaskList() {
+function loadTaskList(showDone) {
     document.getElementById("dvTasks").innerHTML = "";
     taskList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
     var currDate;
     for (var i = 0; i < taskList.length; i++) {
-        if (taskList[i].status > 0) {
+        if (taskList[i].status > 0 || showDone) {
             var dvTask = document.createElement("div");
             dvTask.className = "dvTask";
             
@@ -51,12 +54,12 @@ function loadTaskList() {
             var notify = formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm");
 
             var spnTime = document.createElement("span");
-            spnTime.className = notify ? "spnTimeAlarm" : "spnTime";
+            spnTime.className = notify ? "spnTimeAlarm" : (taskList[i].status > 0 ? "spnTime" : "spnTimeDone");
             spnTime.innerHTML = formatDate(taskList[i].eventDate,"hh:mm");
             dvTask.appendChild(spnTime);
 
             var spnNote = document.createElement("span");
-            spnNote.className = notify ? "spnNoteAlarm" : "spnNote";
+            spnNote.className = notify ? "spnNoteAlarm" : (taskList[i].status > 0 ? "spnNote" : "spnNoteDone");
             spnNote.innerHTML = taskList[i].note;
             dvTask.appendChild(spnNote);
 
@@ -94,7 +97,7 @@ function updateTaskStatus(id, status) {
         taskList.splice(i, 1);
     }
     setCache(taskList);
-    loadTaskList();
+    loadTaskList(false);
     if (status == 2) {
         document.getElementById("tbTask").value = task;
         document.getElementById("tbTask").focus();
@@ -139,7 +142,7 @@ function addTask() {
         status: 1
     };
     addTaskToList(task);
-    loadTaskList();
+    loadTaskList(false);
     document.getElementById("tbTask").value = "";
     document.getElementById("tbTask").blur();
     document.getElementById("dvTaskContainer").scrollTop = 0;
@@ -160,6 +163,7 @@ function clearTaskList(onlyDone){
     }
     taskList = tempList;
     setCache(taskList);
+    loadTaskList(false);
 }
 
 
