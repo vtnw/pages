@@ -13,6 +13,7 @@ document.getElementById("tbTask").addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
         addTask();
+        document.getElementById("tbTask").blur();
     }
 });
 
