@@ -30,7 +30,11 @@ function loadTaskList() {
         if (taskList[i].status > 0) {
             var dvTask = document.createElement("div");
             dvTask.className = "dvTask";
+            
             if (currDate == null || currDate != formatDate(taskList[i].eventDate, "yyyymmdd")) {
+                if(currDate != null){
+                    dvTask.appendChild(document.createElement("br"));                
+                }
                 currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
                 var dvDate = document.createElement("div");
                 dvDate.className = "dvDate";
