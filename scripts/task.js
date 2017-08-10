@@ -32,7 +32,7 @@ function loadTaskList() {
             dvTask.className = "dvTask";
             
             if (currDate == null || currDate != formatDate(taskList[i].eventDate, "yyyymmdd")) {
-                if(currDate != null){
+                if(currDate == formatDate(today, "yyyymmdd")){
                     dvTask.appendChild(document.createElement("hr"));                
                 }
                 currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
