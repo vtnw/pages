@@ -110,7 +110,7 @@ function addTask() {
     var timePart = (dateTimePart.length > 1) ? dateTimePart[1] : "09:00";
     var dateValues = datePart.split("/");
     var date, month, year, hour, min;
-    if (dateValues.length == 1) {
+    if (dateValues.length <= 1) {
         date = isNaN(dateValues[0]) ? getDateByText(dateValues[0]) : dateValues[0];
         month = today.getMonth();
         year = today.getFullYear();
