@@ -7,7 +7,7 @@ body {
     border:1px solid #cccccc;
     border-radius:5px;
     outline: none;
-    padding: 5px;
+    padding: 5px 5px 5px 5px;
     margin-top:10px;
     margin-bottom:10px
 }
