@@ -92,9 +92,12 @@ function updateTaskStatus(id, status) {
 }
 function addTask() {
     var taskText = document.getElementById("tbTask").value;
-    var part = taskText.split("@");
-    var note = part[0].trim();
-    var dateTimePart = part[1].trim().split(" ");
+    var part = taskText.split(" ");
+    
+    var note = part[1].replace(part[0] + " ", "");
+    
+    var dateTimePart = part[0].trim().split("-");
+    
     var datePart = dateTimePart[0];
     var timePart = (dateTimePart.length > 1) ? dateTimePart[1] : "09:00";
     var dateValues = datePart.split("/");
@@ -117,7 +120,9 @@ function addTask() {
     var timeValues = timePart.split(":");
     hour = timeValues[0];
     min = (timeValues.length > 1) ? timeValues[1] : "00";
+    
     var fullDate = new Date(year, month, date, hour, min, 0, 0);
+    alert(fullDate);alert(note);
     
     var task = {
         id: getNextIndex(),
