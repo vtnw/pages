@@ -67,6 +67,6 @@ body {
 .btnAdd{
     width:65px;
 }
-.dvTask{
-    vertical-align:top;
+.dvDate{
+    font-weight:bold;
 }
