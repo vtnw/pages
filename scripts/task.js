@@ -10,7 +10,6 @@ document.getElementById("tbTask").addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
         addTask();
-        document.getElementById("tbTask").blur();
     }
 });
 
@@ -141,6 +140,8 @@ function addTask() {
     addTaskToList(task);
     loadTaskList();
     document.getElementById("tbTask").value = "";
+    document.getElementById("tbTask").blur();
+    document.getElementById("dvTasks").scrollTop = 0;
 }
 function addTaskToList(task) {
     taskList.push(task);
