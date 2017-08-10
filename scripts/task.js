@@ -112,8 +112,7 @@ function addTask() {
     var date, month, year, hour, min;
     
     if (dateValues.length <= 1) {        
-        alert(dateValues[0]);alert(isNaN(dateValues[0]));
-        date = isNaN(dateValues[0]) ? getDateByText(dateValues[0]) : dateValues[0];
+        date = dateValues[0] ? (isNaN(dateValues[0]) ? getDateByText(dateValues[0]) : dateValues[0]) ? today.getDate();
         month = today.getMonth();
         year = today.getFullYear();
     }
