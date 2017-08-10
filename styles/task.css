@@ -8,11 +8,9 @@ body {
 }
 .dvContainer {
     height: 100%;
-    border:1px solid red;
 }
 .dvTaskContainer{
-    height:90%;
-    border:1px solid green;
+    height:85%;
     overflow:auto;
 }
 .tbTask {
@@ -49,4 +47,7 @@ body {
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
     display:inline-block;
+}
+.btnAdd{
+    width:70px;
 }
