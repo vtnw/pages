@@ -38,15 +38,14 @@ function loadTaskList() {
             var dvTask = document.createElement("div");
             dvTask.className = "dvTask";
             
-            if (currDate == null || currDate != formatDate(taskList[i].eventDate, "yyyymmdd")) {
-                if(currDate == formatDate(today, "yyyymmdd")){
-                    dvTask.appendChild(document.createElement("hr"));                
-                }
-                currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
+            if (currDate == null || currDate != formatDate(taskList[i].eventDate, "yyyymmdd")) {                
                 var dvDate = document.createElement("div");
                 dvDate.className = "dvDate";
                 dvDate.innerHTML = formatDate(taskList[i].eventDate,"mm/dd/yyyy ddd");
+                var lineBreak = (currDate == formatDate(today, "yyyymmdd") ? "hr" : "br";
+                dvTask.appendChild(document.createElement(lineBreak));                
                 dvTask.appendChild(dvDate);                
+                currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
             }
             
             var notify = formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm");
