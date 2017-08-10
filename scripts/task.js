@@ -13,7 +13,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
 //functions
 function initialize() {
     today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(23, 59, 59, 999);
     var cache = getCache();
     taskList = cache.taskList;
     options = cache.options;
@@ -123,7 +123,7 @@ function addTask() {
     
     var task = {
         id: getNextIndex(),
-        createdDate: today,
+        createdDate: new Date(),
         eventDate: fullDate,
         note: note,
         status: 1
