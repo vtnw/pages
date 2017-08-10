@@ -34,14 +34,14 @@ body {
     display:inline-block;
     width:180px;
 }
-.spnTime{
+.spnTimeAlarm{
     color:brown;
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
     display:inline-block;
     width:30px;
 }
-.spnNote{
+.spnNoteAlarm{
     color:brown;
     padding:5px 5px 5px 5px;
     margin:5px 5px 5px 5px;
