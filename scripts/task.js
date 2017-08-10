@@ -2,7 +2,6 @@ var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\
 var cacheName = "task" + u;
 var indexName = "index" + cacheName + u;
 var taskList = [];
-var options = {};
 var today;
 
 //events
@@ -12,14 +11,18 @@ document.getElementById("tbTask").addEventListener("keyup", function(event) {
         addTask();
     }
 });
+document.getElementById("spnClearAll").addEventListener("click", function(event) {
+    if confirm("Clear all tasks?") clearTaskList(true);
+});
+document.getElementById("spnClearDone").addEventListener("click", function(event) {
+    if confirm("Clear done tasks?") clearTaskList(false);
+});
 
 //functions
 function initialize() {
     today = new Date();
     today.setHours(23, 59, 59, 999);
-    var cache = getCache();
-    taskList = cache.taskList;
-    options = cache.options;
+    taskList = getCache();
     loadTaskList();
 }
 function getDateOnly(date){
@@ -90,7 +93,7 @@ function updateTaskStatus(id, status) {
         task = formatDate(taskList[i].eventDate, "mm/dd/yyyy-hh:mm") + " " + taskList[i].note;
         taskList.splice(i, 1);
     }
-    setCache({ taskList: taskList, options: options });
+    setCache(taskList);
     loadTaskList();
     if (status == 2) {
         document.getElementById("tbTask").value = task;
@@ -145,7 +148,20 @@ function addTask() {
 }
 function addTaskToList(task) {
     taskList.push(task);
-    setCache({ taskList: taskList, options: options });
+    setCache(taskList);
+}
+function showOptions(){
+    document.getElementById("dvOptions").style.display = "block";
+}
+function clearTaskList(onlyDone){
+    var tempList = [];
+    for(var i = 0; i < taskList.length; i++){
+        if(taskList[i].status == 0 && onlyDone){
+            tempList.push(taskList[i]);
+        }
+    }
+    taskList = tempList;
+    setCache(taskList);
 }
 
 
@@ -168,7 +184,7 @@ function resetIndex() {
 function getCache() {
     var items = JSON.parse(localStorage.getItem(cacheName));
     if (items == null) {
-        items = { taskList: [], options: { snoozeDays: 1, hideOthers: false } };
+        items = [];
     }
     return items;
 }
