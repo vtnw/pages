@@ -41,18 +41,20 @@ function loadTaskList() {
                 dvDate.innerHTML = formatDate(taskList[i].eventDate,"mm/dd/yyyy");
                 dvTask.appendChild(dvDate);                
             }
+            
+            var notify = formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm");
 
             var spnTime = document.createElement("span");
-            spnTime.className = "spnTime";
+            spnTime.className = notify ? "spnTimeAlarm" : "spnTime";
             spnTime.innerHTML = formatDate(taskList[i].eventDate,"hh:mm");
             dvTask.appendChild(spnTime);
 
             var spnNote = document.createElement("span");
-            spnNote.className = "spnNote";
+            spnNote.className = notify ? "spnNoteAlarm" : "spnNote";
             spnNote.innerHTML = taskList[i].note;
             dvTask.appendChild(spnNote);
 
-            if (formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm")) {
+            if (notify) {
                 var spnLater = document.createElement("span");
                 spnLater.className = "spnLater";
                 spnLater.innerHTML = "Move";
