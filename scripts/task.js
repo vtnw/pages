@@ -48,7 +48,7 @@ function loadTaskList() {
             spnNote.innerHTML = taskList[i].note;
             dvTask.appendChild(spnNote);
 
-            if (task.eventDate.getDate() <= today.getDate()) {
+            if (formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm") {
                 var spnLater = document.createElement("span");
                 spnLater.className = "spnLater";
                 spnLater.innerHTML = "Move";
@@ -201,6 +201,12 @@ function formatDate(date, format){
                     + ('0' + date.getDate()).slice(-2)
                     + ('0' + date.getHours()).slice(-2)
                     + ('0' + date.getMinutes()).slice(-2);
+            break;
+        }
+        case "yyyymmdd":{
+            result = date.getFullYear()
+                    + ('0' + (date.getMonth() + 1)).slice(-2)
+                    + ('0' + date.getDate()).slice(-2);
             break;
         }
         case "mm/dd/yyyy-hh:mm":{
