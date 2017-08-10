@@ -19,7 +19,7 @@ document.getElementById("spnClearDone").addEventListener("click", function(event
 });
 document.getElementById("spnShowAll").addEventListener("click", function(event) {
     loadTaskList(true);
-}
+});
 
 //functions
 function initialize() {
