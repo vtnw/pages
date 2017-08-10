@@ -156,7 +156,7 @@ function showOptions(){
 function clearTaskList(onlyDone){
     var tempList = [];
     for(var i = 0; i < taskList.length; i++){
-        if(taskList[i].status == 0 && onlyDone){
+        if(taskList[i].status != 0 && onlyDone){
             tempList.push(taskList[i]);
         }
     }
