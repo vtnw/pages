@@ -33,7 +33,7 @@ function loadTaskList() {
             
             if (currDate == null || currDate != formatDate(taskList[i].eventDate, "yyyymmdd")) {
                 if(currDate != null){
-                    dvTask.appendChild(document.createElement("br"));                
+                    dvTask.appendChild(document.createElement("hr"));                
                 }
                 currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
                 var dvDate = document.createElement("div");
