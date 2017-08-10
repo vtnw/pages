@@ -123,7 +123,7 @@ function addTask() {
     if (dateValues.length == 3) {
         date = dateValues[1];
         month = parseInt(dateValues[0]) - 1;
-        year = dateValues[2];
+        year = dateValues[2].length == 4 ? dateValues[2] : "20" + dateValues[2];
     }
     var timeValues = timePart.split(":");
     hour = timeValues[0] ? timeValues[0] : "09";
@@ -271,7 +271,9 @@ function getDateByText(word){
             return date+1;
         }
         case "mon": case "tue": case "wed": case "thu": case "fri": case "sat": case "sun":{
-            var numDays = (days[word]>days[day]) ? days[word]-days[day] : 7-days[word]-days[day];
+            var wordIndex = days.indexOf(word);
+            var diff = wordIndex - day;
+            var numDays = (wordIndex>day) ? diff : diff + 7;
             return date+numDays;
         }
         default:{
