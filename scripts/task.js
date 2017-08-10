@@ -102,18 +102,16 @@ function updateTaskStatus(id, status) {
 }
 function addTask() {
     var taskText = document.getElementById("tbTask").value;
-    var part = taskText.split(" ");
+    var parts = taskText.split(" ");    
+    var note = taskText.replace(parts[0] + " ", "");
     
-    var note = taskText.replace(part[0] + " ", "");
-    
-    var dateTimePart = part[0].trim().split("-");
-    
+    var dateTimePart = parts[0].trim().split("-");    
     var datePart = dateTimePart[0];
     var timePart = (dateTimePart.length > 1) ? dateTimePart[1] : "09:00";
     var dateValues = datePart.split("/");
     var date, month, year, hour, min;
     if (dateValues.length == 1) {
-        date = dateValues[0] ? dateValues[0] : today.getDate();
+        date = isNaN(dateValues[0]) ? getDateByText(dateValues[0]) : dateValues[0];
         month = today.getMonth();
         year = today.getFullYear();
     }
@@ -130,9 +128,8 @@ function addTask() {
     var timeValues = timePart.split(":");
     hour = timeValues[0] ? timeValues[0] : "09";
     min = (timeValues.length > 1) ? timeValues[1] : "00";
-    
     var fullDate = new Date(year, month, date, hour, min, 0, 0);
-    
+    alert(fullDate);return;
     var task = {
         id: getNextIndex(),
         createdDate: new Date(),
@@ -262,4 +259,23 @@ function formatDate(date, format){
         }
     }
     return result;
+}
+function getDateByText(word){
+    var days = ['sun','mon','tue','wed','thu','fri','sat'];
+    var now = new Date();
+    var date = now.getDate();
+    var day = now.getDay();
+    
+    switch(word){
+        case "tomorrow":{
+            return date+1;
+        }
+        case "mon": case "tue": case "wed": case "thu": case "fri": case "sat": case "sun":{
+            var numDays = (days[word]>days[day]) ? days[word]-days[day] : 7-days[word]-days[day];
+            return date+numDays;
+        }
+        default:{
+            return date;
+        }
+    }
 }
