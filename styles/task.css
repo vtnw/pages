@@ -14,11 +14,12 @@ body {
     overflow:auto;
 }
 .tbTask {
-    width:99%;
+    width:98%;
     border:1px solid #cccccc;
     border-radius:5px;
     outline: none;
     padding: 5px;
+    margin-top:10px
 }
 .spnTime{
     padding:5px 5px 5px 5px;
