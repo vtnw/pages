@@ -78,7 +78,7 @@ function updateTaskStatus(id, status) {
     var task;
     taskList[i].status = status;
     if (status == 2) {
-        task = formatDate(taskList[i].eventDate, "mm/dd/yyyy-hh:mm") + " " + taskList[i].note);
+        task = formatDate(taskList[i].eventDate, "mm/dd/yyyy-hh:mm") + " " + taskList[i].note;
         taskList.splice(i, 1);
     }
     setCache({ taskList: taskList, options: options });
