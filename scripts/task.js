@@ -130,24 +130,26 @@ function loadTodos(showDone){
         spnNote.innerHTML = todoList[i].note;
         dvTask.appendChild(spnNote);
 
-        var spnLater = document.createElement("span");
-        spnLater.className = "spnLater";
-        spnLater.innerHTML = "Add";
-        spnLater.id = todoList[i].id;
-        spnLater.addEventListener("click", function () {
-            updateTaskStatus(this.id, 2);
-            toggleMode(true);
-        });
-        dvTask.appendChild(spnLater);
+        if(todoList[i].status == 3){
+            var spnLater = document.createElement("span");
+            spnLater.className = "spnLater";
+            spnLater.innerHTML = "Add";
+            spnLater.id = todoList[i].id;
+            spnLater.addEventListener("click", function () {
+                updateTaskStatus(this.id, 2);
+                toggleMode(true);
+            });
+            dvTask.appendChild(spnLater);
 
-        var spnDone = document.createElement("span");
-        spnDone.className = "spnDone";
-        spnDone.innerHTML = "Done";
-        spnDone.id = todoList[i].id;
-        spnDone.addEventListener("click", function () {
-            updateTaskStatus(this.id, 0);
-        });
-        dvTask.appendChild(spnDone);
+            var spnDone = document.createElement("span");
+            spnDone.className = "spnDone";
+            spnDone.innerHTML = "Done";
+            spnDone.id = todoList[i].id;
+            spnDone.addEventListener("click", function () {
+                updateTaskStatus(this.id, 0);
+            });
+            dvTask.appendChild(spnDone);
+        }
 
         document.getElementById("dvTodos").appendChild(dvTask);
     }
@@ -363,6 +365,9 @@ function getDateByText(word){
     var day = now.getDay();
     
     switch(word){
+        case "today": case "now":{
+            return date;
+        }
         case "tomorrow":{
             return date+1;
         }
