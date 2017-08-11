@@ -77,10 +77,12 @@ document.getElementById("btnMore").addEventListener("click", function () {
     toggleMore();
 });
 document.addEventListener("leftSwipe", function(event){
-    document.getElementById("ddlMode").selectedIndex = 0;
+    document.getElementById("ddlMode").selectedIndex = 1;
+    toggleMode();
 });
 document.addEventListener("rightSwipe", function(event){
-    document.getElementById("ddlMode").selectedIndex = 1;
+    document.getElementById("ddlMode").selectedIndex = 0;
+    toggleMode();
 });
 
 function initialize() {
