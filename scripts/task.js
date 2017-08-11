@@ -126,7 +126,7 @@ function loadTodos(showDone){
         }
 
         var spnNote = document.createElement("span");
-        spnNote.className = "spnNote";
+        spnNote.className = (todoList[i].status > 0 ? "spnNote" : "spnNoteDone");
         spnNote.innerHTML = todoList[i].note;
         dvTask.appendChild(spnNote);
 
@@ -157,6 +157,9 @@ function updateTaskStatus(id, status) {
     var task;
     taskList[i].status = status;
     if (status == 2) {
+        taskList[i].eventDate = (taskList[i].eventDate == null) 
+                                ? new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9,0,0,0) 
+                                : taskList[i].eventDate;
         task = formatDate(taskList[i].eventDate, "mm/dd/yyyy-hh:mm") + " " + taskList[i].note;
         taskList.splice(i, 1);
     }
