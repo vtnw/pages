@@ -110,11 +110,12 @@ function toggleFilter(){
 function toggleType(){
     resetToggle("btnType");
     if(document.getElementById("btnType").value == "Type"){
-        document.getElementById("btnType").value = "Close";
+        document.getElementById("btnType").value = "Apply";
         document.getElementById("btnType").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
     }
     else{        
+        applyTypes();
         document.getElementById("btnType").value = "Type";
         document.getElementById("btnType").style.textDecoration = "";
         document.getElementById("dvTypes").style.display = "none";
@@ -149,6 +150,7 @@ function toggleExport(){
     }
 }
 function resetToggle(source){
+    clearTypeSelection();
     if(source != "btnFilter"){
         document.getElementById("btnFilter").value = "Filter";
         document.getElementById("dvTypes").style.display = "none";
@@ -173,6 +175,31 @@ function resetToggle(source){
         document.getElementById("btnExport").value = "Export";
         document.getElementById("dvTypes").style.display = "none";
         document.getElementById("btnExport").style.textDecoration = "";
+    }
+}
+function applyTypes(){
+    var note = document.getElementById("tbNote").value;
+    var selTypes = " ";
+    for(int i = 0; i < typeList.length;i++);{
+        if(typeList[i].Selected){
+            selTypes += " " + typeList[i].Name;
+        }
+    }
+    if(note != ""){
+        document.getElementById("tbNote").value = note + selTypes;
+    }
+    else{
+        document.getElementById("tbNote").value = selTypes.trim() + " " + note;
+    }
+    document.getElementById("dvTypes").style.display = "none";
+    document.getElementById("btnType").value = "Type";
+    document.getElementById("btnType").style.textDecoration = "";
+}
+function clearTypeSelection(){
+    var typeSpanList = document.getElementById("dvTypes").getElementsByTagName("span");
+    for(var i=0;i<typeSpanList.length;i++){
+        typeSpanList[i].className = "spnType";
+        typeList[typeList.findIndex(t => t.Name == typeSpanList[i])].Selected = false;
     }
 }
 function clearList() {
@@ -311,23 +338,12 @@ function addTypeToDiv(type, isSelected){
     spnType.addEventListener("click", function () {
         if(document.getElementById("btnFilter").value == "Apply"
             || document.getElementById("btnExport").value == "Apply"
-            || document.getElementById("btnClear").value == "Apply"){
+            || document.getElementById("btnClear").value == "Apply"
+            || document.getElementById("btnType").value == "Apply"){
                 isSelected = (this.className == "spnTypeSel");
                 this.className = isSelected ? "spnType" : "spnTypeSel";
                 typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
-        }
-        if(document.getElementById("btnType").value == "Close"){
-            var note = document.getElementById("tbNote").value;
-            if(note != ""){
-                document.getElementById("tbNote").value = note + " " + this.innerHTML;
-            }
-            else{
-                document.getElementById("tbNote").value = this.innerHTML + " " + note;
-            }
-            document.getElementById("dvTypes").style.display = "none";
-            document.getElementById("btnType").value = "Type";
-            document.getElementById("btnType").style.textDecoration = "";
-        }
+        }        
     });
     document.getElementById("dvTypes").appendChild(spnType);
 }
