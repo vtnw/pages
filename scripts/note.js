@@ -41,7 +41,7 @@ function initialize() {
 function loadTypeList(){
     typeList = [];
     document.getElementById("dvTypes").innerHTML = "";
-    for (i = 0; i < noteList.length; i++) {
+    for (var i = 0; i < noteList.length; i++) {
         for (j = 0; j < noteList[i].Type.length; j++) {
             if (isNewType(noteList[i].Type[j])){
                 addTypeToList(noteList[i].Type[j], false);
@@ -56,7 +56,7 @@ function loadTypeList(){
 function loadList() {    
     document.getElementById("dvNotes").innerHTML = "";
     applyFilter = hasSelection();
-    for (i = 0; i < noteList.length; i++) {
+    for (var i = 0; i < noteList.length; i++) {
         if (!applyFilter || isTypeSelected(noteList[i].Type)) {
             addToDiv("dvNotes", noteList[i]);
         }
@@ -181,7 +181,6 @@ function applyTypes(){
     var note = document.getElementById("tbNote").value;
     var selTypes = " ";
     for(var i = 0; i < typeList.length;i++);{
-        alert(JSON.stringify(typeList));alert(i);alert(typeList.length);alert(JSON.stringify(typeList[i]));
         if(typeList[i].Selected){
             selTypes += " " + typeList[i].Name;
         }
@@ -209,7 +208,7 @@ function clearList() {
     }
     var tempList = [];
     applyFilter = hasSelection();
-    for (i = 0; i < noteList.length; i++) {
+    for (var i = 0; i < noteList.length; i++) {
         if (applyFilter && !isTypeSelected(noteList[i].Type)) {
             tempList.push(noteList[i]);
         }
@@ -292,7 +291,7 @@ function getExportData(supportRestore){
     if(supportRestore){   
         var exportList = [];
         applyFilter = hasSelection();
-        for (i = 0; i < noteList.length; i++) {
+        for (var i = 0; i < noteList.length; i++) {
             if (!applyFilter || isTypeSelected(noteList[i].Type)){
                 exportList.push(noteList[i]);
             }
@@ -301,7 +300,7 @@ function getExportData(supportRestore){
     }
     else{
         applyFilter = hasSelection();
-        for (i = 0; i < noteList.length; i++) {
+        for (var i = 0; i < noteList.length; i++) {
             if (!applyFilter || isTypeSelected(noteList[i].Type)){
                 expResult += noteList[i].Date + " [" + noteList[i].Type + "]\n" + noteList[i].Note + "\n\n";
             }
@@ -316,7 +315,7 @@ function loadFile(replace) {
         if (replace) {
             noteList = [];
         }
-        for (i = 0; i < importedData.length; i++) {
+        for (var i = 0; i < importedData.length; i++) {
             importedData[i].Id = getNextIndex();
             noteList.push(importedData[i]);
         }
