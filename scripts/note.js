@@ -180,9 +180,9 @@ function resetToggle(source){
 function applyTypes(){
     var note = document.getElementById("tbNote").value;
     var selTypes = " ";
-    for(var i = 0; i < typeList.length;i++);{
-        if(typeList[i].Selected){
-            selTypes += " " + typeList[i].Name;
+    for(var ix = 0; ix < typeList.length;ix++);{
+        if(typeList[ix].Selected){
+            selTypes += " " + typeList[ix].Name;
         }
     }
     if(note != ""){
@@ -197,9 +197,9 @@ function applyTypes(){
 }
 function clearTypeSelection(){
     var typeSpanList = document.getElementById("dvTypes").getElementsByTagName("span");
-    for(var i=0;i<typeSpanList.length;i++){
-        typeSpanList[i].className = "spnType";
-        typeList[typeList.findIndex(t => t.Name == typeSpanList[i].innerHTML)].Selected = false;
+    for(var iy=0;iy<typeSpanList.length;iy++){
+        typeSpanList[iy].className = "spnType";
+        typeList[typeList.findIndex(t => t.Name == typeSpanList[iy].innerHTML)].Selected = false;
     }
 }
 function clearList() {
