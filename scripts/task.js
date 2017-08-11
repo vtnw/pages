@@ -229,9 +229,9 @@ function addTodo(){
 function getCategory(text) {
     var type = text.match(/[#]+[A-Za-z0-9-_]+/g);
     if (type == null) {
-        type = "#todo";
+        type = ["#todo"];
     }
-    return type;
+    return type[0];
 }
 function getNote(text) {
     return text.replace(/(^|\s)(#[a-z\d-]+)/ig, "");
