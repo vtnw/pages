@@ -32,6 +32,7 @@ document.addEventListener("touchmove", function(evt){
           event = new Event('downSwipe');
       }                                                                 
   }
+  alert("raising event");
   document.dispatchEvent(event);
   
   xDown = null;
