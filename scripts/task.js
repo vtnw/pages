@@ -106,7 +106,7 @@ function loadTaskList(showDone) {
             var dvTask = document.createElement("div");
             dvTask.className = "dvTask";
             
-            if (currCategory == null || currCategory != taskList[i].category)
+            if (currCategory == null || currCategory != taskList[i].category){
                 var dvDate = document.createElement("div");
                 dvDate.className = "dvDate";
                 dvDate.innerHTML = taskList[i].category;
@@ -144,7 +144,6 @@ function loadTaskList(showDone) {
             document.getElementById("dvTodos").appendChild(dvTask);
         }
     }
-
 }
 function updateTaskStatus(id, status) {
     var i = taskList.findIndex(t => t.id == id);
