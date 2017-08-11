@@ -1,5 +1,6 @@
 CACHE MANIFEST
-#version 20170811
+#version 20170811.1
+scripts/touch.js
 scripts/expense.js
 styles/expense.css
 images/icon.png
