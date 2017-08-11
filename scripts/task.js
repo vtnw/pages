@@ -49,101 +49,107 @@ function getDateOnly(date){
 
 function loadTaskList(showDone) {
     document.getElementById("dvTasks").innerHTML = "";
-    document.getElementById("dvTodos").innerHTML = "";
-    taskList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
-    var currDate, currCategory;
-    for (var i = 0; i < taskList.length; i++) {
-        if (taskList[i].status == 1 || showDone) {
-            var dvTask = document.createElement("div");
-            dvTask.className = "dvTask";
-            
-            if (currDate == null || currDate != formatDate(taskList[i].eventDate, "yyyymmdd")) {                
-                var dvDate = document.createElement("div");
-                dvDate.className = "dvDate";
-                dvDate.innerHTML = formatDate(taskList[i].eventDate,"mm/dd/yyyy ddd");
-                if(currDate != null){
-                    dvTask.appendChild(document.createElement("br"));
-                }
-                dvTask.appendChild(dvDate);                
-                currDate = formatDate(taskList[i].eventDate, "yyyymmdd")
+    var eventList = taskList.filter(t => t.status == 1 || (t.status == 0 && showDone));
+    eventList.sort(function (a, b) { return a.category.localeCompare(b.category) });
+    var currDate;
+    for (var i = 0; i < eventList.length; i++) {
+        var dvTask = document.createElement("div");
+        dvTask.className = "dvTask";
+
+        if (currDate == null || currDate != formatDate(eventList[i].eventDate, "yyyymmdd")) {                
+            var dvDate = document.createElement("div");
+            dvDate.className = "dvDate";
+            dvDate.innerHTML = formatDate(eventList[i].eventDate,"mm/dd/yyyy ddd");
+            if(currDate != null){
+                dvTask.appendChild(document.createElement("br"));
             }
-            
-            var notify = formatDate(taskList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm") 
-                            && taskList[i].status > 0;
-
-            var spnTime = document.createElement("span");
-            spnTime.className = notify ? "spnTimeAlarm" : (taskList[i].status > 0 ? "spnTime" : "spnTimeDone");
-            spnTime.innerHTML = formatDate(taskList[i].eventDate,"hh:mm");
-            dvTask.appendChild(spnTime);
-
-            var spnNote = document.createElement("span");
-            spnNote.className = notify ? "spnNoteAlarm" : (taskList[i].status > 0 ? "spnNote" : "spnNoteDone");
-            spnNote.innerHTML = taskList[i].note;
-            dvTask.appendChild(spnNote);
-
-            if (notify) {
-                var spnLater = document.createElement("span");
-                spnLater.className = "spnLater";
-                spnLater.innerHTML = "Move";
-                spnLater.id = taskList[i].id;
-                spnLater.addEventListener("click", function () {
-                    updateTaskStatus(this.id, 2);
-                });
-                dvTask.appendChild(spnLater);
-
-                var spnDone = document.createElement("span");
-                spnDone.className = "spnDone";
-                spnDone.innerHTML = "Done";
-                spnDone.id = taskList[i].id;
-                spnDone.addEventListener("click", function () {
-                    updateTaskStatus(this.id, 0);
-                });
-                dvTask.appendChild(spnDone);
-            }
-
-            document.getElementById("dvTasks").appendChild(dvTask);
+            dvTask.appendChild(dvDate);                
+            currDate = formatDate(eventList[i].eventDate, "yyyymmdd")
         }
-        else if(taskList[i].status == 3){
-            var dvTask = document.createElement("div");
-            dvTask.className = "dvTask";
-            
-            if (currCategory == null || currCategory != taskList[i].category){
-                var dvDate = document.createElement("div");
-                dvDate.className = "dvDate";
-                dvDate.innerHTML = taskList[i].category;
-                if(currCategory != null){
-                    dvTask.appendChild(document.createElement("br"));
-                }
-                dvTask.appendChild(dvDate);                
-                currCategory = taskList[i].category;
-            }
-            
-            var spnNote = document.createElement("span");
-            spnNote.className = "spnNote";
-            spnNote.innerHTML = taskList[i].note;
-            dvTask.appendChild(spnNote);
 
+        var notify = formatDate(eventList[i].eventDate, "yyyymmddhhmm") <= formatDate(today, "yyyymmddhhmm") 
+                        && eventList[i].status > 0;
+
+        var spnTime = document.createElement("span");
+        spnTime.className = notify ? "spnTimeAlarm" : (eventList[i].status > 0 ? "spnTime" : "spnTimeDone");
+        spnTime.innerHTML = formatDate(eventList[i].eventDate,"hh:mm");
+        dvTask.appendChild(spnTime);
+
+        var spnNote = document.createElement("span");
+        spnNote.className = notify ? "spnNoteAlarm" : (eventList[i].status > 0 ? "spnNote" : "spnNoteDone");
+        spnNote.innerHTML = eventList[i].note;
+        dvTask.appendChild(spnNote);
+
+        if (notify) {
             var spnLater = document.createElement("span");
             spnLater.className = "spnLater";
-            spnLater.innerHTML = "Add";
-            spnLater.id = taskList[i].id;
+            spnLater.innerHTML = "Move";
+            spnLater.id = eventList[i].id;
             spnLater.addEventListener("click", function () {
                 updateTaskStatus(this.id, 2);
-                toggleMode(true);
             });
             dvTask.appendChild(spnLater);
 
             var spnDone = document.createElement("span");
             spnDone.className = "spnDone";
             spnDone.innerHTML = "Done";
-            spnDone.id = taskList[i].id;
+            spnDone.id = eventList[i].id;
             spnDone.addEventListener("click", function () {
                 updateTaskStatus(this.id, 0);
             });
             dvTask.appendChild(spnDone);
-
-            document.getElementById("dvTodos").appendChild(dvTask);
         }
+
+        document.getElementById("dvTasks").appendChild(dvTask);
+        loadTodos();
+    }
+}
+function loadTodos(){
+    document.getElementById("dvTodos").innerHTML = "";
+    var todoList = taskList.filter(t => t.status == 3);
+    todoList.sort(function (a, b) { return a.category.localeCompare(b.category) });
+    var currCategory;
+    
+    for (var i = 0; i < todoList.length; i++) {
+        var dvTask = document.createElement("div");
+        dvTask.className = "dvTask";
+
+        if (currCategory == null || currCategory != todoList[i].category){
+            var dvDate = document.createElement("div");
+            dvDate.className = "dvDate";
+            dvDate.innerHTML = todoList[i].category;
+            if(currCategory != null){
+                dvTask.appendChild(document.createElement("br"));
+            }
+            dvTask.appendChild(dvDate);                
+            currCategory = todoList[i].category;
+        }
+
+        var spnNote = document.createElement("span");
+        spnNote.className = "spnNote";
+        spnNote.innerHTML = todoList[i].note;
+        dvTask.appendChild(spnNote);
+
+        var spnLater = document.createElement("span");
+        spnLater.className = "spnLater";
+        spnLater.innerHTML = "Add";
+        spnLater.id = todoList[i].id;
+        spnLater.addEventListener("click", function () {
+            updateTaskStatus(this.id, 2);
+            toggleMode(true);
+        });
+        dvTask.appendChild(spnLater);
+
+        var spnDone = document.createElement("span");
+        spnDone.className = "spnDone";
+        spnDone.innerHTML = "Done";
+        spnDone.id = todoList[i].id;
+        spnDone.addEventListener("click", function () {
+            updateTaskStatus(this.id, 0);
+        });
+        dvTask.appendChild(spnDone);
+
+        document.getElementById("dvTodos").appendChild(dvTask);
     }
 }
 function updateTaskStatus(id, status) {
