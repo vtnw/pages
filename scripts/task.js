@@ -107,8 +107,7 @@ function loadTaskList(showDone) {
 function loadTodos(){
     document.getElementById("dvTodos").innerHTML = "";
     var todoList = taskList.filter(t => t.status == 3);
-    alert(JSON.stringify(todoList));
-    //todoList.sort(function (a, b) { return a.category.localeCompare(b.category) });
+    todoList.sort(function (a, b) { return a.category.localeCompare(b.category) });
     var currCategory;
     
     for (var i = 0; i < todoList.length; i++) {
