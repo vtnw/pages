@@ -2,6 +2,7 @@ var xDown = null;
 var yDown = null;
 
 document.addEventListener("touchstart", function(evt){
+  alert("start");
   xDown = evt.touches[0].clientX;
   yDown = evt.touches[0].clientY;
 }, false);
