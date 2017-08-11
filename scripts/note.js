@@ -181,7 +181,7 @@ function applyTypes(){
     var note = document.getElementById("tbNote").value;
     var selTypes = " ";
     for(var i = 0; i < typeList.length;i++);{
-        alert(JSON.stringify(typeList[i]));
+        alert(JSON.stringify(typeList));alert(i);alert(typeList.length);alert(JSON.stringify(typeList[i]));
         if(typeList[i].Selected){
             selTypes += " " + typeList[i].Name;
         }
