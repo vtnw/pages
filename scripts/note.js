@@ -199,7 +199,7 @@ function clearTypeSelection(){
     var typeSpanList = document.getElementById("dvTypes").getElementsByTagName("span");
     for(var i=0;i<typeSpanList.length;i++){
         typeSpanList[i].className = "spnType";
-        typeList[typeList.findIndex(t => t.Name == typeSpanList[i])].Selected = false;
+        typeList[typeList.findIndex(t => t.Name == typeSpanList[i].innerHTML)].Selected = false;
     }
 }
 function clearList() {
