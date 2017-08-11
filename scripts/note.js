@@ -182,17 +182,18 @@ function resetToggle(source){
 }
 function applyTypes(){
     var note = document.getElementById("tbNote").value;
-    var selTypes = " ";
+    var selTypes = "";
     for(var ix = 0; ix < typeList.length;ix++){
         if(typeList[ix].Selected){
             selTypes += " " + typeList[ix].Name;
         }
     }
     if(note != ""){
-        document.getElementById("tbNote").value = note + selTypes;
+        document.getElementById("tbNote").value = note.trim() + selTypes;
     }
     else{
-        document.getElementById("tbNote").value = selTypes.trim() + " " + note;
+        document.getElementById("tbNote").value = selTypes.trim() + " ";
+        document.getElementById("btnType").focus();
     }
     document.getElementById("dvTypes").style.display = "none";
     document.getElementById("btnType").value = "Type";
