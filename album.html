@@ -1,0 +1,55 @@
+!DOCTYPE html>
+<html manifest="note.appcache">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles/album.css">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <title>Album</title>
+</head>
+<body>
+    <input type="file" id="fileImport" />
+    <input type="button" id="btnUpload" value="Upload" /><br />
+    <img src="" id="imgPreview" />
+    <canvas id="myCanvas"></canvas>
+</body>
+<script language="javascript">
+    var MAX_WIDTH = 200;
+    function render(src) {
+        var image = new Image();
+        image.onload = function () {
+            var canvas = document.getElementById("myCanvas");
+            if (image.width > MAX_WIDTH) {
+                image.height *= MAX_WIDTH / image.width;
+                image.width = MAX_WIDTH;
+            }
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0, image.width, image.height);
+        };
+        image.src = src;
+        //document.getElementById("imgPreview").src = src;
+    }
+    function loadImage(src) {
+        //	Prevent any non-image file type from being read.
+        if (!src.type.match(/image.*/)) {
+            console.log("The dropped file is not an image: ", src.type);
+            return;
+        }
+
+        //	Create our FileReader and run the results through the render function.
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            render(e.target.result);
+        };
+        reader.readAsDataURL(src);
+    }
+    document.getElementById("btnUpload").addEventListener("click", function () {
+        loadImage(document.getElementById("fileImport").files[0]);
+    });    
+</script>
+</html>
