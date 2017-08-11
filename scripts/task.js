@@ -50,7 +50,7 @@ function getDateOnly(date){
 function loadTaskList(showDone) {
     document.getElementById("dvTasks").innerHTML = "";
     var eventList = taskList.filter(t => t.status == 1 || (t.status == 0 && showDone));
-    eventList.sort(function (a, b) { return a.category.localeCompare(b.category) });
+    eventList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
     var currDate;
     for (var i = 0; i < eventList.length; i++) {
         var dvTask = document.createElement("div");
