@@ -96,6 +96,7 @@ function toggleImport(){
 function toggleFilter(){
     resetToggle("btnFilter");
     if(document.getElementById("btnFilter").value == "Filter"){
+        clearTypeSelection();
         document.getElementById("btnFilter").value = "Apply";
         document.getElementById("btnFilter").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
@@ -110,13 +111,13 @@ function toggleFilter(){
 function toggleType(){
     resetToggle("btnType");
     if(document.getElementById("btnType").value == "Type"){
+        clearTypeSelection();
         document.getElementById("btnType").value = "Apply";
         document.getElementById("btnType").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
     }
     else{        
-        applyTypes();
-        clearTypeSelection();
+        applyTypes();        
         document.getElementById("btnType").value = "Type";
         document.getElementById("btnType").style.textDecoration = "";
         document.getElementById("dvTypes").style.display = "none";
@@ -125,6 +126,7 @@ function toggleType(){
 function toggleClear(){
     resetToggle("btnClear");
     if(document.getElementById("btnClear").value == "Clear"){
+        clearTypeSelection();
         document.getElementById("btnClear").value = "Apply";
         document.getElementById("btnClear").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
@@ -139,6 +141,7 @@ function toggleClear(){
 function toggleExport(){
     resetToggle("btnExport");
     if(document.getElementById("btnExport").value == "Export"){
+        clearTypeSelection();
         document.getElementById("btnExport").value = "Apply";
         document.getElementById("btnExport").style.textDecoration = "underline";
         document.getElementById("dvTypes").style.display = "block";
@@ -181,6 +184,7 @@ function applyTypes(){
     var note = document.getElementById("tbNote").value;
     var selTypes = " ";
     for(var ix = 0; ix < typeList.length;ix++);{
+        alert(ix);
         if(typeList[ix].Selected){
             selTypes += " " + typeList[ix].Name;
         }
