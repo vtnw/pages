@@ -1,5 +1,6 @@
 CACHE MANIFEST
-#Version 20170811
+#Version 20170811.1
+scripts/touch.js
 scripts/task.js
 styles/task.css
 images/icon.png
