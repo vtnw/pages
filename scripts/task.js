@@ -21,10 +21,10 @@ document.getElementById("spnShowAll").addEventListener("click", function(event) 
     loadTaskList(true);
 });
 document.addEventListener("leftSwipe", function(event){
-    alert("left swipe");
+    toggleMode(true);
 });
 document.addEventListener("rightSwipe", function(event){
-    alert("right swipe");
+    toggleMode(false);
 });
 
 //functions
@@ -33,6 +33,10 @@ function initialize() {
     today.setHours(23, 59, 59, 999);
     taskList = getCache();
     loadTaskList(false);
+}
+function toggleMode(status){
+    document.getElementById("dvTasks").style.display = status ? "block" : "none";
+    document.getElementById("dvTodos").style.display = status ? "none" : "block";
 }
 function getDateOnly(date){
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
