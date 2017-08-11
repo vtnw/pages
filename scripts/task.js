@@ -210,7 +210,6 @@ function addTask() {
     loadTaskList(false);
     document.getElementById("tbTask").value = "";
     document.getElementById("tbTask").blur();
-    document.getElementById("dvTaskContainer").scrollTop = 0;
 }
 function addTodo(){
     var task = {
@@ -225,7 +224,6 @@ function addTodo(){
     loadTaskList(false);
     document.getElementById("tbTask").value = "";
     document.getElementById("tbTask").blur();
-    document.getElementById("dvTaskContainer").scrollTop = 0;
 }
 function getCategory(text) {
     var type = text.match(/[#]+[A-Za-z0-9-_]+/g);
