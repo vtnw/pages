@@ -49,6 +49,7 @@ function getDateOnly(date){
 
 function loadTaskList(showDone) {
     document.getElementById("dvTasks").innerHTML = "";
+    document.getElementById("dvTodos").innerHTML = "";
     taskList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
     var currDate, currCategory;
     for (var i = 0; i < taskList.length; i++) {
