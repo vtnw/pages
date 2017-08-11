@@ -193,7 +193,7 @@ function applyTypes(){
     }
     else{
         document.getElementById("tbNote").value = selTypes.trim() + " ";
-        document.getElementById("btnType").focus();
+        document.getElementById("tbNote").focus();
     }
     document.getElementById("dvTypes").style.display = "none";
     document.getElementById("btnType").value = "Type";
