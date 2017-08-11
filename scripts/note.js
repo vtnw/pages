@@ -180,7 +180,7 @@ function resetToggle(source){
 function applyTypes(){
     var note = document.getElementById("tbNote").value;
     var selTypes = " ";
-    for(int i = 0; i < typeList.length;i++);{
+    for(var i = 0; i < typeList.length;i++);{
         if(typeList[i].Selected){
             selTypes += " " + typeList[i].Name;
         }
