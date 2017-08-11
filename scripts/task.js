@@ -8,7 +8,12 @@ var today;
 document.getElementById("tbTask").addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
-        addTask();
+        if(document.getElementById("dvTasks").style.display == "block"){
+            addTask();
+        }
+        else{
+            addTodo();
+        }
     }
 });
 document.getElementById("spnClearAll").addEventListener("click", function(event) {
@@ -21,10 +26,10 @@ document.getElementById("spnShowAll").addEventListener("click", function(event) 
     loadTaskList(true);
 });
 document.addEventListener("leftSwipe", function(event){
-    toggleMode(true);
+    toggleMode(false);
 });
 document.addEventListener("rightSwipe", function(event){
-    toggleMode(false);
+    toggleMode(true);
 });
 
 //functions
@@ -41,12 +46,13 @@ function toggleMode(status){
 function getDateOnly(date){
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
 }
+
 function loadTaskList(showDone) {
     document.getElementById("dvTasks").innerHTML = "";
     taskList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
-    var currDate;
+    var currDate, currCategory;
     for (var i = 0; i < taskList.length; i++) {
-        if (taskList[i].status > 0 || showDone) {
+        if (taskList[i].status == 1 || showDone) {
             var dvTask = document.createElement("div");
             dvTask.className = "dvTask";
             
@@ -95,6 +101,47 @@ function loadTaskList(showDone) {
             }
 
             document.getElementById("dvTasks").appendChild(dvTask);
+        }
+        else if(taskList[i].status == 3){
+            var dvTask = document.createElement("div");
+            dvTask.className = "dvTask";
+            
+            if (currCategory == null || currCategory != taskList[i].category)
+                var dvDate = document.createElement("div");
+                dvDate.className = "dvDate";
+                dvDate.innerHTML = taskList[i].category;
+                if(currCategory != null){
+                    dvTask.appendChild(document.createElement("br"));
+                }
+                dvTask.appendChild(dvDate);                
+                currCategory = taskList[i].category;
+            }
+            
+            var spnNote = document.createElement("span");
+            spnNote.className = "spnNote";
+            spnNote.innerHTML = taskList[i].note;
+            dvTask.appendChild(spnNote);
+
+            var spnLater = document.createElement("span");
+            spnLater.className = "spnLater";
+            spnLater.innerHTML = "Add";
+            spnLater.id = taskList[i].id;
+            spnLater.addEventListener("click", function () {
+                updateTaskStatus(this.id, 2);
+                toggleMode(true);
+            });
+            dvTask.appendChild(spnLater);
+
+            var spnDone = document.createElement("span");
+            spnDone.className = "spnDone";
+            spnDone.innerHTML = "Done";
+            spnDone.id = taskList[i].id;
+            spnDone.addEventListener("click", function () {
+                updateTaskStatus(this.id, 0);
+            });
+            dvTask.appendChild(spnDone);
+
+            document.getElementById("dvTodos").appendChild(dvTask);
         }
     }
 
@@ -150,6 +197,7 @@ function addTask() {
         createdDate: new Date(),
         eventDate: fullDate,
         note: note,
+        category: "event",
         status: 1
     };
     addTaskToList(task);
@@ -157,6 +205,31 @@ function addTask() {
     document.getElementById("tbTask").value = "";
     document.getElementById("tbTask").blur();
     document.getElementById("dvTaskContainer").scrollTop = 0;
+}
+function addTodo(){
+    var task = {
+        id: getNextIndex(),
+        createdDate: new Date(),
+        eventDate: new Date(),
+        note: getNote(document.getElementById("tbTask").value),
+        category: getCategory(document.getElementById("tbTask").value),
+        status: 3
+    };
+    addTaskToList(task);
+    loadTaskList(false);
+    document.getElementById("tbTask").value = "";
+    document.getElementById("tbTask").blur();
+    document.getElementById("dvTaskContainer").scrollTop = 0;
+}
+function getCategory(text) {
+    var type = text.match(/[#]+[A-Za-z0-9-_]+/g);
+    if (type == null) {
+        type = "#todo";
+    }
+    return type;
+}
+function getNote(text) {
+    return text.replace(/(^|\s)(#[a-z\d-]+)/ig, "");
 }
 function addTaskToList(task) {
     taskList.push(task);
