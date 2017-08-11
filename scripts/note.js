@@ -183,8 +183,7 @@ function resetToggle(source){
 function applyTypes(){
     var note = document.getElementById("tbNote").value;
     var selTypes = " ";
-    for(var ix = 0; ix < typeList.length;ix++);{
-        alert(ix);
+    for(var ix = 0; ix < typeList.length;ix++){
         if(typeList[ix].Selected){
             selTypes += " " + typeList[ix].Name;
         }
