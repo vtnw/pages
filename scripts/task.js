@@ -20,6 +20,12 @@ document.getElementById("spnClearDone").addEventListener("click", function(event
 document.getElementById("spnShowAll").addEventListener("click", function(event) {
     loadTaskList(true);
 });
+document.addEventListener("leftSwipe", function(event){
+    alert("left swipe");
+});
+document.addEventListener("rightSwipe", function(event){
+    alert("right swipe");
+});
 
 //functions
 function initialize() {
