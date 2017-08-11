@@ -116,6 +116,7 @@ function toggleType(){
     }
     else{        
         applyTypes();
+        clearTypeSelection();
         document.getElementById("btnType").value = "Type";
         document.getElementById("btnType").style.textDecoration = "";
         document.getElementById("dvTypes").style.display = "none";
@@ -149,8 +150,7 @@ function toggleExport(){
         document.getElementById("dvTypes").style.display = "none";
     }
 }
-function resetToggle(source){
-    clearTypeSelection();
+function resetToggle(source){    
     if(source != "btnFilter"){
         document.getElementById("btnFilter").value = "Filter";
         document.getElementById("dvTypes").style.display = "none";
