@@ -76,6 +76,12 @@ document.getElementById("ddlMode").addEventListener("change", function () {
 document.getElementById("btnMore").addEventListener("click", function () {
     toggleMore();
 });
+document.addEventListener("leftSwipe", function(event){
+    document.getElementById("ddlMode").selectedIndex = 0;
+});
+document.addEventListener("rightSwipe", function(event){
+    document.getElementById("ddlMode").selectedIndex = 1;
+});
 
 function initialize() {
     var today = new Date();
