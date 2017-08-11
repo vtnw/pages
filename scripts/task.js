@@ -49,7 +49,7 @@ function getDateOnly(date){
 
 function loadTaskList(showDone) {
     document.getElementById("dvTasks").innerHTML = "";
-    var eventList = taskList.filter(t => t.status == 1 || (t.status == 0 && showDone));
+    var eventList = taskList.filter(t => t.eventDate != null && (t.status == 1 || (t.status == 0 && showDone)));
     eventList.sort(function (a, b) { return formatDate(a.eventDate, "yyyymmddhhmm").localeCompare(formatDate(b.eventDate, "yyyymmddhhmm")) });
     var currDate;
     for (var i = 0; i < eventList.length; i++) {
@@ -102,11 +102,11 @@ function loadTaskList(showDone) {
 
         document.getElementById("dvTasks").appendChild(dvTask);        
     }
-    loadTodos();
+    loadTodos(showDone);
 }
-function loadTodos(){
+function loadTodos(showDone){
     document.getElementById("dvTodos").innerHTML = "";
-    var todoList = taskList.filter(t => t.status == 3);
+    var todoList = taskList.filter(t => t.eventDate == null && (t.status == 3 || t.status == 0 && showDone));
     todoList.sort(function (a, b) { return a.category.localeCompare(b.category) });
     var currCategory;
     
@@ -203,7 +203,7 @@ function addTask() {
         createdDate: new Date(),
         eventDate: fullDate,
         note: note,
-        category: "event",
+        category: null,
         status: 1
     };
     addTaskToList(task);
@@ -215,7 +215,7 @@ function addTodo(){
     var task = {
         id: getNextIndex(),
         createdDate: new Date(),
-        eventDate: new Date(),
+        eventDate: null,
         note: getNote(document.getElementById("tbTask").value),
         category: getCategory(document.getElementById("tbTask").value),
         status: 3
