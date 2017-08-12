@@ -126,7 +126,7 @@ function loadTodos(showDone){
         }
 
         var spnNote = document.createElement("span");
-        spnNote.className = (todoList[i].status > 0 ? "spnNote" : "spnNoteDone");
+        spnNote.className = (todoList[i].status > 0 ? "spnTodoNote" : "spnNoteDone");
         spnNote.innerHTML = todoList[i].note;
         dvTask.appendChild(spnNote);
 
