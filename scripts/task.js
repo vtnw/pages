@@ -133,7 +133,7 @@ function loadTodos(showDone){
         if(todoList[i].status == 3){
             var spnLater = document.createElement("span");
             spnLater.className = "spnLater";
-            spnLater.innerHTML = "Add";
+            spnLater.innerHTML = "Move";
             spnLater.id = todoList[i].id;
             spnLater.addEventListener("click", function () {
                 updateTaskStatus(this.id, 2);
