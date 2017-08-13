@@ -1,0 +1,74 @@
+html{
+    height: 97%;
+}
+body {
+    height: 97%;
+    font-size:14px;
+    font-family:Arial;
+}
+.dvContainer {
+    height: 50%;
+}
+.tbnote {
+    width:96.5%;
+    height:50px;
+    border:1px solid #cccccc;
+    border-radius:10px;
+    outline: none;
+    padding: 5px;
+    font-size:14px;
+    font-family:Arial;
+    resize:none;
+	margin-top:5px;
+}
+.dvNotes{
+    height:100%;
+    overflow:auto;
+}
+.btnAdd{
+    width:50px;
+}
+.tbType {
+    width:70px;
+    border:1px solid #cccccc;
+    border-radius:5px;
+    outline: none;
+    padding: 2px;
+    font-size:14px;
+    font-family:Arial;
+}
+.dvDate{
+    font-style: italic;
+    color: #aaaaaa;
+    font-size:12px;
+}
+#fileImport, #btnMerge, #btnReplace{
+    margin-top:5px;
+}
+.spnTypeSel{
+    color:black;
+    border:1px solid blue;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+}
+.spnType{
+    color:#555555;
+    border:1px solid #cccccc;
+    padding:5px 5px 5px 5px;
+    margin:5px 5px 5px 5px;
+    display:inline-block;
+}
+.dvTypes{
+    width:95%;
+    margin:5px 5px 5px 5px;
+}
+.btnType{
+    width:50px;
+}
+.cvsImg{
+    width:350px;
+}
+.img{
+	width:380px;
+}
