@@ -18,26 +18,22 @@
         alert("");
       for (var i = 0; i < noteList.length; i++) {
         var dvItem = document.createElement('div');
-        dvItem.id = 'dvItem' + item.Id;
         dvItem.className = 'dvItem';
 
         var dvDate = document.createElement('div');
-        dvDate.id = 'dvDate' + item.Id;
-        dvDate.innerHTML = item.Date + ' [' + item.Type + ']';
+        dvDate.innerHTML = noteList[i].Date + ' [' + noteList[i].Type + ']';
         dvDate.className = 'dvDate';
         dvItem.appendChild(dvDate);
 
         if(item.Image != null){
           var imgEle = document.createElement('img');
-          imgEle.id = 'img' + item.Id;
-           imgEle.src = 'data:image/jpeg;base64,' + item.Image;
-            imgEle.className = 'img';
+          imgEle.src = 'data:image/jpeg;base64,' + noteList[i].Image;
+          imgEle.className = 'img';
           dvItem.appendChild(imgEle);
         }
 
         var dvNote = document.createElement('div');
-        dvNote.id = 'dvNote' + item.Id;
-        dvNote.innerHTML = item.Note.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        dvNote.innerHTML = item.noteList[i].replace(/(?:\r\n|\r|\n)/g, '<br />');
         dvItem.className = 'dvNote';
         dvItem.appendChild(dvNote);
 
