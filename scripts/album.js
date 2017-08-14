@@ -229,9 +229,11 @@ function clearList() {
     setCache(noteList);
     loadTypeList();
     loadList();
+    document.getElementById("cvsImg").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById("fileImg").value="";
 }
 function addItem() {
-    if(document.getElementById("tbNote").value == ""){
+    if(document.getElementById("tbNote").value == "" || document.getElementById("fileImg").value == ""){
         return;
     }
     var item = {
@@ -298,7 +300,7 @@ function addToDiv(divName, item) {
 }
 function saveAsFile(data, supportRestore) {
     var a = document.createElement("a");
-    a.download = "note" + "_" + getFormattedDate(false) + (supportRestore ? ".txt" : ".html");
+    a.download = "album" + "_" + getFormattedDate(false) + (supportRestore ? ".txt" : ".html");
     a.innerHTML = "export";
     a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
     a.style.display = "none";
@@ -343,24 +345,25 @@ function loadFile(replace) {
     fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
 }
 function loadImage(){
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var image = new Image();
-            image.onload = function () {
-           	 var canvas = document.getElementById("cvsImg");
-          	  if (image.width > maxWidth) {
-           	     image.height *= maxWidth/image.width;
-           	     image.width = maxWidth;
-          	  }
-         	   var ctx = canvas.getContext("2d");
-          	  ctx.clearRect(0, 0, canvas.width, canvas.height);
-         	   canvas.width = image.width;
-        	    canvas.height = image.height;
-         	   ctx.drawImage(image, 0, 0, image.width, image.height);
-            };
-        	image.src = e.target.result;
-        };
-        reader.readAsDataURL(document.getElementById("fileImg").files[0]);
+	var reader = new FileReader();
+	reader.onload = function (e) {
+	    var image = new Image();
+	    image.onload = function () {
+		 var canvas = document.getElementById("cvsImg");
+		  if (image.width > maxWidth) {
+		     image.height *= maxWidth/image.width;
+		     image.width = maxWidth;
+		  }
+		  var ctx = canvas.getContext("2d");
+		  ctx.clearRect(0, 0, canvas.width, canvas.height);
+		  canvas.width = image.width;
+		  canvas.height = image.height;
+		  ctx.drawImage(image, 0, 0, image.width, image.height);
+		  document.getElementById("tbNote".focus();
+	    };
+	    image.src = e.target.result;
+	};
+	reader.readAsDataURL(document.getElementById("fileImg").files[0]);
 }
 function getImage(){
 	var canvas = document.getElementById("cvsImg");
