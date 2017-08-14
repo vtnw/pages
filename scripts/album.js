@@ -228,8 +228,7 @@ function clearList() {
     noteList = tempList;
     setCache(noteList);
     loadTypeList();
-    loadList();
-    document.getElementById("fileImg").value="";
+    loadList();    
 }
 function addItem() {
     if(document.getElementById("tbNote").value == "" || document.getElementById("fileImg").value == ""){
@@ -251,7 +250,7 @@ function addItem() {
         }
     }
     document.getElementById("tbNote").value = "";
-    //document.getElementById("dvNotes").scrollTop = 0;
+    document.getElementById("fileImg").value = "";
 }
 function getType(text) {
     var type = text.match(/[#]+[A-Za-z0-9-_]+/g);
