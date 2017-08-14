@@ -28,7 +28,7 @@ body {
 .btnAdd{
     width:50px;
 }
-.btnFilter{
+.btnFilter1{
     width:50px;
 }
 .tbType {
@@ -67,7 +67,7 @@ body {
     margin:5px 5px 5px 5px;
 }
 .btnType{
-    width:50px;
+    width:45px;
 }
 .cvsImg{
     width:350px;
