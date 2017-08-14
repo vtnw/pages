@@ -298,7 +298,7 @@ function addToDiv(divName, item) {
 }
 function saveAsFile(data, supportRestore) {
     var a = document.createElement("a");
-    var format = "text/plain";	
+    var format = "text/html";	
     var extn = supportRestore ? ".txt" : ".html";
 	alert(format + ","+extn);
     a.download = "note" + "_" + getFormattedDate(false) + extn;
