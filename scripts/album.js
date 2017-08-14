@@ -85,7 +85,7 @@ function hasSelection(){
 }
 function exportData(){
     var supportRestore = confirm("Support restore?");
-    saveAsFile(getExportData(supportRestore));
+    saveAsFile(getExportData(supportRestore), supportRestore);
 }
 function toggleImport(){
     resetToggle("btnImport");
@@ -296,11 +296,12 @@ function addToDiv(divName, item) {
     d = document.getElementById(divName);
     d.insertBefore(dvItem, d.firstChild);
 }
-function saveAsFile(data) {
+function saveAsFile(data, supportRestore) {
     var a = document.createElement("a");
+    var format = supportRestore ? "text/plain" : "text/html";
     a.download = "note" + "_" + getFormattedDate(false);
     a.innerHTML = "export";
-    a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+    a.href = window.URL.createObjectURL(new Blob([data], { type: format }));
     a.style.display = "none";
     a.onclick = function (event) { document.body.removeChild(event.target); };
     document.body.appendChild(a);
