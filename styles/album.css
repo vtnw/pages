@@ -28,6 +28,9 @@ body {
 .btnAdd{
     width:50px;
 }
+.btnFilter{
+    width:50px;
+}
 .tbType {
     width:70px;
     border:1px solid #cccccc;
@@ -70,8 +73,9 @@ body {
     width:350px;
 }
 .img{
-	width:376px;
+    width:376px;
 }
 .dvItem{
-	page-break-inside: avoid;}
+    page-break-inside: avoid;
+}
 	
