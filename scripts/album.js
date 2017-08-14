@@ -359,7 +359,7 @@ function loadImage(){
 		  canvas.width = image.width;
 		  canvas.height = image.height;
 		  ctx.drawImage(image, 0, 0, image.width, image.height);
-		  document.getElementById("tbNote".focus();
+		  document.getElementById("tbNote").focus();
 	    };
 	    image.src = e.target.result;
 	};
