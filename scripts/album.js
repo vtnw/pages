@@ -229,7 +229,6 @@ function clearList() {
     setCache(noteList);
     loadTypeList();
     loadList();
-    document.getElementById("cvsImg").getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
     document.getElementById("fileImg").value="";
 }
 function addItem() {
