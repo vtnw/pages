@@ -14,7 +14,8 @@ document.getElementById("btnClear").addEventListener("click", function () {
     toggleClear();
 });
 document.getElementById("btnExport").addEventListener("click", function () {
-    toggleExport();
+    compress("hello");return;
+	toggleExport();
 });
 document.getElementById("btnFilter").addEventListener("click", function () {
     toggleFilter();
@@ -325,6 +326,17 @@ function getExportData(supportRestore){
     }
     return expResult;
 }
+function compress(string){
+	var string = "This is my compression test.";
+alert("Size of sample is: " + string.length);
+var compressed = LZString.compress(string);
+alert("Size of compressed sample is: " + compressed.length);
+string = LZString.decompress(compressed);
+alert("Sample is: " + string);
+}
+	
+	
+	
 function loadFile(replace) {
     var fileReader = new FileReader();
     fileReader.onload = function (event) {
