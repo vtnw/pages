@@ -247,7 +247,7 @@ function addItem() {
 function getType(text) {
     var type = text.match(/[#]+[A-Za-z0-9-_]+/g);
     if (type == null) {
-        type = ["#note" + u];
+        type = ["#none"];
     }
     return type;
 }
