@@ -78,4 +78,8 @@ body {
 .dvItem{
     page-break-inside: avoid;
 }
-	
+@media print {
+    .dvMenu {
+        display:none;
+    }
+}
