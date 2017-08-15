@@ -282,7 +282,7 @@ function addToDiv(divName, item) {
 }
 function saveAsFile(data) {
     var a = document.createElement("a");
-    a.download = "note" + "_" + getFormattedDate(false);
+    a.download = cacheName + "_" + getFormattedDate(false);
     a.innerHTML = "export";
     a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
     a.style.display = "none";
