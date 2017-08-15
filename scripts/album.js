@@ -255,7 +255,7 @@ function addItem() {
 function getType(text) {
     var type = text.match(/[#]+[A-Za-z0-9-_]+/g);
     if (type == null) {
-        type = ["#note" + u];
+        type = ["#none"];
     }
     return type;
 }
@@ -298,7 +298,7 @@ function addToDiv(divName, item) {
 }
 function saveAsFile(data, supportRestore) {
     var a = document.createElement("a");
-    a.download = "album" + "_" + getFormattedDate(false) + (supportRestore ? ".txt" : ".html");
+    a.download = "album" + u + "_" + getFormattedDate(false) + (supportRestore ? ".txt" : ".html");
     a.innerHTML = "export";
     a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
     a.style.display = "none";
