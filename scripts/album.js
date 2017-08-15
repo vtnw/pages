@@ -14,8 +14,7 @@ document.getElementById("btnClear").addEventListener("click", function () {
     toggleClear();
 });
 document.getElementById("btnExport").addEventListener("click", function () {
-    compress("hello");return;
-	toggleExport();
+    toggleExport();
 });
 document.getElementById("btnFilter").addEventListener("click", function () {
     toggleFilter();
@@ -327,7 +326,7 @@ function getExportData(supportRestore){
     return expResult;
 }
 function compress(string){
-	var string = "This is my compression test.";
+	
 alert("Size of sample is: " + string.length);
 var compressed = LZString.compress(string);
 alert("Size of compressed sample is: " + compressed.length);
@@ -377,7 +376,10 @@ function loadImage(){
 }
 function getImage(){
 	var canvas = document.getElementById("cvsImg");
-	return canvas.toDataURL("image/jpeg", quality/100).replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+	
+	var imgText = canvas.toDataURL("image/jpeg", quality/100).replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+	
+compress(imgText);
 }
 function isNewType(type){
     return typeList.findIndex(t => t.Name == type) < 0; 
