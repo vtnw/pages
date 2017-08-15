@@ -10,7 +10,8 @@
     <title>Album</title>
 </head>
 <body onload="initialize();">
-    <div>   
+    <div>
+        <div class="dvMenu">
             <canvas id="cvsImg" style="display:none;"></canvas>
             <input type="button" value="Export" id="btnExport" />
             <input type="button" value="Import" id="btnImport" />            
@@ -30,7 +31,8 @@
             <div>
                 <textarea class="tbnote" id="tbNote"></textarea>
             </div>
-            <div id="dvNotes" class="dvNotes"></div>
+        </div>
+        <div id="dvNotes" class="dvNotes"></div>
     </div>
     <script src="scripts/album.js" async></script>
     <script src="scripts/lz-string.js" async></script>
