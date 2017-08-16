@@ -11,15 +11,15 @@
 </head>
 <body>
     <div class="dvContainer">      
-      <div id="dvMenus" class="dvMenus">
-          <canvas id="cvsImg" style="display:none;"></canvas>
-          <input type="file" value="Photo" id="fileImg" class="fileImg" style="display:none;" />
-          <div>
-              <input type="button" value="Clear" id="btnClear" class="btnClear" />            
+      <div id="dvMenus" class="dvMenus">          
+          <div class="dvButtons">
               <input type="button" value="Photo" id="btnImg" class="btnImg" />          
               <input type="button" value="Save" id="btnSave" class="btnSave" />
+              <input type="button" value="Clear" id="btnClear" class="btnClear" />            
+              <canvas id="cvsImg" style="display:none;"></canvas>
+              <input type="file" value="Photo" id="fileImg" class="fileImg" style="display:none;" />
           </div>
-          <div>
+          <div class="dvSelects">
             Size:
             <select id="ddlSize">
                 <option value="100">100%</option>
