@@ -14,6 +14,7 @@ document.getElementById("ddlSize").addEventListener("change", function () {
   loadImage();
 });
 document.getElementById("ddlQuality").addEventListener("change", function () {
+  loadImage();
 });
 
 function loadImage(){
