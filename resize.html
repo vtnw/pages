@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html manifest="album.appcache">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles/resize.css">
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <title>Resize</title>
+</head>
+<body onload="initialize();">
+    <div>
+      <div id="dvImage" class="dvImage">
+        <img id="img" class="img" />
+      </div>
+      <div id="dvMenus" class="dvMenus">
+          <canvas id="cvsImg" style="display:none;"></canvas>
+          <input type="file" value="Photo" id="fileImg" class="fileImg" style="display:none;" />
+          <input type="button" value="Clear" id="btnClear" />            
+          <input type="button" value="Photo" id="btnImg" class="btnImg" />          
+          <input type="button" value="Save" id="btnSave" class="btnSave" />
+      </div>
+    </div>
+    <script src="scripts/resize.js" async></script>
+</body>
+</html>
