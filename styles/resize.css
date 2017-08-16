@@ -1,0 +1,18 @@
+body {
+    font-size:14px;
+    font-family:Arial;
+}
+.dvContainer{
+  width:100%;
+}
+.dvImage{
+  width:100%;
+  height:80%;
+}
+.dvMenus{
+  width:100%;
+  height:20%;
+}
+.img{
+    width:100%;
+}
