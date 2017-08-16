@@ -40,30 +40,24 @@ function loadImage(){
   reader.readAsDataURL(document.getElementById("fileImg").files[0]);
 }
 function save(){
-  alert("save");
   var canvas = document.getElementById("cvsImg");
   var imgUrl = canvas.toDataURL("image/jpeg", getQuality());
-  alert("save"+imgUrl);
-  var a = document.createElement("a");
-  a.download = "sample.jpeg";
-  a.innerHTML = "save";
+  
   //a.href = window.URL.createObjectURL(new Blob([imgText], { type: "image/jpeg" }));
-  //  dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
-/*
+
 canvas.toBlob(function(blob){
-    link.href = URL.createObjectURL(blob);
-    console.log(blob);
-    console.log(link.href); // this line should be here
-  },'image/png');
-  */
-  alert(imgUrl);
-  imgUrl = imgUrl.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-  alert(imgUrl);
-  a.href = imgUrl;
-  a.style.display = "none";
-  a.onclick = function (event) { document.body.removeChild(event.target); };
-  document.body.appendChild(a);
-  a.click();
+    var a = document.createElement("a");
+    a.download = "sample.jpeg";
+    a.innerHTML = "save";
+    a.href = URL.createObjectURL(blob);
+    a.style.display = "none";
+    a.onclick = function (event) { document.body.removeChild(event.target); };
+    document.body.appendChild(a);
+    a.click();
+  },'image/jpeg',getQuality());
+  
+  //imgUrl = imgUrl.replace(/^data:image\/(png|jpg|jpeg)/, 'data:application/octet-stream');
+  //imgUrl = imgUrl.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
 }
 function getWidth(currWidth){
   var widthPercent = parseInt(document.getElementById("ddlSize")[document.getElementById("ddlSize").selectedIndex].value);
