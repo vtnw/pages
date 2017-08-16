@@ -17,9 +17,39 @@
       <div id="dvMenus" class="dvMenus">
           <canvas id="cvsImg" style="display:none;"></canvas>
           <input type="file" value="Photo" id="fileImg" class="fileImg" style="display:none;" />
-          <input type="button" value="Clear" id="btnClear" />            
-          <input type="button" value="Photo" id="btnImg" class="btnImg" />          
-          <input type="button" value="Save" id="btnSave" class="btnSave" />
+          <div>
+            Size:
+            <select id="ddlSize">
+                <option value="100">100%</option>
+                <option value="90">90%</option>
+                <option value="80">80%</option>
+                <option value="70">70%</option>
+                <option value="60">60%</option>
+                <option value="50">50%</option>
+                <option value="40">40%</option>
+                <option value="30">30%</option>
+                <option value="20">20%</option>
+                <option value="10">10%</option>
+            </select>
+            Quality:
+            <select id="ddlQuality">
+                <option value="100">100%</option>
+                <option value="90">90%</option>
+                <option value="80">80%</option>
+                <option value="70">70%</option>
+                <option value="60">60%</option>
+                <option value="50">50%</option>
+                <option value="40">40%</option>
+                <option value="30">30%</option>
+                <option value="20">20%</option>
+                <option value="10">10%</option>
+            </select>
+          </div>
+          <div>
+              <input type="button" value="Clear" id="btnClear" />            
+              <input type="button" value="Photo" id="btnImg" class="btnImg" />          
+              <input type="button" value="Save" id="btnSave" class="btnSave" />
+          </div>
       </div>
     </div>
     <script src="scripts/resize.js" async></script>
