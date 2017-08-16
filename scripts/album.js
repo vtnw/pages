@@ -243,7 +243,7 @@ function addItem() {
         Type: getType(document.getElementById("tbNote").value),
         Date: getFormattedDate(true),
         Note: getNote(document.getElementById("tbNote").value),
-		Image: getImage()
+	Image: getImage()
     }    
     addToList(item);
     addToDiv("dvNotes", item);
@@ -316,18 +316,20 @@ function getExportData(supportRestore){
     applyFilter = hasSelection();
     for (var i = 0; i < noteList.length; i++) {
        if (!applyFilter || isTypeSelected(noteList[i].Type)){
-           exportList.push(noteList[i]);
+           exportList.push({
+		   Id: noteList[i].Id,
+		   Type: noteList[i].Type,
+		   Date: noteList[i].Date,
+		   Note: noteList[i].Note,
+		   Image: LZString.decompress(noteList[i].Image)
+	   });
        }
     }
     if(supportRestore){
         expResult = JSON.stringify(exportList);
     }
     else{
-	for(var i=0;i<exportList.length;i++){
-		exportList[i].Image = LZString.decompress(exportList[i].Image);
-	}
-	
-        expResult += "<!DOCTYPE html><html><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE =edge'><meta name='viewport' content='width =device-width, initial-scale=1.0'><title>Album</title><style>body{font-size:14px;font-family:Arial;}.dvDate{font-style: italic;color: #aaaaaa;font-size:12px;}.img{width:376px;}</style></head><body onload='initialize();'><div id='dvNotes' class='dvNotes'></div><script language='javascript'>var noteList = ";
+	expResult += "<!DOCTYPE html><html><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='IE =edge'><meta name='viewport' content='width =device-width, initial-scale=1.0'><title>Album</title><style>body{font-size:14px;font-family:Arial;}.dvDate{font-style: italic;color: #aaaaaa;font-size:12px;}.img{width:376px;}</style></head><body onload='initialize();'><div id='dvNotes' class='dvNotes'></div><script language='javascript'>var noteList = ";
 	expResult += JSON.stringify(exportList);
     	expResult += ";function initialize(){for (var i = 0; i < noteList.length; i++) {var dvItem = document.createElement('div');dvItem.className = 'dvItem';var dvDate = document.createElement('div');dvDate.innerHTML = noteList[i].Date + ' [' + noteList[i].Type + ']';dvDate.className = 'dvDate';dvItem.appendChild(dvDate);if(noteList[i].Image != null){var imgEle = document.createElement('img');imgEle.src = 'data:image/jpeg;base64,' + noteList[i].Image;imgEle.className = 'img';dvItem.appendChild(imgEle);}var dvNote = document.createElement('div');dvNote.innerHTML = noteList[i].Note.replace(/(?:\\r\\n|\\r|\\n)/g, '<br />');dvItem.className = 'dvNote';dvItem.appendChild(dvNote);dvItem.appendChild(document.createElement('br'));d = document.getElementById('dvNotes');d.insertBefore(dvItem, d.firstChild);}}</script></body></html>";
     }
@@ -342,6 +344,7 @@ function loadFile(replace) {
         }
         for (var i = 0; i < importedData.length; i++) {
             importedData[i].Id = getNextIndex();
+	    importedData[i].Image = LZString.compress(importedData[i].Image);
             noteList.push(importedData[i]);
         }
         setCache(noteList);
