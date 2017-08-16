@@ -84,11 +84,16 @@ function hasSelection(){
     return (typeList.findIndex(t => t.Selected)) >= 0;
 }
 function exportData(){
-	if(confirm("Print?")){
-	    window.print();
-        }else {
-            var supportRestore = confirm("Support restore?");
-            saveAsFile(getExportData(supportRestore), supportRestore);
+	var supportRestore = confirm("Support restore?");
+	if(supportRestore){
+		saveAsFile(getExportData(supportRestore), supportRestore);
+	}
+	else{
+		if(confirm("Print?")){
+	    		window.print();
+        	}else {            
+        		saveAsFile(getExportData(supportRestore), supportRestore);   
+		}
 	}
 }
 function toggleImport(){
