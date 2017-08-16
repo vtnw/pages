@@ -48,6 +48,14 @@ function save(){
   a.download = "sample.jpeg";
   a.innerHTML = "save";
   //a.href = window.URL.createObjectURL(new Blob([imgText], { type: "image/jpeg" }));
+  //  dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+/*
+canvas.toBlob(function(blob){
+    link.href = URL.createObjectURL(blob);
+    console.log(blob);
+    console.log(link.href); // this line should be here
+  },'image/png');
+  */
   alert(imgUrl);
   imgUrl = imgUrl.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
   alert(imgUrl);
