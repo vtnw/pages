@@ -46,6 +46,9 @@ function save(){
   a.download = "sample.jpeg";
   a.innerHTML = "save";
   //a.href = window.URL.createObjectURL(new Blob([imgText], { type: "image/jpeg" }));
+  alert(imgUrl);
+  imgUrl = imgUrl.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+  alert(imgUrl);
   a.href = imgUrl;
   a.style.display = "none";
   a.onclick = function (event) { document.body.removeChild(event.target); };
