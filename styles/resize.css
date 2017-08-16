@@ -1,15 +1,21 @@
+html{
+    height:97%;
+}
 body {
     font-size:14px;
     font-family:Arial;
     border:1px solid red;
+    height:100%;
 }
 .dvContainer{
-  width:100%;
+    width:100%;
+    height:100%;
     border:1px solid green;
 }
 .dvImage{
   width:100%;
   height:80%;
+  overflow:auto;
     border:1px solid blue;
 }
 .dvMenus{
