@@ -2,7 +2,7 @@ document.getElementById("btnSave").addEventListener("click", function () {
   save();
 });
 document.getElementById("btnClear").addEventListener("click", function () {
-  toggleClear();
+  clear();
 });
 document.getElementById("btnImg").addEventListener("click", function () {
   document.getElementById("fileImg").click();
@@ -18,6 +18,8 @@ document.getElementById("ddlQuality").addEventListener("change", function () {
 });
 
 function loadImage(){
+  if (document.getElementById("fileImg").value == "") { return; }
+  updateStatus("loading...");
   var reader = new FileReader();
   reader.onload = function (e) {
     var image = new Image();
@@ -34,18 +36,17 @@ function loadImage(){
       canvas.height = image.height;
       ctx.drawImage(image, 0, 0, image.width, image.height);
       document.getElementById("img").src = canvas.toDataURL("image/jpeg", getQuality());
+      updateStatus("");
     };
     image.src = e.target.result;
   };
   reader.readAsDataURL(document.getElementById("fileImg").files[0]);
 }
 function save(){
+  if (document.getElementById("fileImg").value == "") { return; }
+  updateStatus("saving...");
   var canvas = document.getElementById("cvsImg");
-  var imgUrl = canvas.toDataURL("image/jpeg", getQuality());
-  
-  //a.href = window.URL.createObjectURL(new Blob([imgText], { type: "image/jpeg" }));
-
-canvas.toBlob(function(blob){
+  canvas.toBlob(function(blob){
     var a = document.createElement("a");
     a.download = "sample.jpeg";
     a.innerHTML = "save";
@@ -54,10 +55,8 @@ canvas.toBlob(function(blob){
     a.onclick = function (event) { document.body.removeChild(event.target); };
     document.body.appendChild(a);
     a.click();
-  },'image/jpeg',getQuality());
-  
-  //imgUrl = imgUrl.replace(/^data:image\/(png|jpg|jpeg)/, 'data:application/octet-stream');
-  //imgUrl = imgUrl.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+    updateStatus("");
+  },'image/jpeg', getQuality());
 }
 function getWidth(currWidth){
   var widthPercent = parseInt(document.getElementById("ddlSize")[document.getElementById("ddlSize").selectedIndex].value);
@@ -66,4 +65,10 @@ function getWidth(currWidth){
 function getQuality(){
   var qualityPercent = parseInt(document.getElementById("ddlQuality")[document.getElementById("ddlQuality").selectedIndex].value);
   return qualityPercent/100;
+}
+function updateStatus(status){
+  document.getElementById("spnStatus").innerHTML = status;
+}
+function clear(){
+  document.getElementById("fileImg").value = "";
 }
