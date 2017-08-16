@@ -40,8 +40,10 @@ function loadImage(){
   reader.readAsDataURL(document.getElementById("fileImg").files[0]);
 }
 function save(){
+  alert("save");
   var canvas = document.getElementById("cvsImg");
   var imgUrl = canvas.toDataURL("image/jpeg", getQuality());
+  alert("save"+imgUrl);
   var a = document.createElement("a");
   a.download = "sample.jpeg";
   a.innerHTML = "save";
