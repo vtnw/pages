@@ -10,13 +10,15 @@
     <title>Resize</title>
 </head>
 <body>
-    <div class="dvContainer">
-      <div id="dvImage" class="dvImage">
-        <img id="img" class="img" />
-      </div>
+    <div class="dvContainer">      
       <div id="dvMenus" class="dvMenus">
           <canvas id="cvsImg" style="display:none;"></canvas>
           <input type="file" value="Photo" id="fileImg" class="fileImg" style="display:none;" />
+          <div>
+              <input type="button" value="Clear" id="btnClear" class="btnClear" />            
+              <input type="button" value="Photo" id="btnImg" class="btnImg" />          
+              <input type="button" value="Save" id="btnSave" class="btnSave" />
+          </div>
           <div>
             Size:
             <select id="ddlSize">
@@ -44,12 +46,10 @@
                 <option value="20">20%</option>
                 <option value="10">10%</option>
             </select>
-          </div>
-          <div>
-              <input type="button" value="Clear" id="btnClear" class="btnClear" />            
-              <input type="button" value="Photo" id="btnImg" class="btnImg" />          
-              <input type="button" value="Save" id="btnSave" class="btnSave" />
-          </div>
+          </div>          
+      </div>
+      <div id="dvImage" class="dvImage">
+        <img id="img" class="img" />
       </div>
     </div>
     <script src="scripts/resize.js" async></script>
