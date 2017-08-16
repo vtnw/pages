@@ -40,11 +40,12 @@ function loadImage(){
 }
 function save(){
   var canvas = document.getElementById("cvsImg");
-	var imgText = canvas.toDataURL("image/jpeg", getQuality());
+  var imgUrl = canvas.toDataURL("image/jpeg", getQuality());
   var a = document.createElement("a");
   a.download = "sample.jpeg";
   a.innerHTML = "save";
-  a.href = window.URL.createObjectURL(new Blob([imgText], { type: "image/jpeg" }));
+  //a.href = window.URL.createObjectURL(new Blob([imgText], { type: "image/jpeg" }));
+  a.href = imgUrl;
   a.style.display = "none";
   a.onclick = function (event) { document.body.removeChild(event.target); };
   document.body.appendChild(a);
