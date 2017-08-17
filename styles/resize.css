@@ -9,6 +9,7 @@
 }
 .btnImg, .btnSave, .btnClear {
     border-radius:25px;
+    border:none;
     outline: none;
     padding: 5px;
     font-size: 14px;
