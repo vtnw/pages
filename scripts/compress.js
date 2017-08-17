@@ -88,7 +88,11 @@ function clear(){
 function updateSize(){
   var canvas = document.getElementById("cvsImg");
   document.getElementById("spnResize").innerHTML = canvas.width + " x " + canvas.height;
-  document.getElementById("spnCompress").innerHTML = "???";
+  var fSize = document.getElementById("fileImg").files[0].size;
+  var fExt = new Array('Bytes', 'KB', 'MB', 'GB');
+  i=0;while(fSize>900){fSize/=1024;i++;}
+  var orgSize = (Math.round(fSize*100)/100)+' '+fExt[i];
+  document.getElementById("spnCompress").innerHTML = "?" + "/" + orgSize;
 }
 function showActions(){
   document.getElementById("btnImg").style.display = "none";
