@@ -25,6 +25,8 @@ function loadImage(){
     var image = new Image();
     image.onload = function () {
       var canvas = document.getElementById("cvsImg");
+      var orgWidth = image.width;
+      var orgHeight = image.height;
       var revisedWidth = getWidth(image.width);
       if (image.width > revisedWidth) {
          image.height *= revisedWidth/image.width;
@@ -37,10 +39,10 @@ function loadImage(){
       ctx.drawImage(image, 0, 0, image.width, image.height);
       var dataUrl = canvas.toDataURL("image/jpeg", getQuality());
       document.getElementById("img").src = dataUrl;
-      var imgFileSize = (dataUrl.length - "data:image/jpeg;base64,".length)*3/4;
-      alert(imgFileSize);alert(fixSize(imgFileSize));
       updateStatus("");
-      updateSize();
+      var orgSize = document.getElementById("fileImg").files[0].size;
+      var newSize = (dataUrl.length - "data:image/jpeg;base64,".length)*3/4;            
+      updateSize(orgWidth, orgHeight, canvas.width, canvas.height, orgSize, newSize);
       showActions();
     };
     image.src = e.target.result;
@@ -53,8 +55,6 @@ function save(){
   var canvas = document.getElementById("cvsImg");
   
   canvas.toBlob(function(blob){
-    alert(blob.size);
-    alert(fixSize(blob.size));
     var a = document.createElement("a");
     a.download = "sample.jpeg";
     a.innerHTML = "save";
@@ -91,11 +91,9 @@ function clear(){
   document.getElementById("dvImage").style.display = "none";
   document.getElementById("btnImg").style.display = "block";
 }
-function updateSize(){
-  var canvas = document.getElementById("cvsImg");
-  document.getElementById("spnResize").innerHTML = canvas.width + " x " + canvas.height;
-  var orgSize = fixSize(document.getElementById("fileImg").files[0].size);  
-  document.getElementById("spnCompress").innerHTML = "?" + "/" + orgSize;
+function updateSize(orgWidth, orgHeight, newWidth, newHeight, orgSize, newSize){
+  document.getElementById("spnResize").innerHTML = orgWidth + "X" + orgHeight + " => " + newWidth + "X" + newHeight;
+  document.getElementById("spnCompress").innerHTML = fixSize(orgSize) + " => " + fixSize(newSize);
 }
 function showActions(){
   document.getElementById("btnImg").style.display = "none";
