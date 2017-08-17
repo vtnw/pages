@@ -11,50 +11,48 @@
 </head>
 <body>
     <div class="dvContainer">      
-      <div id="dvMenus" class="dvMenus">          
-          <div class="dvButtons">
-              <input type="button" value="Select" id="btnImg" class="btnImg" />
-              <div id="dvAction">
-                <input type="button" value="Save" id="btnSave" class="btnSave" />
-                <input type="button" value="Cancel" id="btnClear" class="btnClear" />      
-              </div>              
-              <canvas id="cvsImg" style="display:none;"></canvas>
-              <input type="file" value="Photo" id="fileImg" class="fileImg" style="display:none;" />
-          </div>
-          <div class="dvSelects">
-            Resize:
-            <select id="ddlSize">
-                <option value="100">100%</option>
-                <option value="90">90%</option>
-                <option value="80">80%</option>
-                <option value="70">70%</option>
-                <option value="60">60%</option>
-                <option value="50">50%</option>
-                <option value="40">40%</option>
-                <option value="30">30%</option>
-                <option value="20">20%</option>
-                <option value="10">10%</option>
-            </select>
-            <br/>
-            <span id="spnResize" class="spnResize"></span>
-            Compress:
-            <select id="ddlQuality">
-                <option value="100">100%</option>
-                <option value="90">90%</option>
-                <option value="80">80%</option>
-                <option value="70">70%</option>
-                <option value="60">60%</option>
-                <option value="50">50%</option>
-                <option value="40">40%</option>
-                <option value="30">30%</option>
-                <option value="20">20%</option>
-                <option value="10">10%</option>
-            </select>
-              <span id="spnCompress" class="spnCompress"></span>
-          </div>          
-      </div>      
-      <div id="dvImage" class="dvImage">
-        <span id="spnStatus" class="spnStatus"></span>
+      <div class="dvButtons">
+          <input type="button" value="Select" id="btnImg" class="btnImg" />
+          <div id="dvAction" style="display:none;">
+            <input type="button" value="Save" id="btnSave" class="btnSave" />
+            <input type="button" value="Cancel" id="btnClear" class="btnClear" />      
+          </div>              
+          <canvas id="cvsImg" style="display:none;"></canvas>
+          <input type="file" value="Photo" id="fileImg" class="fileImg" style="display:none;" />
+      </div>
+      <div class="dvSelects" style="display:none;">
+        Resize:
+        <select id="ddlSize">
+            <option value="100">100%</option>
+            <option value="90">90%</option>
+            <option value="80">80%</option>
+            <option value="70">70%</option>
+            <option value="60">60%</option>
+            <option value="50">50%</option>
+            <option value="40">40%</option>
+            <option value="30">30%</option>
+            <option value="20">20%</option>
+            <option value="10">10%</option>
+        </select>
+        <br/>
+        <span id="spnResize" class="spnResize"></span>
+        Compress:
+        <select id="ddlQuality">
+            <option value="100">100%</option>
+            <option value="90">90%</option>
+            <option value="80">80%</option>
+            <option value="70">70%</option>
+            <option value="60">60%</option>
+            <option value="50">50%</option>
+            <option value="40">40%</option>
+            <option value="30">30%</option>
+            <option value="20">20%</option>
+            <option value="10">10%</option>
+        </select>
+          <span id="spnCompress" class="spnCompress"></span>
+      </div>
+      <span id="spnStatus" class="spnStatus"></span>
+      <div id="dvImage" class="dvImage" style="display:none;">        
         <img id="img" class="img" />
       </div>
     </div>
