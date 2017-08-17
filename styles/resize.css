@@ -7,3 +7,9 @@
 .dvSelects{
     margin-top:10px;
 }
+input[type=button] {
+    border-radius:25px;            
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+}
