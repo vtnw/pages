@@ -1,3 +1,9 @@
 .img{
     width:100%;
 }
+.dvResize, .dvCompress{
+    margin-bottom:10px;
+}
+.dvSelects{
+    margin-top:10px;
+}
