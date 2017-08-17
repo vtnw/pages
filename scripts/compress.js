@@ -57,7 +57,7 @@ function save(){
   
   canvas.toBlob(function(blob){
     var a = document.createElement("a");
-    a.download = "sample.jpeg";
+    a.download = document.getElementById("fileImg").files[0].name;
     a.innerHTML = "save";
     a.href = URL.createObjectURL(blob);
     a.style.display = "none";
