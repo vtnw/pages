@@ -5,7 +5,7 @@ document.getElementById("btnClear").addEventListener("click", function () {
   clear();
 });
 document.getElementById("btnImg").addEventListener("click", function () {  
-  selectImage();    
+  document.getElementById("fileImg").click();
 });
 document.getElementById("fileImg").addEventListener("change", function () {
   loadImage();
@@ -38,6 +38,7 @@ function loadImage(){
       document.getElementById("img").src = canvas.toDataURL("image/jpeg", getQuality());
       updateStatus("");
       updateSize();
+      showActions();
     };
     image.src = e.target.result;
   };
@@ -88,9 +89,8 @@ function updateSize(){
   document.getElementById("spnResize").innerHTML = canvas.width + " x " + canvas.height;
   document.getElementById("spnCompress").innerHTML = "???";
 }
-function selectImage(){
+function showActions(){
   document.getElementById("btnImg").style.display = "none";
   document.getElementById("dvAction").style.display = "block";
-  document.getElementById("dvSelects").style.display = "block";
-  document.getElementById("fileImg").click();
+  document.getElementById("dvSelects").style.display = "block";  
 }
