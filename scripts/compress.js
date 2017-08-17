@@ -35,7 +35,10 @@ function loadImage(){
       canvas.width = image.width;
       canvas.height = image.height;
       ctx.drawImage(image, 0, 0, image.width, image.height);
-      document.getElementById("img").src = canvas.toDataURL("image/jpeg", getQuality());
+      var dataUrl = canvas.toDataURL("image/jpeg", getQuality());
+      document.getElementById("img").src = dataUrl;
+      var imgFileSize = (dataUrl.length - "data:image/jpeg;base64,".length)*3/4;
+      alert(imgFileSize);alert(fixSize(imgFileSize));
       updateStatus("");
       updateSize();
       showActions();
@@ -48,7 +51,10 @@ function save(){
   if (document.getElementById("fileImg").value == "") { return; }
   updateStatus("saving...");
   var canvas = document.getElementById("cvsImg");
+  
   canvas.toBlob(function(blob){
+    alert(blob.size);
+    alert(fixSize(blob.size));
     var a = document.createElement("a");
     a.download = "sample.jpeg";
     a.innerHTML = "save";
@@ -88,14 +94,16 @@ function clear(){
 function updateSize(){
   var canvas = document.getElementById("cvsImg");
   document.getElementById("spnResize").innerHTML = canvas.width + " x " + canvas.height;
-  var fSize = document.getElementById("fileImg").files[0].size;
-  var fExt = new Array('Bytes', 'KB', 'MB', 'GB');
-  i=0;while(fSize>900){fSize/=1024;i++;}
-  var orgSize = (Math.round(fSize*100)/100)+' '+fExt[i];
+  var orgSize = fixSize(document.getElementById("fileImg").files[0].size);  
   document.getElementById("spnCompress").innerHTML = "?" + "/" + orgSize;
 }
 function showActions(){
   document.getElementById("btnImg").style.display = "none";
   document.getElementById("dvAction").style.display = "block";
   document.getElementById("dvSelects").style.display = "block";  
+}
+function fixSize(size){
+  var ext = new Array('Bytes', 'KB', 'MB', 'GB');
+  i=0;while(size>900){size/=1024;i++;}
+  return (Math.round(size*100)/100) + " " + ext[i]
 }
