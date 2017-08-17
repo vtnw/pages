@@ -92,7 +92,7 @@ function clear(){
   document.getElementById("btnImg").style.display = "block";
 }
 function updateSize(orgWidth, orgHeight, newWidth, newHeight, orgSize, newSize){
-  document.getElementById("spnResize").innerHTML = orgWidth + "X" + orgHeight + " => " + newWidth + "X" + newHeight;
+  document.getElementById("spnResize").innerHTML = orgWidth + "x" + orgHeight + " => " + newWidth + "x" + newHeight;
   document.getElementById("spnCompress").innerHTML = fixSize(orgSize) + " => " + fixSize(newSize);
 }
 function showActions(){
