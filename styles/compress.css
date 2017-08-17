@@ -13,11 +13,11 @@
     outline: none;
     padding: 5px;
     font-size: 14px;
+    width:70px;
 }
 .ddlSize, .ddlQuality {
     border-radius:25px;            
     outline: none;
     padding: 5px;
-    font-size: 14px;
-    width:70px;
+    font-size: 14px;    
 }
