@@ -19,7 +19,8 @@ document.getElementById("ddlQuality").addEventListener("change", function () {
 
 function loadImage(){
   if (document.getElementById("fileImg").value == "") { return; }
-  updateStatus("loading...");
+  document.getElementById("btnImg").style.display = "none";
+  updateStatus("processing...");
   var reader = new FileReader();
   reader.onload = function (e) {
     var image = new Image();
@@ -77,8 +78,10 @@ function getQuality(){
 function updateStatus(status){
   if(status != ""){
     document.getElementById("dvImage").style.display = "none";
+    document.getElementById("dvLoading").style.display = "block";
   }
   else{
+    document.getElementById("dvLoading").style.display = "none";
     document.getElementById("dvImage").style.display = "block";
   }
   document.getElementById("spnStatus").innerHTML = status;
@@ -95,8 +98,7 @@ function updateSize(orgWidth, orgHeight, newWidth, newHeight, orgSize, newSize){
   document.getElementById("spnResize").innerHTML = orgWidth + "x" + orgHeight + " => " + newWidth + "x" + newHeight;
   document.getElementById("spnCompress").innerHTML = fixSize(orgSize) + " => " + fixSize(newSize);
 }
-function showActions(){
-  document.getElementById("btnImg").style.display = "none";
+function showActions(){  
   document.getElementById("dvAction").style.display = "block";
   document.getElementById("dvSelects").style.display = "block";  
 }
