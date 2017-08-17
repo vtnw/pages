@@ -4,8 +4,8 @@ document.getElementById("btnSave").addEventListener("click", function () {
 document.getElementById("btnClear").addEventListener("click", function () {
   clear();
 });
-document.getElementById("btnImg").addEventListener("click", function () {
-  document.getElementById("fileImg").click();
+document.getElementById("btnImg").addEventListener("click", function () {  
+  selectImage();    
 });
 document.getElementById("fileImg").addEventListener("change", function () {
   loadImage();
@@ -37,6 +37,7 @@ function loadImage(){
       ctx.drawImage(image, 0, 0, image.width, image.height);
       document.getElementById("img").src = canvas.toDataURL("image/jpeg", getQuality());
       updateStatus("");
+      updateSize();
     };
     image.src = e.target.result;
   };
@@ -67,8 +68,29 @@ function getQuality(){
   return qualityPercent/100;
 }
 function updateStatus(status){
+  if(status != ""){
+    document.getElementById("dvImage").style.display = "none";
+  }
+  else{
+    document.getElementById("dvImage").style.display = "block";
+  }
   document.getElementById("spnStatus").innerHTML = status;
 }
 function clear(){
   document.getElementById("fileImg").value = "";
+  document.getElementById("img").src = "";  
+  document.getElementById("dvAction").style.display = "none";
+  document.getElementById("dvSelects").style.display = "none";
+  document.getElementById("btnImg").style.display = "block";
+}
+function updateSize(){
+  var canvas = document.getElementById("cvsImg");
+  document.getElementById("spnResize").innerHTML = canvas.width + " x " + canvas.height;
+  document.getElementById("spnCompress").innerHTML = "???";
+}
+function selectImage(){
+  document.getElementById("btnImg").style.display = "none";
+  document.getElementById("dvAction").style.display = "block";
+  document.getElementById("dvSelects").style.display = "block";
+  document.getElementById("fileImg").click();
 }
