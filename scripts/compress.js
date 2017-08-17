@@ -52,7 +52,7 @@ function loadImage(){
 }
 function save(){
   if (document.getElementById("fileImg").value == "") { return; }
-  updateStatus("saving...");
+  updateStatus("processing...");
   var canvas = document.getElementById("cvsImg");
   
   canvas.toBlob(function(blob){
