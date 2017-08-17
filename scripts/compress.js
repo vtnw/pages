@@ -78,10 +78,8 @@ function getQuality(){
 function updateStatus(status){
   if(status != ""){
     document.getElementById("dvImage").style.display = "none";
-    document.getElementById("dvLoading").style.display = "block";
   }
   else{
-    document.getElementById("dvLoading").style.display = "none";
     document.getElementById("dvImage").style.display = "block";
   }
   document.getElementById("spnStatus").innerHTML = status;
