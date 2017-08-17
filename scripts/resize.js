@@ -82,6 +82,7 @@ function clear(){
   document.getElementById("img").src = "";  
   document.getElementById("dvAction").style.display = "none";
   document.getElementById("dvSelects").style.display = "none";
+  document.getElementById("dvImage").style.display = "none";
   document.getElementById("btnImg").style.display = "block";
 }
 function updateSize(){
