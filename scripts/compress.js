@@ -1,3 +1,5 @@
+var fileIndex = 0;
+
 document.getElementById("btnSave").addEventListener("click", function () {
   save();
 });
@@ -8,16 +10,23 @@ document.getElementById("btnImg").addEventListener("click", function () {
   document.getElementById("fileImg").click();
 });
 document.getElementById("fileImg").addEventListener("change", function () {
-  loadImage();
+  fileIndex = 0;
+  loadImage(false);
 });
 document.getElementById("ddlSize").addEventListener("change", function () {
-  loadImage();
+  loadImage(false);
 });
 document.getElementById("ddlQuality").addEventListener("change", function () {
-  loadImage();
+  loadImage(false);
+});
+document.getElementById("btnConvertAll").addEventListener("click", function () {  
+  for(var i = 0; i < document.getElementById("fileImg").files.length; i++){
+    fileIndex = i;
+    loadImage(true);
+  }
 });
 
-function loadImage(){
+function loadImage(autoSave){
   if (document.getElementById("fileImg").value == "") { return; }
   document.getElementById("btnImg").style.display = "none";
   updateStatus("processing...");
@@ -45,10 +54,13 @@ function loadImage(){
       var newSize = (dataUrl.length - "data:image/jpeg;base64,".length)*3/4;            
       updateSize(orgWidth, orgHeight, canvas.width, canvas.height, orgSize, newSize);
       showActions();
+      if(autoSave){
+        save();
+      }
     };
     image.src = e.target.result;
   };
-  reader.readAsDataURL(document.getElementById("fileImg").files[0]);
+  reader.readAsDataURL(document.getElementById("fileImg").files[fileIndex]);
 }
 function save(){
   if (document.getElementById("fileImg").value == "") { return; }
@@ -57,7 +69,7 @@ function save(){
   
   canvas.toBlob(function(blob){
     var a = document.createElement("a");
-    a.download = document.getElementById("fileImg").files[0].name;
+    a.download = document.getElementById("fileImg").files[fileIndex].name;
     a.innerHTML = "save";
     a.href = URL.createObjectURL(blob);
     a.style.display = "none";
