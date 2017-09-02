@@ -154,7 +154,7 @@
       tb.value = item.Type;
       tb.className = "type";
       tb.addEventListener("blur", function () { saveItem(this); });
-      if (mode == 1) { tb.setAttribute("readOnly", "true");}
+      //if (mode == 1) { tb.setAttribute("readOnly", "true");}
       dv.appendChild(tb);
       tb = document.createElement('input');
       tb.setAttribute("type", "text");
