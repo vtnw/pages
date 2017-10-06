@@ -1,4 +1,5 @@
-  document.getElementById("btnAdd").addEventListener("click", function () {
+var listName = "list_";
+document.getElementById("btnAdd").addEventListener("click", function () {
       addItem();
   });
   document.getElementById("btnSave").addEventListener("click", function () {
@@ -38,6 +39,9 @@
       loadList();
   });
   document.getElementById("ddlMode").addEventListener("change", function () {
+      loadList();
+  });
+  document.getElementById("ddlList").addEventListener("change", function () {
       loadList();
   });
 
@@ -281,6 +285,10 @@
       mode = document.getElementById("ddlMode").selectedIndex;
       addToDiv(document.getElementById("dvList"), item, true, mode);
   }
+  function getListName(){
+    var ddl = document.getElementById("ddlList");
+    return ddl.options[ddl.selectedIndex].value;
+  }
   function getNextIndex() {
       var index = localStorage.getItem("index_list");
       if (index == null) {
@@ -294,14 +302,14 @@
       return index;
   }
   function getCache() {
-      var items = JSON.parse(localStorage.getItem("list"));
+      var items = JSON.parse(localStorage.getItem(listName + getListName()));
       if (items == null) {
           items = [];
       }
       return items;
   }
   function setCache(items) {
-      localStorage.setItem("list", JSON.stringify(items));
+      localStorage.setItem(listName + getListName(), JSON.stringify(items));
   }
   function getFormattedDate(){
       var d = new Date();
