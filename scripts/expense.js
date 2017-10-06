@@ -88,7 +88,11 @@ document.addEventListener("rightSwipe", function(event){
 function initialize() {
     var today = new Date();
     var mm = today.getMonth() + 1;
-    if (mm < 10) mm = "0" + mm;
+    if (mm < 10) {
+        mm = "0" + mm;
+    }else{
+        mm = "" + mm;
+    }
     var yyyymm = today.getFullYear() + mm;
     document.getElementById("ddlMonth").value = yyyymm;
     loadList();
