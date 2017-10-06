@@ -48,7 +48,6 @@ var listName = "list_";
   var listData = [];
   function initialize() {
       listData = getCache();
-      alert(JSON.stringify(listData));
       loadList();
   }
   function loadList() {
