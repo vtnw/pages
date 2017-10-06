@@ -52,6 +52,7 @@
       buyType = document.getElementById("ddlFilterBuy").selectedIndex;
       mode = document.getElementById("ddlMode").selectedIndex;
       count = 0;
+      listData.sort(function(a,b){return a.Type.localeCompare(b.Type)});
       for (i = 0; i < listData.length; i++) {
           if((mode == 0 && type == 0)
              || (mode == 0 && type == 1 && listData[i].Buy)
