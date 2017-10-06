@@ -1,5 +1,5 @@
 var listName = "list_";
-document.getElementById("btnAdd").addEventListener("click", function () {
+  document.getElementById("btnAdd").addEventListener("click", function () {
       addItem();
   });
   document.getElementById("btnSave").addEventListener("click", function () {
@@ -42,7 +42,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
       loadList();
   });
   document.getElementById("ddlList").addEventListener("change", function () {
-      loadList();
+      initialize();
   });
 
   var listData = [];
