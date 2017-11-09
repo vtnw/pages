@@ -70,9 +70,9 @@
                 btnExport.key = items[i].Key;
                 btnExport.addEventListener("click", function(){
                     if(this.key == "[Total]"){
-                        saveAsFile(localStorage, "all");
+                        exportData(localStorage, "all");
                     } else {
-                        saveAsFile(localStorage.getItem(this.key), this.key);
+                        exportData(localStorage.getItem(this.key), this.key);
                     }
                 });
                 dvItem.appendChild(btnExport);
@@ -85,7 +85,7 @@
                         btnImport.key = items[i].Key;
                         btnImport.addEventListener("click", function(){
                             if(confirm("Replace?")){
-                                loadFile(this.key);
+                                importData(this.key);
                             }
                         });
                         dvItem.appendChild(btnImport);
@@ -93,6 +93,22 @@
                 }
 
                 document.getElementById("dvItems").appendChild(dvItem);
+            }
+        }
+        function exportData(data, key){
+            if(document.getElementById("rf").checked){
+                saveAsFile(data, key);
+            }
+            else{
+                document.getElementById("tbData").value = key + "\n" + data;
+            }
+        }
+        function importData(key){
+            if(document.getElementById("rf").checked){
+                loadFile(key);
+            }
+            else{
+                localStorage.setItem(key, document.getElementById("tbData").value);
             }
         }
         function saveAsFile(data, key) {
