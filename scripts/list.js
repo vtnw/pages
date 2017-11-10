@@ -1,4 +1,5 @@
-var listName = "list_";
+  var cacheName = "list" + decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+
   document.getElementById("btnAdd").addEventListener("click", function () {
       addItem();
   });
@@ -302,14 +303,14 @@ var listName = "list_";
       return index;
   }
   function getCache() {
-      var items = JSON.parse(localStorage.getItem(listName + getListName()));
+      var items = JSON.parse(localStorage.getItem(cacheName);
       if (items == null) {
           items = [];
       }
       return items;
   }
   function setCache(items) {
-      localStorage.setItem(listName + getListName(), JSON.stringify(items));
+      localStorage.setItem(cacheName, JSON.stringify(items));
   }
   function getFormattedDate(){
       var d = new Date();
