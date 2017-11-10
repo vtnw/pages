@@ -320,7 +320,7 @@
       return index;
   }
   function getCache() {
-      var items = JSON.parse(localStorage.getItem(cacheName);
+      var items = JSON.parse(localStorage.getItem(cacheName));
       if (items == null) {
           items = [];
       }
