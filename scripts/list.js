@@ -43,28 +43,42 @@
       loadList();
   });
   document.getElementById("ddlList").addEventListener("change", function () {
-      initialize();
+      loadList();
   });
 
   var listData = [];
   function initialize() {
+      //one time fix (upgrade)
+      listData = getCache();      
+      for (i = 0; i < listData.length; i++) {
+        if(listData[i].ListType == null){
+          listData[i].ListType = 0;
+        }
+      }
+      saveList();
+      if(i > 0){alert("data migrated");}else{alert("data compatible");}
+      //one time fix - ends
+    
       listData = getCache();
       loadList();
   }
   function loadList() {
       document.getElementById("dvList").innerHTML = "";
-      type = document.getElementById("ddlFilter").selectedIndex;
-      buyType = document.getElementById("ddlFilterBuy").selectedIndex;
-      mode = document.getElementById("ddlMode").selectedIndex;
-      count = 0;
+      var type = document.getElementById("ddlFilter").selectedIndex;
+      var buyType = document.getElementById("ddlFilterBuy").selectedIndex;
+      var mode = document.getElementById("ddlMode").selectedIndex;
+      var listType = document.getElementById("ddlList").selectedIndex;
+      var count = 0;
       listData.sort(function(a,b){return a.Type.localeCompare(b.Type)});
+    
       for (i = 0; i < listData.length; i++) {
-          if((mode == 0 && type == 0)
+          if((listType == listData[i].ListType)
+            && ((mode == 0 && type == 0)
              || (mode == 0 && type == 1 && listData[i].Buy)
              || (mode == 0 && type == 2 && !listData[i].Buy)
              || (mode == 1 && buyType == 0 && listData[i].Buy)
              || (mode == 1 && buyType == 1 && listData[i].Buy && listData[i].Bought)
-             || (mode == 1 && buyType == 2 && listData[i].Buy && !listData[i].Bought)){
+             || (mode == 1 && buyType == 2 && listData[i].Buy && !listData[i].Bought))){
                   addToDiv(document.getElementById("dvList"), listData[i], false, mode);
               count = count+1;
           }
@@ -77,10 +91,12 @@
     if(confirm("Reset Index?")){
       localStorage.removeItem("index_list");
     }
-    type = document.getElementById("ddlFilter").selectedIndex;
+    var type = document.getElementById("ddlFilter").selectedIndex;
+    var listType = document.getElementById("ddlList").selectedIndex;
     revisedListData = [];
     for (i = 0; i < listData.length; i++) {
-        if((type == 1 && !listData[i].Buy)
+        if((listType != listData[i].ListType)
+           || (type == 1 && !listData[i].Buy)
            || (type == 2 && listData[i].Buy)){
                 revisedListData.push(listData[i]);
         }
@@ -89,9 +105,11 @@
     loadList();
   }
   function resetSelection(retainPending) {
+      var listType = document.getElementById("ddlList").selectedIndex;
       for (i = 0; i < listData.length; i++) {
           if(listData[i].Buy
-            && (listData[i].Bought || !retainPending)){
+            && (listData[i].Bought || !retainPending)
+            && listType == listData[i].ListType){
               listData[i].Buy = false;
               listData[i].Bought = false;
           }
@@ -104,7 +122,7 @@
           listData.push(item);
       }
       else {
-          i = listData.findIndex((d => d.Id == item.Id));
+          var i = listData.findIndex((d => d.Id == item.Id));
           listData[i] = item;
       }
       toggleSave(true);
@@ -114,7 +132,8 @@
       setCache(listData);
   }
   function saveAsFile() {
-      exportData = [];
+      var type = document.getElementById("ddlFilter").selectedIndex;
+      var exportData = [];
       for (i = 0; i < listData.length; i++) {
           if((type == 0)
              || (type == 1 && listData[i].Buy)
@@ -134,7 +153,7 @@
   function loadFile(replace) {
       var fileReader = new FileReader();
       fileReader.onload = function(event) {
-          importedData = JSON.parse(event.target.result);
+          var importedData = JSON.parse(event.target.result);
           if(replace){
               listData = [];
           }
@@ -148,12 +167,12 @@
       fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
   }
   function addToDiv(d, item, addToTop, mode) {
-      dv = document.createElement('div');
+      var dv = document.createElement('div');
       dv.id = "dvItem" + item.Id;
       if(item.Buy) {
           dv.style.color = (item.Bought) ? "green" : "blue";
       }
-      tb = document.createElement('input');
+      var tb = document.createElement('input');
       tb.setAttribute("type", "text");
       tb.setAttribute("itemId", item.Id);
       tb.id = "tbType" + item.Id;
@@ -212,15 +231,16 @@
       }
   }
   function saveItem(element) {
-      id = element.getAttribute("itemId");
-      item = {
+      var id = element.getAttribute("itemId");
+      var item = {
           Id: id,
           Type: document.getElementById("tbType" + id).value,
           Name: document.getElementById("tbName" + id).value,
           Remark: document.getElementById("tbRemark" + id).value,
           Quantity: document.getElementById("tbQuantity" + id).value,
           Buy: document.getElementById("cbBuy" + id).checked,
-          Bought: document.getElementById("cbBought" + id).checked
+          Bought: document.getElementById("cbBought" + id).checked,
+          ListType: document.getElementById("ddlList").selectedIndex
       }
       saveToList(item);
       updateColor(item);
@@ -281,14 +301,11 @@
       }
   }        
   function addItem() {
-      item = {Id: null, Type: null, Name: null, Remark: null, Quantity: null, Buy: false, Bought: false};
+      var item = {Id: null, Type: null, Name: null, Remark: null, Quantity: null, Buy: false, Bought: false,
+             ListType: document.getElementById("ddlList").selectedIndex};
       item = saveToList(item);
-      mode = document.getElementById("ddlMode").selectedIndex;
+      var mode = document.getElementById("ddlMode").selectedIndex;
       addToDiv(document.getElementById("dvList"), item, true, mode);
-  }
-  function getListName(){
-    var ddl = document.getElementById("ddlList");
-    return ddl.options[ddl.selectedIndex].value;
   }
   function getNextIndex() {
       var index = localStorage.getItem("index_list");
