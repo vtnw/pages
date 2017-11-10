@@ -55,8 +55,7 @@
           listData[i].ListType = 0;
         }
       }
-      saveList();
-      if(i > 0){alert("data migrated");}else{alert("data compatible");}
+      if(i > 0){toggleSave(true);alert("data migrated");}else{alert("data compatible");}
       //one time fix - ends
     
       listData = getCache();
