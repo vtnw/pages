@@ -48,17 +48,7 @@
 
   var listData = [];
   function initialize() {      
-      listData = getCache();      
-    
-      //one time fix (upgrade)
-      for (i = 0; i < listData.length; i++) {
-        if(listData[i].ListType == null){
-          listData[i].ListType = 0;
-        }
-      }
-      if(i > 0){toggleSave(true);alert("data migrated");}else{alert("data compatible");}
-      //one time fix - ends
-    
+      listData = getCache();
       loadList();
   }
   function loadList() {
