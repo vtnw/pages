@@ -51,7 +51,7 @@ function loadLinks() {
     if (showType) {
         items.sort(function (a, b) {
             if (a.type === b.type) {
-                return (a.name - b.name);
+                return a.name.localeCompare(b.name);
             } else if (a.type > b.type) {
                 return 1;
             } else if (a.type < b.type) {
