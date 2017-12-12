@@ -236,10 +236,10 @@
   }
   function updateColor(item) {
       if(item.Buy){
-          document.getElementById("dvItem" + id).style.color = (item.Bought) ? "green" : "blue";
+          document.getElementById("dvItem" + item.Id).style.color = (item.Bought) ? "green" : "blue";
       }
       else {
-          document.getElementById("dvItem" + id).style.color = "black";
+          document.getElementById("dvItem" + item.Id).style.color = "black";
       }
   }
   function toggleSave(status){
