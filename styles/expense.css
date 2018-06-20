@@ -64,7 +64,7 @@ span {
     width:45px;
 }
 .tbComment {
-    width:285px;
+    width:290px;
 }
 .tbCat {
     width:125px;
@@ -115,7 +115,7 @@ select {
 }
 .spnDetailComment{
 	display:inline-block;
-	width:350px;
+	width:340px;
 	font-style: italic;
 	color:gray;
 }
