@@ -116,6 +116,8 @@ select {
 .spnDetailComment{
 	display:inline-block;
 	width:340px;
+	font-style: italic;
+	color:gray;
 }
 .dvDetailItem{
 	border-bottom:1px solid #cccccc;
