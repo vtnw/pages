@@ -250,7 +250,10 @@ function getCache() {
         if (items == null) {
             items = { Summary: [], Details: []};
         }else{
-            items = { Summary: [], Details: []};
+            for (var i = 0; i < items.Summary.length; i++) {
+                items.Summary[i].actual = 0;
+            }
+            items.Details = [];
         }        
     }
     else if(items.Summary == null){
