@@ -12,7 +12,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         var items = getCache();
         items.Summary.push(item);
         if(a != null && parseInt(a) > 0){
-            items.Details.push({date: getFormattedDate(true), name: c, amount: parseInt(a)});
+            items.Details.push({date: getFormattedDate(true), name: c, amount: parseInt(a), comment: 'new'});
         }
         setCache(items);
         AddEntry(i, c, p, a);
@@ -126,6 +126,11 @@ function loadDetails(){
         spnDetailAmount.innerHTML = items.Details[i].amount;
         spnDetailAmount.className = "spnDetailAmount";
         dvDetailItem.appendChild(spnDetailAmount);
+        dvDetailItem.appendChild(document.createElement("br"));
+        spnComment = document.createElement("span");
+        spnComment.innerHTML = items.Details[i].comment;
+        spnComment.className = "spnDetailName";
+        dvDetailItem.appendChild(spnComment);
         dvDetail.insertBefore(dvDetailItem, dvDetail.firstChild);
     }
 }
@@ -206,18 +211,27 @@ function AddEntry(id, category, planned, actual) {
         var items = getCache();
         var i = items.Summary.findIndex((i => i.id == id));
         var tbA = document.getElementById("tAmount" + id);
+        var tbC = document.getElementById("tComment" + id);
         var spnA = document.getElementById("sAmount" + id);
         if(tbA.value != '') {
             items.Summary[i].actual = parseInt(items.Summary[i].actual) + parseInt(tbA.value);
             spnA.innerHTML = items.Summary[i].actual;
             spnA.className = (items.Summary[i].actual > items.Summary[i].planned) ? "spnAmtRed" : "spnAmt";            
-            items.Details.push({date: getFormattedDate(true), name: items.Summary[i].category, amount: parseInt(tbA.value)});
+            items.Details.push({date: getFormattedDate(true), name: items.Summary[i].category, amount: parseInt(tbA.value), comment: tbC.value});
             tbA.value = "";
+            tbC.value = "";
             setCache(items);
             updateTotal(items.Summary);
         }
     });
     d.appendChild(b);
+    
+    d.appendChild(document.createElement("br"));
+    
+    var t = document.createElement('input');
+    t.id = "tComment" + id;
+    t.className = "tbAmount";
+    d.appendChild(t);
 
     d.appendChild(document.createElement("br"));
 }
