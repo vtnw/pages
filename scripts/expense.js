@@ -239,10 +239,19 @@ function getMonth() {
     var ddl = document.getElementById("ddlMonth");
     return ddl.options[ddl.selectedIndex].value;
 }
+function getPrevMonth() {
+    var ddl = document.getElementById("ddlMonth");
+    return (ddl.selectedIndex == 0) ? ddl.options[ddl.selectedIndex].value : ddl.options[ddl.selectedIndex-1].value;
+}
 function getCache() {
     var items = JSON.parse(localStorage.getItem("expenses_" + getMonth()));
     if (items == null) {
-        items = { Summary: [], Details: []};
+        items = JSON.parse(localStorage.getItem("expenses_" + getPrevMonth()));
+        if (items == null) {
+            items = { Summary: [], Details: []};
+        }else{
+            items = { Summary: [], Details: []};
+        }        
     }
     else if(items.Summary == null){
         items = {Summary: items, Details: []};
