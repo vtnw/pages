@@ -129,7 +129,7 @@ function loadDetails(){
         dvDetailItem.appendChild(document.createElement("br"));
         spnComment = document.createElement("span");
         spnComment.innerHTML = items.Details[i].comment;
-        spnComment.className = "spnDetailName";
+        spnComment.className = "spnDetailComment";
         dvDetailItem.appendChild(spnComment);
         dvDetail.insertBefore(dvDetailItem, dvDetail.firstChild);
     }
@@ -230,7 +230,7 @@ function AddEntry(id, category, planned, actual) {
     
     var t = document.createElement('input');
     t.id = "tComment" + id;
-    t.className = "tbAmount";
+    t.className = "tbComment";
     d.appendChild(t);
 
     d.appendChild(document.createElement("br"));
