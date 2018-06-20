@@ -63,6 +63,9 @@ span {
 .tbAmount {
     width:45px;
 }
+.tbComment {
+    width:280px;
+}
 .tbCat {
     width:125px;
 }
@@ -109,6 +112,10 @@ select {
 	display:inline-block;
 	width:60px;
 	text-align:right;
+}
+.spnDetailComment{
+	display:inline-block;
+	width:340px;
 }
 .dvDetailItem{
 	border-bottom:1px solid #cccccc;
