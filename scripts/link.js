@@ -64,6 +64,7 @@ function loadLinks() {
     clearDiv();
     var d = document.getElementById("dvLinks");
     var currType = "";
+    /*
     for (var i = 0; i < items.length; i++) {
         if (currType != items[i].type && showType) {
             currType = items[i].type;
@@ -76,6 +77,7 @@ function loadLinks() {
             d.appendChild(document.createElement('br'));
         }                
     }
+    */
     currType = "";
     for (var i = 0; i < items.length; i++) {
         if (currType != items[i].type && showType) {
@@ -85,7 +87,7 @@ function loadLinks() {
             a.setAttribute("href", "#type");
             a.setAttribute("style", "line-height:30px;color:black;font-weight:bold;text-decoration:none;");
             a.innerHTML = currType;
-            d.appendChild(document.createElement('hr'));
+            //d.appendChild(document.createElement('hr'));
             d.appendChild(a);
             d.appendChild(document.createElement('br'));
         }                
@@ -94,7 +96,7 @@ function loadLinks() {
         a.setAttribute("style", "line-height:30px;");
         a.innerHTML = items[i].name;
         d.appendChild(a);
-        d.appendChild(document.createElement('br'));
+        //d.appendChild(document.createElement('br'));
     }
 }
 function getCache() {
