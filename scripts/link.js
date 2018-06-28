@@ -93,7 +93,7 @@ function loadLinks() {
         }                
         var a = document.createElement('a');
         a.setAttribute("href", items[i].link);
-        a.setAttribute("style", "line-height:30px;display:inline-block;margin-right:5px;");
+        a.setAttribute("style", "line-height:30px;display:inline-block;margin-right:10px;");
         a.innerHTML = items[i].name;
         d.appendChild(a);
         //d.appendChild(document.createElement('br'));
