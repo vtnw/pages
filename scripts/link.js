@@ -85,11 +85,11 @@ function loadLinks() {
             var a = document.createElement('a');
             a.setAttribute("name", items[i].type);
             a.setAttribute("href", "#type");
-            a.setAttribute("style", "line-height:30px;color:#cccccc;font-weight:italic;text-decoration:none;");
+            a.setAttribute("style", "line-height:30px;color:#aaaaaa;font-style:italic;text-decoration:none;");
             a.innerHTML = currType;
-            //d.appendChild(document.createElement('hr'));
-            d.appendChild(a);
+            //d.appendChild(document.createElement('hr'));;
             d.appendChild(document.createElement('br'));
+            d.appendChild(a)
         }                
         var a = document.createElement('a');
         a.setAttribute("href", items[i].link);
