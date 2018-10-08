@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <title>Memo</title>
+    <style>
+        textarea {
+            width:80vw;
+            height:70vw;
+            border:none;
+            outline: none;
+            padding: 5px;
+            margin:5px;
+            font-size:14px;
+            font-family:Arial;
+            resize:none;
+        }
+        ::-webkit-scrollbar { 
+            display: none; 
+        }
+    </style>
+    <script>
+        var cacheName = "memo";
+        function restore() {
+            document.getElementById("tbNote").value = localStorage.getItem(cacheName);
+        }
+        function save() {
+            localStorage.setItem(cacheName, document.getElementById("tbNote").value);
+        }
+    </script>
+</head>
+<body onload="restore();">
+    <div>        
+        <textarea id="tbNote" onkeyup="save();"></textarea>
+    </div>
+</body>
+</html>
