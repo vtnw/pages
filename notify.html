@@ -6,20 +6,24 @@
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
     <title>Notify</title>
 </head>
-<body>
+<body onload="initialize();">
     <div>
         <div>
             <textarea id="tbData"></textarea>
             <br/>
-            <input type="button" value="Add" onclick="show();" />
+            <input type="button" value="Add" onclick="show(document.getElementById('tbData').value);" />
         </div>
     </div>
     <script>
-    function show(){
+    function show(data){
       return navigator.serviceWorker.register('sw.js')
         .then(function(registration) {
-          registration.showNotification(document.getElementById('tbData').value, { body: 'Notes'});
+          registration.showNotification(data, { body: 'Notes'});
       });
+    }
+    function initialize(){
+      var data = prompt("Add");
+      show(data);
     }
     </script>
 </body>
