@@ -30,7 +30,7 @@
     }
     function initialize(){
       var data = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("data").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-        if(target != ''){
+        if(data != ''){
             document.getElementById('tbData').value = data;
         } else {
             data = prompt("Add");
