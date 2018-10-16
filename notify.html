@@ -29,9 +29,14 @@
         });
     }
     function initialize(){
-      var data = prompt("Add");
-        if(data != null){
-            show(data);
+      var data = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("data").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        if(target != ''){
+            document.getElementById('tbData').value = data;
+        } else {
+            data = prompt("Add");
+            if(data != null){
+                show(data);
+            }
         }
     }
     </script>
