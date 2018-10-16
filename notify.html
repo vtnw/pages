@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <title>Notify</title>
+</head>
+<body>
+    <div>
+        <div>
+            <textarea id="tbData"></textarea>
+            <br/>
+            <input type="button" value="Add" onclick="show();" />
+        </div>
+    </div>
+    <script>
+    function show(){
+      return navigator.serviceWorker.register('sw2.js')
+        .then(function(registration) {
+          registration.showNotification('Hello 3', { body: 'Nice'});
+      });
+    }
+    </script>
+</body>
+</html>
