@@ -16,9 +16,9 @@
     </div>
     <script>
     function show(){
-      return navigator.serviceWorker.register('sw2.js')
+      return navigator.serviceWorker.register('sw.js')
         .then(function(registration) {
-          registration.showNotification('Hello 3', { body: 'Nice'});
+          registration.showNotification(document.getElementById('tbData').value, { body: 'Notes'});
       });
     }
     </script>
