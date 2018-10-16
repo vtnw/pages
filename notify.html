@@ -18,7 +18,7 @@
     function show(data){
       return navigator.serviceWorker.register('sw.js')
         .then(function(registration) {
-          registration.showNotification(data, { body: 'Notes'});
+          registration.showNotification(data);
       });
     }
     function initialize(){
