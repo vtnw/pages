@@ -17,15 +17,16 @@
     </div>
     <script>
     function show(data){
-        if (Notification.permission == 'granted') {
-            return navigator.serviceWorker.register('sw.js')
-            .then(function(registration) {
-                registration.showNotification(data);
-            });
-        }
-        else{
-            alert(data);
-        }   
+        Notification.requestPermission(function (result) {
+            if (result === 'granted') {
+                return navigator.serviceWorker.register('sw.js')
+                .then(function(registration) {
+                    registration.showNotification(data);
+                });
+            } else {
+                alert(data);
+            }
+        });
     }
     function initialize(){
       var data = prompt("Add");
