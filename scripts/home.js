@@ -86,7 +86,7 @@ function clearDiv() {
 }
 function setRank(id){
   var items = getCache();
-  var index = items.findIndex((d => d.id == item.id));
+  var index = items.findIndex(d => d.id == id);
   items[index].rank = items[index].rank +1;
   setCache(items);
 }
