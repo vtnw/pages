@@ -32,6 +32,7 @@ document.getElementById("btnClear").addEventListener("click", function () {
     if (confirm("Clear?")) {
         clearDiv();
         localStorage.setItem(cacheName, null);
+        localStorage.setItem("index_" + cacheName, null);
     }
 });
 document.getElementById("btnShowAdd").addEventListener("click", function () {
@@ -43,7 +44,7 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
         document.getElementById("btnShowAdd").value = "Add";
     }
 });
-document.getElementById("tbSearch").addEventListener("change", function () {
+document.getElementById("tbSearch").addEventListener("keydown", function () {
     alert('');
 });
 
