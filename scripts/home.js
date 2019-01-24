@@ -13,7 +13,6 @@ document.getElementById("btnEdit").addEventListener("click", function () {
         document.getElementById("btnEdit").value = "Edit";
         loadLinks();
     }
-
 });
 document.getElementById("btnAdd").addEventListener("click", function () {
     var n = document.getElementById("tbName").value;
