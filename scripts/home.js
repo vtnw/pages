@@ -3,7 +3,7 @@ var sortByRank = true;
 
 document.addEventListener("click", function () {
   document.getElementById("tbSearch").focus();
-});
+}, true);
 
 document.getElementById("btnEdit").addEventListener("click", function () {
     if (document.getElementById("dvEdit").style.display == "none") {
