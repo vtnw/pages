@@ -44,15 +44,14 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
         document.getElementById("btnShowAdd").value = "Add";
     }
 });
-document.getElementById("tbSearch").addEventListener("keydown", function () {
+function filter(){
     var items = getCache();
     var criteria = document.getElementById("tbSearch").value;
     var filteredItems = items.filter(function(item){
       return item.name.indexOf(criteria) >= 0;
     });
     loadLinks(filteredItems);
-});
-
+}
 function initialize(){
     var items = getCache();
     loadLinks(items);
