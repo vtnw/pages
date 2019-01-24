@@ -51,7 +51,7 @@ function search(){
     else{
         var items = getCache();        
         var filteredItems = items.filter(function(item){
-          return item.name.indexOf(criteria) >= 0;
+          return item.name.toLowerCase().indexOf(criteria.toLowerCase()) >= 0;
         });
         loadLinks(filteredItems);
     }
