@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE =edge">
+    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/icon2.png" />
+    <link rel="stylesheet" href="styles/home.css">
+    <title>Home</title>
+</head>
+<body onload="loadLinks();">
+    <input type="text" value="" id="tbSearch" placeholder="Search" />
+    <div id="dvLinks"></div>
+    <div>
+        <input type="button" value="Add" id="btnShowAdd" />
+        <input type="button" value="Edit" id="btnEdit" />
+        <input type="button" value="Clear" id="btnClear" />
+    </div>
+    <div id="dvLinkAdd" style="display:none;">
+        <input type="text" value="" id="tbName" placeholder="name" />
+        <input type="button" value="+" class="btnAdd" id="btnAdd" /><br />
+        <input type="text" value="" placeholder="group" id="tbType" />
+        <input type="url" value="" id="tbLink" placeholder="url" class="tbLink" />
+    </div>
+    <div id="dvEdit" style="display:none;">
+        <textarea id="tbData"></textarea>
+    </div>    
+    <script src="scripts/home.js" async></script>
+</body>
+</html>
