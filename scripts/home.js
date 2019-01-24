@@ -44,13 +44,18 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
         document.getElementById("btnShowAdd").value = "Add";
     }
 });
-function filter(){
-    var items = getCache();
+function search(e){
     var criteria = document.getElementById("tbSearch").value;
-    var filteredItems = items.filter(function(item){
-      return item.name.indexOf(criteria) >= 0;
-    });
-    loadLinks(filteredItems);
+    if(e.keyCode == 13){
+        location.href = "https://www.google.com/search?q=" + criteria;
+    }
+    else{
+        var items = getCache();        
+        var filteredItems = items.filter(function(item){
+          return item.name.indexOf(criteria) >= 0;
+        });
+        loadLinks(filteredItems);
+    }
 }
 function initialize(){
     var items = getCache();
