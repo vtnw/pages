@@ -43,8 +43,8 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
         document.getElementById("btnShowAdd").value = "Add";
     }
 });
-document.getElementById("btnSearch").addEventListener("click", function () {
-    
+document.getElementById("tbSearch").addEventListener("change", function () {
+    alert('');
 });
 
 function loadLinks() {
