@@ -31,3 +31,8 @@
         .tbLink {
              width:94%;
         }
+        .link{
+         line-height:30px;
+         display:inline-block;
+         margin-right:10px;
+        }
