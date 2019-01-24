@@ -43,6 +43,9 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
         document.getElementById("btnShowAdd").value = "Add";
     }
 });
+document.getElementById("btnSearch").addEventListener("click", function () {
+    
+});
 
 function loadLinks() {
     var items = getCache();
