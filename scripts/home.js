@@ -44,9 +44,9 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
         document.getElementById("btnShowAdd").value = "Add";
     }
 });
-function search(e){
+function search(){
     var criteria = document.getElementById("tbSearch").value;
-    if(e.keyCode == 13){
+    if(event.keyCode == 13){
         location.href = "https://www.google.com/search?q=" + criteria;
     }
     else{
