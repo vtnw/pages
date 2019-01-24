@@ -18,9 +18,8 @@ document.getElementById("btnEdit").addEventListener("click", function () {
 document.getElementById("btnAdd").addEventListener("click", function () {
     var n = document.getElementById("tbName").value;
     var l = document.getElementById("tbLink").value;
-    var r = 0;
     if (n != '' && l != '') {
-        var item = { "name": n, "link": l, "rank": r };
+        var item = {"id": getNextIndex(), "name": n, "link": l, "rank": 0 };
         var items = getCache();
         items.push(item);
         setCache(items);
@@ -51,9 +50,9 @@ function loadLinks() {
         items.sort(function (a, b) {
             if (a.rank === b.rank) {
                 return a.name.localeCompare(b.name);
-            } else if (a.rank > b.rank) {
-                return 1;
             } else if (a.rank < b.rank) {
+                return 1;
+            } else if (a.rank > b.rank) {
                 return -1;
             }
         });
@@ -66,10 +65,10 @@ function loadLinks() {
         var a = document.createElement('a');
         a.setAttribute("href", items[i].link);
         a.setAttribute("class", "link");
-        a.setAttribute("onclick", "setRank("+ i + ");");
+        a.setAttribute("onclick", "setRank("+ items[i].id + ");");
         a.innerHTML = items[i].name;
         d.appendChild(a);
-        //d.appendChild(document.createElement('br'));
+        d.appendChild(document.createElement('br'));
     }
 }
 function getCache() {
@@ -85,8 +84,21 @@ function setCache(items) {
 function clearDiv() {
     document.getElementById("dvLinks").innerHTML = "";
 }
-function setRank(index){
+function setRank(id){
   var items = getCache();
+  var index = items.findIndex((d => d.id == item.id));
   items[index].rank = items[index].rank +1;
   setCache(items);
 }
+function getNextIndex() {
+      var index = localStorage.getItem("index_" + cacheName);
+      if (index == null) {
+          index = 0;
+      }
+      else {
+          index = parseInt(index);
+      }
+      index = index + 1;
+      localStorage.setItem("index_" + cacheName, index);
+      return index;
+  }
