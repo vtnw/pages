@@ -23,7 +23,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
         var items = getCache();
         items.push(item);
         setCache(items);
-        loadLinks();
+        loadLinks(items);
         document.getElementById("tbName").value = "";
         document.getElementById("tbLink").value = "";
     }
@@ -45,11 +45,19 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
     }
 });
 document.getElementById("tbSearch").addEventListener("keydown", function () {
-    alert('');
+    var items = getCache();
+    var criteria = document.getElementById("tbSearch").value;
+    var filteredItems = items.filter(function(item){
+      return item.name.indexOf(criteria) >= 0;
+    });
+    loadLinks(filteredItems);
 });
 
-function loadLinks() {
+function initialize(){
     var items = getCache();
+    loadLinks(items);
+}
+function loadLinks(items) {    
     if (sortByRank) {
         items.sort(function (a, b) {
             if (a.rank === b.rank) {
