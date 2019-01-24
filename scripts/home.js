@@ -1,9 +1,9 @@
 var cacheName = "home" + decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 var sortByRank = true;
 
-document.addEventListener("click", function () {
+document.getElementById("dvLinks").addEventListener("click", function () {
   document.getElementById("tbSearch").focus();
-}, true);
+});
 
 document.getElementById("btnEdit").addEventListener("click", function () {
     if (document.getElementById("dvEdit").style.display == "none") {
