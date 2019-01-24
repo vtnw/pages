@@ -19,7 +19,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
     var n = document.getElementById("tbName").value;
     var l = document.getElementById("tbLink").value;
     var r = 0;
-    if (n != '' && l != '' && t != '') {
+    if (n != '' && l != '' && r != '') {
         var item = { "name": n, "link": l, "rank": r };
         var items = getCache();
         items.push(item);
