@@ -23,9 +23,10 @@ document.getElementById("btnEdit").addEventListener("click", function () {
 document.getElementById("btnAdd").addEventListener("click", function () {
     var n = document.getElementById("tbName").value;
     var l = document.getElementById("tbLink").value;
-    if (n != '' && l != '') {
-        var item = {"id": getNextIndex(), "name": n, "link": l, "rank": 0 };
+    if (n != '' && l != '') {        
         var items = getCache();
+        items.sort(function (a, b) { return a.id < b.id });
+        var item = {"id": (items.length > 0) ? items[0].id + 1 : 1, "name": n, "link": l, "rank": 0 };
         items.push(item);
         setCache(items);
         loadLinks(items);
@@ -111,15 +112,3 @@ function setRank(id){
   items[index].rank = items[index].rank +1;
   setCache(items);
 }
-function getNextIndex() {
-      var index = localStorage.getItem("index_" + cacheName);
-      if (index == null) {
-          index = 0;
-      }
-      else {
-          index = parseInt(index);
-      }
-      index = index + 1;
-      localStorage.setItem("index_" + cacheName, index);
-      return index;
-  }
