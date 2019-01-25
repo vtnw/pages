@@ -17,7 +17,8 @@ document.getElementById("btnEdit").addEventListener("click", function () {
         document.getElementById("tbData").value = "";
         document.getElementById("dvEdit").style.display = "none";
         document.getElementById("btnEdit").value = "Edit";
-        loadLinks();
+        var items = getCache();
+        loadLinks(items);
     }
 });
 document.getElementById("btnAdd").addEventListener("click", function () {
