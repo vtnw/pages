@@ -25,7 +25,7 @@ document.getElementById("btnAdd").addEventListener("click", function () {
     var l = document.getElementById("tbLink").value;
     if (n != '' && l != '') {        
         var items = getCache();
-        items.sort(function (a, b) { return a.id > b.id });
+        items.sort(function (a, b) { return b.id - a.id });
         var item = {"id": (items.length > 0) ? items[0].id + 1 : 1, "name": n, "link": l, "rank": 0 };
         items.push(item);
         setCache(items);
