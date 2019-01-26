@@ -54,6 +54,11 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
 function search(){
     var criteria = document.getElementById("tbSearch").value;
     if(event.keyCode == 13){
+      if(critera.indexOf(".") >= 0 && critera.indexOf(" ") < 0){
+        criteria = criteria.startsWith("http") ? criteria : "https://" + criteria;
+        location.href= criteria;
+      }
+      else{
         location.href = "https://www.google.com/search?q=" + criteria;
     }
     else{
