@@ -12,6 +12,8 @@ document.getElementById("btnEdit").addEventListener("click", function () {
         document.getElementById("btnEdit").value = "Save";
         document.getElementById("tbData").value = localStorage.getItem(cacheName);
         document.getElementById("dvEdit").style.display = "block";
+        document.getElementById("dvLinkAdd").style.display = "none";
+        document.getElementById("btnShowAdd").value = "Add";
     } else {
         localStorage.setItem(cacheName, document.getElementById("tbData").value);
         document.getElementById("tbData").value = "";
@@ -46,6 +48,9 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
     if (document.getElementById("dvLinkAdd").style.display == "none") {
         document.getElementById("dvLinkAdd").style.display = "block";
         document.getElementById("btnShowAdd").value = "Close";
+        document.getElementById("tbData").value = "";
+        document.getElementById("dvEdit").style.display = "none";
+        document.getElementById("btnEdit").value = "Edit";
     } else {
         document.getElementById("dvLinkAdd").style.display = "none";
         document.getElementById("btnShowAdd").value = "Add";
