@@ -31,6 +31,9 @@
         .tbLink {
              width:94%;
         }
+        .tbName {
+             width:80%;
+        }
         .link{
          line-height:30px;
          display:inline-block;
