@@ -60,6 +60,7 @@ function search(){
       }
       else{
         location.href = "https://www.google.com/search?q=" + criteria;
+      }
     }
     else{
         var items = getCache();        
