@@ -1,5 +1,6 @@
 CACHE MANIFEST
 #Version 20190128
+scripts/touch.js
 scripts/note.js
 styles/note.css
 images/icon.png
