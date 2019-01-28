@@ -10,8 +10,7 @@ document.addEventListener("leftSwipe", function(event){
 });
 document.addEventListener("rightSwipe", function(event){    
     document.getElementById("dvPanel1").style.display = "none";
-    document.getElementById("dvPanel2").style.display = "block";    
-    document.getElementById("tbNote").focus();
+    document.getElementById("dvPanel2").style.display = "block";
 });
 document.getElementById("dvLinks").addEventListener("click", function (e) {
   if(this === e.target) {
