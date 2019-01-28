@@ -31,13 +31,14 @@ document.getElementById("btnReplace").addEventListener("click", function () {
 document.getElementById("btnType").addEventListener("click", function () {
     toggleType();
 });
-document.getElementById("hrefMore").addEventListener("click", function () {
-    toggleMore();
-});
 document.addEventListener("rightSwipe", function(event){    
-    addItem();
-    document.getElementById("dvPanel1").style.display = "block";
-    document.getElementById("dvPanel2").style.display = "none";
+    if(document.getElementById("dvPanel1").style.display == "block"){
+        toggleMore();
+    } else {
+        addItem();
+        document.getElementById("dvPanel1").style.display = "block";
+        document.getElementById("dvPanel2").style.display = "none";
+    }
 });
 document.addEventListener("leftSwipe", function(event){    
     if(document.getElementById("dvPanel2").style.display == "block"){
@@ -113,7 +114,7 @@ function toggleImport(){
 }
 function toggleMore(){
     if(document.getElementById("dvMore").style.display == "none"){
-        document.getElementById("dvMore").style.display = "inline-block";
+        document.getElementById("dvMore").style.display = "block";
     }
     else{
         document.getElementById("dvMore").style.display = "none";
