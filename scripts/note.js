@@ -113,7 +113,7 @@ function toggleImport(){
 }
 function toggleMore(){
     if(document.getElementById("dvMore").style.display == "none"){
-        document.getElementById("dvMore").style.display = "block";
+        document.getElementById("dvMore").style.display = "inline-block";
     }
     else{
         document.getElementById("dvMore").style.display = "none";
