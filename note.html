@@ -11,7 +11,7 @@
 </head>
 <body onload="initialize();">
     <div id="dvPanel1" style="display:none;">
-        <a href="#" onclick="toggleMore">Notes</a>
+        <a href="#" id="hrefMore">Notes</a>
         <div id="dvMore" style="display:none;">
             <input type="button" value="Export" id="btnExport" />
             <input type="button" value="Import" id="btnImport" />            
@@ -30,6 +30,7 @@
                 <textarea class="tbnote" id="tbNoteOld" style="display:none"></textarea>
             </div>
         </div>
+        <br>
         <div id="dvNotes" class="dvNotes"></div>
     </div>
     <div id="dvPanel2">        
