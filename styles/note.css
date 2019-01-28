@@ -66,3 +66,13 @@ body {
 .btnType{
     width:50px;
 }
+.tbMemo {
+    width:97%;
+    height:660px;
+    border:none;
+    outline: none;
+    padding: 5px;
+    font-size:14px;
+    font-family:Arial;
+    resize:none;
+}
