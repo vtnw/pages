@@ -3,13 +3,14 @@ var cacheName = "home" + key;
 var sortByRank = true;
 var memoCacheName = "memo" + key;
 
-document.addEventListener("leftSwipe", function(event){
-    document.getElementById("dvPanel1").style.display = "none";
-    document.getElementById("dvPanel2").style.display = "block";
-});
-document.addEventListener("rightSwipe", function(event){
+document.addEventListener("leftSwipe", function(event){    
+    save();
     document.getElementById("dvPanel1").style.display = "block";
     document.getElementById("dvPanel2").style.display = "none";
+});
+document.addEventListener("rightSwipe", function(event){
+    document.getElementById("dvPanel1").style.display = "none";
+    document.getElementById("dvPanel2").style.display = "block";    
 });
 document.getElementById("dvLinks").addEventListener("click", function (e) {
   if(this === e.target) {
@@ -94,6 +95,7 @@ function search(){
 function initialize(){
     var items = getCache();
     loadLinks(items);
+    restore();
 }
 function loadLinks(items) {    
     if (sortByRank) {
