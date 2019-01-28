@@ -3,12 +3,19 @@ var cacheName = "home" + key;
 var sortByRank = true;
 var memoCacheName = "memo" + key;
 
+document.addEventListener("leftSwipe", function(event){
+    document.getElementById("dvPanel1").style.display = "none";
+    document.getElementById("dvPanel2").style.display = "none";
+});
+document.addEventListener("rightSwipe", function(event){
+    document.getElementById("dvPanel2").style.display = "none";
+    document.getElementById("dvPanel1").style.display = "none";
+});
 document.getElementById("dvLinks").addEventListener("click", function (e) {
   if(this === e.target) {
     document.getElementById("tbSearch").focus();
   }
 });
-
 document.getElementById("btnEdit").addEventListener("click", function () {
     if (document.getElementById("dvEdit").style.display == "none") {
         document.getElementById("btnEdit").value = "Save";
