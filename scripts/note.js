@@ -31,6 +31,9 @@ document.getElementById("btnReplace").addEventListener("click", function () {
 document.getElementById("btnType").addEventListener("click", function () {
     toggleType();
 });
+document.getElementById("hrefMore").addEventListener("click", function () {
+    toggleMore();
+});
 document.addEventListener("rightSwipe", function(event){    
     addItem();
     document.getElementById("dvPanel1").style.display = "block";
@@ -101,6 +104,14 @@ function toggleImport(){
         document.getElementById("btnImport").value = "Import";
         document.getElementById("btnImport").style.textDecoration = "";
         document.getElementById("dvImport").style.display = "none";
+    }
+}
+function toggleMore(){
+    if(document.getElementById("dvMore").style.display == "none"){
+        document.getElementById("dvMore").style.display = "block";
+    }
+    else{
+        document.getElementById("dvMore").style.display = "none";
     }
 }
 function toggleFilter(){
