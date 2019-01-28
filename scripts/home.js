@@ -9,6 +9,7 @@ document.addEventListener("leftSwipe", function(event){
     document.getElementById("dvPanel2").style.display = "none";
 });
 document.addEventListener("rightSwipe", function(event){
+    document.getElementById("tbNote").focus();
     document.getElementById("dvPanel1").style.display = "none";
     document.getElementById("dvPanel2").style.display = "block";    
 });
@@ -68,7 +69,7 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
 });
 
 function restore() {
-    document.getElementById("tbNote").value = localStorage.getItem(memoCacheName);
+    document.getElementById("tbNote").value = "\r\n" + "\r\n" + localStorage.getItem(memoCacheName);
 }
 function save() {
     localStorage.setItem(memoCacheName, document.getElementById("tbNote").value);
