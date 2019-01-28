@@ -8,8 +8,8 @@ document.addEventListener("leftSwipe", function(event){
     document.getElementById("dvPanel2").style.display = "block";
 });
 document.addEventListener("rightSwipe", function(event){
-    document.getElementById("dvPanel2").style.display = "block";
-    document.getElementById("dvPanel1").style.display = "none";
+    document.getElementById("dvPanel1").style.display = "block";
+    document.getElementById("dvPanel2").style.display = "none";
 });
 document.getElementById("dvLinks").addEventListener("click", function (e) {
   if(this === e.target) {
