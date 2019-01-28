@@ -69,7 +69,7 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
 });
 
 function restore() {
-    document.getElementById("tbNote").value = "\r\n" + "\r\n" + localStorage.getItem(memoCacheName);
+    document.getElementById("tbNote").value = localStorage.getItem(memoCacheName);
 }
 function save() {
     localStorage.setItem(memoCacheName, document.getElementById("tbNote").value);
