@@ -10,7 +10,7 @@
     <title>Home</title>
 </head>
 <body onload="initialize();">
-    <div id="dvPanel1">
+    <div>
         <div>
             <input type="url" value="" id="tbSearch" placeholder="search" onkeyup="search();" class="tbLink" autocapitalize="none" />
         </div>
@@ -29,9 +29,6 @@
         <div id="dvEdit" style="display:none;">
             <textarea id="tbData" class="tbData"></textarea>
         </div>  
-    </div>
-    <div id="dvPanel2" style="display:none;">        
-        <textarea id="tbNote" class="tbNote" onblur="save();"></textarea>
     </div>
     <script src="scripts/touch.js" async></script>
     <script src="scripts/home.js" async></script>
