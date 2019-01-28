@@ -31,6 +31,16 @@ document.getElementById("btnReplace").addEventListener("click", function () {
 document.getElementById("btnType").addEventListener("click", function () {
     toggleType();
 });
+document.addEventListener("rightSwipe", function(event){    
+    addItem();
+    document.getElementById("dvPanel1").style.display = "block";
+    document.getElementById("dvPanel2").style.display = "none";
+});
+document.addEventListener("leftSwipe", function(event){    
+    document.getElementById("dvPanel1").style.display = "none";
+    document.getElementById("dvPanel2").style.display = "block";
+});
+
 
 //app functions
 function initialize() {
