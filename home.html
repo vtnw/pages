@@ -10,24 +10,29 @@
     <title>Home</title>
 </head>
 <body onload="initialize();">
-    <div>
-        <input type="url" value="" id="tbSearch" placeholder="search" onkeyup="search();" class="tbLink" autocapitalize="none" />
+    <div id="dvPanel1">
+        <div>
+            <input type="url" value="" id="tbSearch" placeholder="search" onkeyup="search();" class="tbLink" autocapitalize="none" />
+        </div>
+        <div id="dvLinks"></div>
+        <hr>
+        <div>
+            <input type="button" value="Add" id="btnShowAdd" />
+            <input type="button" value="Edit" id="btnEdit" />
+            <input type="button" value="Clear" id="btnClear" />
+        </div>
+        <div id="dvLinkAdd" style="display:none;">
+            <input type="url" value="" id="tbLink" placeholder="url" class="tbLink" />
+            <input type="text" value="" id="tbName" placeholder="name" class="tbName" />
+            <input type="button" value="+" class="btnAdd" id="btnAdd" />        
+        </div>
+        <div id="dvEdit" style="display:none;">
+            <textarea id="tbData"></textarea>
+        </div>  
     </div>
-    <div id="dvLinks"></div>
-    <hr>
-    <div>
-        <input type="button" value="Add" id="btnShowAdd" />
-        <input type="button" value="Edit" id="btnEdit" />
-        <input type="button" value="Clear" id="btnClear" />
+    <div id="dvPanel2" style="display:none;">        
+        <textarea id="tbNote" onblur="save();"></textarea>
     </div>
-    <div id="dvLinkAdd" style="display:none;">
-        <input type="url" value="" id="tbLink" placeholder="url" class="tbLink" />
-        <input type="text" value="" id="tbName" placeholder="name" class="tbName" />
-        <input type="button" value="+" class="btnAdd" id="btnAdd" />        
-    </div>
-    <div id="dvEdit" style="display:none;">
-        <textarea id="tbData"></textarea>
-    </div>       
     <script src="scripts/home.js" async></script>
 </body>
 </html>
