@@ -40,8 +40,13 @@ document.addEventListener("rightSwipe", function(event){
     document.getElementById("dvPanel2").style.display = "none";
 });
 document.addEventListener("leftSwipe", function(event){    
-    document.getElementById("dvPanel1").style.display = "none";
-    document.getElementById("dvPanel2").style.display = "block";
+    if(document.getElementById("dvPanel2").style.display == "block"){
+        addItem();
+        location.href = "home.html";
+    }else{
+        document.getElementById("dvPanel1").style.display = "none";
+        document.getElementById("dvPanel2").style.display = "block";
+    }
 });
 
 
