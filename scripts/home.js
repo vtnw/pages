@@ -1,5 +1,7 @@
-var cacheName = "home" + decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+var key = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+var cacheName = "home" + key;
 var sortByRank = true;
+var memoCacheName = "memo" + key;
 
 document.getElementById("dvLinks").addEventListener("click", function (e) {
   if(this === e.target) {
@@ -56,6 +58,13 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
         document.getElementById("btnShowAdd").value = "Add";
     }
 });
+
+function restore() {
+    document.getElementById("tbNote").value = localStorage.getItem(memoCacheName);
+}
+function save() {
+    localStorage.setItem(memoCacheName, document.getElementById("tbNote").value);
+}
 function search(){
     var criteria = document.getElementById("tbSearch").value;
     if(event.keyCode == 13){
