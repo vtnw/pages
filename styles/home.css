@@ -12,7 +12,7 @@
             border:1px solid #cccccc;
             padding: 5px 10px 5px 10px;
         }
-        tbData {
+        .tbData {
             width:94%;
             height:100px;
             border:1px solid #cccccc;
@@ -38,7 +38,7 @@
          display:inline-block;
          margin-right:10px;
         }
-        tbNote {
+        .tbNote {
             width:97%;
             height:660px;
             border:none;
