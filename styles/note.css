@@ -25,6 +25,10 @@ body {
     height:100%;
     overflow:auto;
 }
+.dvNote{
+    font-size:16px;
+    line-height:1.5;
+}
 .btnAdd{
     width:100px;
 }
@@ -40,7 +44,8 @@ body {
 .dvDate{
     font-style: italic;
     color: #aaaaaa;
-    font-size:12px;
+    font-size:14px;
+    line-height:1.5;
 }
 #fileImport, #btnMerge, #btnReplace{
     margin-top:5px;
@@ -72,7 +77,8 @@ body {
     border:none;
     outline: none;
     padding: 5px;
-    font-size:14px;
+    font-size:16px;
     font-family:Arial;
     resize:none;
+    line-height:1.5;
 }
