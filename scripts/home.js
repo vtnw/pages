@@ -3,14 +3,8 @@ var cacheName = "home" + key;
 var sortByRank = true;
 var memoCacheName = "memo" + key;
 
-document.addEventListener("leftSwipe", function(event){    
-    save();
-    document.getElementById("dvPanel1").style.display = "block";
-    document.getElementById("dvPanel2").style.display = "none";
-});
-document.addEventListener("rightSwipe", function(event){    
-    document.getElementById("dvPanel1").style.display = "none";
-    document.getElementById("dvPanel2").style.display = "block";
+document.addEventListener("rightSwipe", function(event){
+    location.href = "note.html";
 });
 document.getElementById("dvLinks").addEventListener("click", function (e) {
   if(this === e.target) {
@@ -67,12 +61,6 @@ document.getElementById("btnShowAdd").addEventListener("click", function () {
     }
 });
 
-function restore() {
-    document.getElementById("tbNote").value = localStorage.getItem(memoCacheName);
-}
-function save() {
-    localStorage.setItem(memoCacheName, document.getElementById("tbNote").value);
-}
 function search(){
     var criteria = document.getElementById("tbSearch").value;
     if(event.keyCode == 13){
