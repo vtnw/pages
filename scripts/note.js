@@ -1,4 +1,5 @@
-var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));;
+var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+var m = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("m").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 var cacheName = "note" + u;
 var indexName = "index" + cacheName;
 var noteList = [];
@@ -6,6 +7,12 @@ var typeList = [];
 var notifyTag = "#task";
 
 //events
+document.addEventListener("load", function(event){    
+    if(m == "view"){
+        document.getElementById("dvPanel1").style.display = "block";
+        document.getElementById("dvPanel2").style.display = "none";
+    }
+});
 document.getElementById("btnAdd").addEventListener("click", function () {
     addItem();
 });
