@@ -1,6 +1,6 @@
 self.addEventListener('notificationclick', function(event) {
   event.waitUntil({
-    const url = clients.openWindow("https://vtnw.github.io/pages/note.html?n=" + event.notification.title);
+    const url = "https://vtnw.github.io/pages/note.html?n=" + event.notification.title;
     const promiseChain = clients.matchAll({
       type: 'window',
       includeUncontrolled: true
