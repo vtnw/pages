@@ -54,7 +54,7 @@ document.addEventListener("leftSwipe", function(event){
 function notify(data){
     Notification.requestPermission(function (result) {
         if (result === 'granted') {
-            return navigator.serviceWorker.register('sw.js')
+            return navigator.serviceWorker.register('nsw.js')
             .then(function(registration) {
                 registration.showNotification(data);
             });
