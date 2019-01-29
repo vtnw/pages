@@ -1,3 +1,15 @@
 self.addEventListener('notificationclick', function(event) {
-  event.waitUntil(clients.openWindow("https://vtnw.github.io/pages/note.html?n=" + event.notification.title));
+  event.waitUntil({
+    const url = clients.openWindow("https://vtnw.github.io/pages/note.html?n=" + event.notification.title);
+    const promiseChain = clients.matchAll({
+      type: 'window',
+      includeUncontrolled: true
+    })
+    .then((windowClients) => {
+      if(windowClients.length > 0){
+        windowClients[windowClients.length-1].focus();
+      } else {
+        return clients.openWindow(url);
+      }
+    });
 });
