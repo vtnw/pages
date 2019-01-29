@@ -5,9 +5,11 @@ var indexName = "index" + cacheName;
 var noteList = [];
 var typeList = [];
 var notifyTag = "#task";
+alert(m);
 
 //events
-document.addEventListener("DOMContentLoaded", function(event){    
+document.addEventListener("DOMContentLoaded", function(event){   
+    alert('-'+ m);
     if(m == "view"){
         document.getElementById("dvPanel1").style.display = "block";
         document.getElementById("dvPanel2").style.display = "none";
