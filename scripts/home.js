@@ -105,6 +105,7 @@ function loadLinks(items) {
         var a = document.createElement('a');
         a.setAttribute("href", items[i].link);
         a.setAttribute("class", "link");
+        a.setAttribute("target", "_blank");
         a.setAttribute("onclick", "setRank("+ items[i].id + ");");
         a.innerHTML = items[i].name;
         d.appendChild(a);
