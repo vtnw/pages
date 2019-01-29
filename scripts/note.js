@@ -44,13 +44,8 @@ document.addEventListener("rightSwipe", function(event){
     }
 });
 document.addEventListener("leftSwipe", function(event){    
-    if(document.getElementById("dvPanel2").style.display == "block"){
-        addItem();
-        location.href = "home.html";
-    }else{
-        document.getElementById("dvPanel1").style.display = "none";
-        document.getElementById("dvPanel2").style.display = "block";
-    }
+    document.getElementById("dvPanel1").style.display = "none";
+    document.getElementById("dvPanel2").style.display = "block";
 });
 
 //app functions
