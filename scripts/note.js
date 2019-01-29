@@ -7,7 +7,7 @@ var typeList = [];
 var notifyTag = "#task";
 
 //events
-document.addEventListener("load", function(event){    
+document.addEventListener("DOMContentLoaded", function(event){    
     if(m == "view"){
         document.getElementById("dvPanel1").style.display = "block";
         document.getElementById("dvPanel2").style.display = "none";
