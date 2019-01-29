@@ -38,13 +38,3 @@
          display:inline-block;
          margin-right:10px;
         }
-        .tbNote {
-            width:97%;
-            height:690px;
-            border:none;
-            outline: none;
-            padding: 5px;
-            font-size:14px;
-            font-family:Arial;
-            resize:none;
-        }
