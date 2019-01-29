@@ -3,6 +3,7 @@ var cacheName = "note" + u;
 var indexName = "index" + cacheName;
 var noteList = [];
 var typeList = [];
+var notifyTag = "task";
 
 //events
 document.getElementById("btnAdd").addEventListener("click", function () {
@@ -272,11 +273,16 @@ function addItem() {
     }    
     addToList(item);
     addToDiv("dvNotes", item);
+    var addNotification = false;
     for(l=0;l<item.Type.length;l++){
         if(isNewType(item.Type[l])){
             addTypeToList(item.Type[l], false);
             addTypeToDiv(item.Type[l], false);
         }
+        addNotification = addNotification || (item.Type[l] == notifyTag);
+    }
+    if(addNotification){
+        notify(item.Note);
     }
     document.getElementById("tbNote").value = "";
     document.getElementById("tbNote").focus();
