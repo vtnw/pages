@@ -3,7 +3,7 @@ var cacheName = "note" + u;
 var indexName = "index" + cacheName;
 var noteList = [];
 var typeList = [];
-var notifyTag = "task";
+var notifyTag = "#task";
 
 //events
 document.getElementById("btnAdd").addEventListener("click", function () {
