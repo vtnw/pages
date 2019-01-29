@@ -2,7 +2,6 @@ var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\
 var m = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("m").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 var n = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("n").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 var cacheName = "note" + u;
-var indexName = "index" + cacheName;
 var noteList = [];
 var typeList = [];
 var notifyTag = "#task";
@@ -15,9 +14,6 @@ if(n != null){
 }
 
 //events
-document.getElementById("btnAdd").addEventListener("click", function () {
-    addItem();
-});
 document.getElementById("btnClear").addEventListener("click", function () {
     toggleClear();
 });
@@ -37,9 +33,6 @@ document.getElementById("btnMerge").addEventListener("click", function () {
 document.getElementById("btnReplace").addEventListener("click", function () {
     loadFile(true);
     toggleImport();
-});
-document.getElementById("btnType").addEventListener("click", function () {
-    toggleType();
 });
 document.addEventListener("rightSwipe", function(event){    
     if(document.getElementById("dvPanel1").style.display == "block"){
@@ -156,21 +149,6 @@ function toggleFilter(){
         document.getElementById("dvTypes").style.display = "none";                
     }
 }
-function toggleType(){
-    resetToggle("btnType");
-    if(document.getElementById("btnType").value == "Type"){
-        clearTypeSelection();
-        document.getElementById("btnType").value = "Apply";
-        document.getElementById("btnType").style.textDecoration = "underline";
-        document.getElementById("dvTypes").style.display = "block";
-    }
-    else{        
-        applyTypes();        
-        document.getElementById("btnType").value = "Type";
-        document.getElementById("btnType").style.textDecoration = "";
-        document.getElementById("dvTypes").style.display = "none";
-    }
-}
 function toggleClear(){
     resetToggle("btnClear");
     if(document.getElementById("btnClear").value == "Clear"){
@@ -207,11 +185,6 @@ function resetToggle(source){
         document.getElementById("dvTypes").style.display = "none";
         document.getElementById("btnFilter").style.textDecoration = "";
     }    
-    if(source != "btnType"){
-        document.getElementById("btnType").value = "Type";
-        document.getElementById("dvTypes").style.display = "none";
-        document.getElementById("btnType").style.textDecoration = "";
-    }    
     if(source != "btnImport"){
         document.getElementById("btnImport").value = "Import";
         document.getElementById("dvImport").style.display = "none";
@@ -228,25 +201,6 @@ function resetToggle(source){
         document.getElementById("btnExport").style.textDecoration = "";
     }
 }
-function applyTypes(){
-    var note = document.getElementById("tbNote").value;
-    var selTypes = "";
-    for(var ix = 0; ix < typeList.length;ix++){
-        if(typeList[ix].Selected){
-            selTypes += " " + typeList[ix].Name;
-        }
-    }
-    if(note != ""){
-        document.getElementById("tbNote").value = note.trim() + selTypes;
-    }
-    else{
-        document.getElementById("tbNote").value = selTypes.trim() + " ";
-        document.getElementById("tbNote").focus();
-    }
-    document.getElementById("dvTypes").style.display = "none";
-    document.getElementById("btnType").value = "Type";
-    document.getElementById("btnType").style.textDecoration = "";
-}
 function clearTypeSelection(){
     var typeSpanList = document.getElementById("dvTypes").getElementsByTagName("span");
     for(var iy=0;iy<typeSpanList.length;iy++){
@@ -255,9 +209,6 @@ function clearTypeSelection(){
     }
 }
 function clearList() {
-    if (confirm("Reset index as well?")) {
-        resetIndex();
-    }
     var tempList = [];
     applyFilter = hasSelection();
     for (var i = 0; i < noteList.length; i++) {
@@ -275,7 +226,6 @@ function addItem() {
         return;
     }
     var item = {
-        Id: getNextIndex(),
         Type: getType(document.getElementById("tbNote").value),
         Date: getFormattedDate(true),
         Note: getNote(document.getElementById("tbNote").value)
@@ -313,17 +263,14 @@ function addToList(item) {
 }
 function addToDiv(divName, item) {
     var dvItem = document.createElement('div');
-    dvItem.id = "dvItem" + item.Id;
     dvItem.className = "dvItem";
 
     var dvDate = document.createElement('div');
-    dvDate.id = "dvDate" + item.Id;
     dvDate.innerHTML = item.Date + " [" + item.Type + "]";
     dvDate.className = "dvDate";
     dvItem.appendChild(dvDate);
 
     var dvNote = document.createElement('div');
-    dvNote.id = "dvNote" + item.Id;
     dvNote.innerHTML = item.Note.replace(/(?:\r\n|\r|\n)/g, '<br />');
     dvItem.className = "dvNote";
     dvItem.appendChild(dvNote);
@@ -373,7 +320,6 @@ function loadFile(replace) {
             noteList = [];
         }
         for (var i = 0; i < importedData.length; i++) {
-            importedData[i].Id = getNextIndex();
             noteList.push(importedData[i]);
         }
         setCache(noteList);
@@ -395,8 +341,7 @@ function addTypeToDiv(type, isSelected){
     spnType.addEventListener("click", function () {
         if(document.getElementById("btnFilter").value == "Apply"
             || document.getElementById("btnExport").value == "Apply"
-            || document.getElementById("btnClear").value == "Apply"
-            || document.getElementById("btnType").value == "Apply"){
+            || document.getElementById("btnClear").value == "Apply"){
                 isSelected = (this.className == "spnTypeSel");
                 this.className = isSelected ? "spnType" : "spnTypeSel";
                 typeList[typeList.findIndex(t => t.Name == this.innerHTML)].Selected = !isSelected;
@@ -406,21 +351,6 @@ function addTypeToDiv(type, isSelected){
 }
 
 //common functions
-function getNextIndex() {
-    var index = localStorage.getItem(indexName);
-    if (index == null) {
-        index = 0;
-    }
-    else {
-        index = parseInt(index);
-    }    
-    index = index + 1;
-    localStorage.setItem(indexName, index);
-    return index;
-}
-function resetIndex() {
-    localStorage.removeItem(indexName);
-}
 function getCache() {
     var items = JSON.parse(localStorage.getItem(cacheName));
     if (items == null) {
