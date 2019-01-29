@@ -10,8 +10,8 @@
     <title>Note</title>
 </head>
 <body onload="initialize();">
-    <div id="dvPanel1" style="display:block;">
-        <div id="dvMore" style="display:block;">
+    <div id="dvPanel1" style="display:none;">
+        <div id="dvMore" style="display:none;">
             <input type="button" value="Export" id="btnExport" />
             <input type="button" value="Import" id="btnImport" />            
             <input type="button" value="Clear" id="btnClear" />            
@@ -28,7 +28,7 @@
         <div id="dvNotes" class="dvNotes"></div>
     </div>
     <div id="dvPanel2">        
-        <textarea id="tbNote" class="tbMemo" placeholder="Add note..." onblur="addItem()"></textarea>
+        <textarea id="tbNote" class="tbMemo" placeholder="Add note..."></textarea>
     </div>
     <script src="scripts/touch.js" async></script>
     <script src="scripts/note.js" async></script>
