@@ -50,8 +50,19 @@ document.addEventListener("leftSwipe", function(event){
     }
 });
 
-
 //app functions
+function notify(data){
+    Notification.requestPermission(function (result) {
+        if (result === 'granted') {
+            return navigator.serviceWorker.register('sw.js')
+            .then(function(registration) {
+                registration.showNotification(data);
+            });
+        } else {
+            alert(data);
+        }
+    });
+}
 function initialize() {
     noteList = getCache();
     loadTypeList();
