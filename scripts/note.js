@@ -6,15 +6,12 @@ var noteList = [];
 var typeList = [];
 var notifyTag = "#task";
 alert(m);
+if(m == "view"){
+    document.getElementById("dvPanel1").style.display = "block";
+    document.getElementById("dvPanel2").style.display = "none";
+}
 
 //events
-document.addEventListener("DOMContentLoaded", function(event){   
-    alert('-'+ m);
-    if(m == "view"){
-        document.getElementById("dvPanel1").style.display = "block";
-        document.getElementById("dvPanel2").style.display = "none";
-    }
-});
 document.getElementById("btnAdd").addEventListener("click", function () {
     addItem();
 });
