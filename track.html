@@ -4,11 +4,19 @@
     <title>Track</title>    
 </head>
 <body>
+    <select id="ddlType" style="border:none;outline:none;">
+        <option value="item_note">note</option>
+        <option value="item_task">task</option>
+    </select>
     <input type="text" id="tbItem" style="border:none;width:97%;outline:none;" placeholder="Add" />
     <br /><br />
     <div id="dvItems"></div>
     <script>
-        var cacheName = "item_" + decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        var cacheName = "temp";
+        document.getElementById("ddlType").addEventListener("change", function () {
+            cacheName = document.getElementById("ddlType").value;
+            buildItems();
+        });
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
