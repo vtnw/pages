@@ -4,17 +4,16 @@
     <title>Track</title>    
 </head>
 <body>
-    <select id="ddlType" style="border:none;outline:none;">
+    <select id="ddlType" style="border:none;outline:none;-moz-appearance:none;-webkit-appearance:none;font-weight:bold;">
         <option value="item_note">note</option>
         <option value="item_task">task</option>
     </select>
+    <br />
     <input type="text" id="tbItem" style="border:none;width:97%;outline:none;" placeholder="Add" />
     <br /><br />
     <div id="dvItems"></div>
     <script>
-        var cacheName = "temp";
-        document.getElementById("ddlType").addEventListener("change", function () {
-            cacheName = document.getElementById("ddlType").value;
+        document.getElementById("ddlType").addEventListener("change", function () {            
             buildItems();
         });
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
@@ -49,6 +48,7 @@
             }
         }
         function getCache() {
+            var cacheName = document.getElementById("ddlType").value;
             var items = JSON.parse(localStorage.getItem(cacheName));
             if (items == null) {
                 items = [];
@@ -56,6 +56,7 @@
             return items;
         }
         function setCache(items) {
+            var cacheName = document.getElementById("ddlType").value;
             localStorage.setItem(cacheName, JSON.stringify(items));
         }
         buildItems();
