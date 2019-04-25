@@ -12,7 +12,7 @@
     <script>
         var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
         var cachePrefix = "item";
-        var cacheName = cachePrefix + ((u == null) ? "" : "_" + u);
+        var cacheName = cachePrefix + ((u.length > 0) ? "" : "_" + u);
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
