@@ -5,23 +5,14 @@
     <title>Track</title>    
 </head>
 <body>
-    <div style="width:100%;text-align:center;">
-        <select id="ddlType" style="border:none;outline:none;-moz-appearance:none;-webkit-appearance:none;font-weight:bold;
-                                    font-size:18px;color: transparent;text-shadow: 0 0 0 #000;">
-            <option value="item_note">Notes</option>
-            <option value="item_task">Tasks</option>
-            <option value="item_internet">Internet</option>
-        </select>
-    </div>
-    <br />
     <input type="text" id="tbItem" style="border:1px solid #cccccc;border-radius:25px; width:94%;
             padding: 5px 10px 5px 10px;outline: none;font-size: 16px;" placeholder="Add" />
     <br /><br />
     <div id="dvItems"></div>
     <script>
-        document.getElementById("ddlType").addEventListener("change", function () {            
-            buildItems();
-        });
+        var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        var cachePrefix = "item";
+        var cacheName = cachePrefix + ((u == null) ? "" : "_" + u);
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
@@ -43,19 +34,26 @@
                 dvItem.setAttribute("index", i);
                 dvItem.appendChild(document.createElement('br'));
                 dvItem.appendChild(document.createElement('br'));
-                dvItem.addEventListener("click", function () {
-                    var index = parseInt(this.getAttribute("index"));
-                    var items = getCache();
-                    items.splice(index, 1);
-                    setCache(items);
-                    buildItems();
-                    document.getElementById("tbItem").value = this.innerText;
-                });
+                if(cacheName == cachePrefix) {
+                    dvItem.setAttribute("style", "textDecoration:underline;");
+                    dvItem.addEventListener("click", function () {
+                        location.href = "track.html?u=" + this.innerText;
+                    });
+                }
+                else {
+                    dvItem.addEventListener("click", function () {
+                        var index = parseInt(this.getAttribute("index"));
+                        var items = getCache();
+                        items.splice(index, 1);
+                        setCache(items);
+                        buildItems();
+                        document.getElementById("tbItem").value = this.innerText;
+                    });
+                }
                 dvItems.insertBefore(dvItem, dvItems.firstChild);
             }
         }
         function getCache() {
-            var cacheName = document.getElementById("ddlType").value;
             var items = JSON.parse(localStorage.getItem(cacheName));
             if (items == null) {
                 items = [];
@@ -63,7 +61,6 @@
             return items;
         }
         function setCache(items) {
-            var cacheName = document.getElementById("ddlType").value;
             localStorage.setItem(cacheName, JSON.stringify(items));
         }
         buildItems();
