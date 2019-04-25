@@ -35,7 +35,7 @@
                 dvItem.appendChild(document.createElement('br'));
                 dvItem.appendChild(document.createElement('br'));
                 if(cacheName == cachePrefix) {
-                    dvItem.setAttribute("style", "textDecoration:underline;");
+                    dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline");
                     dvItem.addEventListener("click", function () {
                         location.href = "track.html?u=" + this.innerText;
                     });
