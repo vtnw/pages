@@ -10,10 +10,9 @@
     <br /><br />
     <div id="dvItems"></div>
     <script>
+        var cacheName;
         var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
         var cachePrefix = "item";
-        var cacheName = cachePrefix + ((u.length > 0) ? "_" + u : "");
-        document.getElementById("tbItem").placeholder = u;
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
@@ -26,6 +25,7 @@
             }
         });
         function buildItems() {
+            initialize();
             var items = getCache();
             var dvItems = document.getElementById("dvItems");
             dvItems.innerHTML = "";
@@ -38,7 +38,8 @@
                 if(cacheName == cachePrefix) {
                     dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline");
                     dvItem.addEventListener("click", function () {
-                        location.href = "track.html?u=" + this.innerText;
+                        u = this.innerText;
+                        buildItems();
                     });
                 }
                 else {
@@ -53,6 +54,10 @@
                 }
                 dvItems.insertBefore(dvItem, dvItems.firstChild);
             }
+        }
+        function initialize(){
+            cacheName = cachePrefix + ((u.length > 0) ? "_" + u : "");
+            document.getElementById("tbItem").placeholder = u;
         }
         function getCache() {
             var items = JSON.parse(localStorage.getItem(cacheName));
