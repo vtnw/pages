@@ -47,6 +47,8 @@
                     dvItem.addEventListener("click", function () {
                         itemType = itemTypes.filter(function(item){
                             alert(item.name + "-" + this.innerText);
+                            alert(this);
+                            alert(this.innerHTML);
                           return item.name == this.innerText;
                         })[0];
                         buildItems();
