@@ -46,9 +46,11 @@
                     dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline");
                     dvItem.addEventListener("click", function () {
                         var name = this.innerText;
-                        itemType = itemTypes.filter(function(item){                            
+                        var matches = itemTypes.filter(function(item){                            
                           return item.name == name;
-                        })[0];
+                        });
+                        alert(matches.length);
+                        itemType = matches[0];
                         alert(JSON.stringify(itemType));
                         buildItems();
                     });
