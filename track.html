@@ -45,14 +45,9 @@
                 if(itemType == "") {
                     dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline");
                     dvItem.addEventListener("click", function () {
-                        alert(this.innerText);
-                        alert(this);
-                        alert(this.innerHTML);
-                        itemType = itemTypes.filter(function(item){
-                            alert(item.name + "-" + this.innerText);
-                            alert(this);
-                            alert(this.innerHTML);
-                          return item.name == this.innerText;
+                        var name = this.innerText;
+                        itemType = itemTypes.filter(function(item){                            
+                          return item.name == name;
                         })[0];
                         buildItems();
                     });
