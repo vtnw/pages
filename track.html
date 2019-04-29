@@ -13,7 +13,8 @@
         var cacheName;
         var cachePrefix = "item";
         var itemType = "";
-        var itemTypes = {itemTypes: [{name: "notes", mode: "view", sort: "latest"},{name: "internet", type: "view", sort: "latest"},{name: "tasks", type: "edit", sort: "zthrua"},{name: "links", type: "link", sort: "athruz"}]};
+        var itemTypeList = {items: [{name: "notes", mode: "view", sort: "latest"},{name: "internet", type: "view", sort: "latest"},{name: "tasks", type: "edit", sort: "zthrua"},{name: "links", type: "link", sort: "athruz"}]};
+        var itemTypes = itemTypeList.items;
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
@@ -31,7 +32,7 @@
             var dvItems = document.getElementById("dvItems");
             dvItems.innerHTML = "";
             if(itemType == "") {
-                for(int i=0;i<itemTypes.length;i++){
+                for(var i=0;i<itemTypes.length;i++){
                     items.push(itemTypes[i].name);
                 }
             }
