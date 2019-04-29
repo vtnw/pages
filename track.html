@@ -13,7 +13,7 @@
         var cacheName;
         var cachePrefix = "item";
         var itemType = "";
-        var itemTypes = {[{name: "notes", mode: "view", sort: "latest"},{name: "internet", type: "view", sort: "latest"},{name: "tasks", type: "edit", sort: "zthrua"},{name: "links", type: "link", sort: "athruz"}]};
+        var itemTypes = [{name: "notes", mode: "view", sort: "latest"},{name: "internet", type: "view", sort: "latest"},{name: "tasks", type: "edit", sort: "zthrua"},{name: "links", type: "link", sort: "athruz"}];
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
