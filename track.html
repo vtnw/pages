@@ -11,8 +11,12 @@
     <div id="dvItems"></div>
     <script>
         var cacheName;
-        var u = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
         var cachePrefix = "item";
+        var itemType = "";
+        var itemTypes = {[{name: "notes", mode: "view", sort: "latest"},
+                         {name: "internet", type: "view", sort: "latest"},
+                         {name: "tasks", type: "edit", sort: "zthrua"},
+                         {name: "links", type: "link", sort: "athruz"}]};
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
@@ -35,14 +39,24 @@
                 dvItem.setAttribute("index", i);
                 dvItem.appendChild(document.createElement('br'));
                 dvItem.appendChild(document.createElement('br'));
-                if(cacheName == cachePrefix) {
+                if(itemType == "") {
                     dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline");
                     dvItem.addEventListener("click", function () {
-                        u = this.innerText;
+                        itemType = itemTypes.filter(function(item){
+                          return item.name == this.innerText;
+                        })[0];
                         buildItems();
                     });
                 }
-                else {
+                else if(itemType.type == "view") {                    
+                }
+                else if(itemType.type == "link") {   
+                    dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline;color:blue;");
+                    dvItem.addEventListener("click", function () {
+                        window.open(this.innerText);
+                    });
+                }
+                else if(itemType.type == "edit") {
                     dvItem.addEventListener("click", function () {
                         var index = parseInt(this.getAttribute("index"));
                         var items = getCache();
@@ -56,8 +70,8 @@
             }
         }
         function initialize(){
-            cacheName = cachePrefix + ((u.length > 0) ? "_" + u : "");
-            document.getElementById("tbItem").placeholder = u;
+            cacheName = cachePrefix + itemType;
+            document.getElementById("tbItem").placeholder = itemType;
         }
         function getCache() {
             var items = JSON.parse(localStorage.getItem(cacheName));
