@@ -5,16 +5,19 @@
     <title>Track</title>    
 </head>
 <body>
-    <input type="text" id="tbItem" style="border:1px solid #cccccc;border-radius:25px; width:94%;
+    <input type="text" id="tbItem" readonly style="border:1px solid #cccccc;border-radius:25px; width:94%;
             padding: 5px 10px 5px 10px;outline: none;font-size: 16px;" />
     <br /><br />
+    <div id="dvTypes">
+        <a href='javascript:setType("notes","view","latest");'>notes</a><br/><br/>
+        <a href='javascript:setType("internet","edit","latest");'>internet</a><br/><br/>
+        <a href='javascript:setType("tasks","edit","athruz");'>tasks</a><br/><br/>
+        <a href='javascript:setType("links","link","athruz");'>links</a>
+    </div>
     <div id="dvItems"></div>
     <script>
-        var cacheName;
+        var cacheName,itemType,itemMode,itemSort;
         var cachePrefix = "item";
-        var itemType = "";
-        var itemTypeList = {items: [{name: "notes", mode: "view", sort: "latest"},{name: "internet", type: "view", sort: "latest"},{name: "tasks", type: "edit", sort: "zthrua"},{name: "links", type: "link", sort: "athruz"}]};
-        var itemTypes = itemTypeList.items;
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
             if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
@@ -26,44 +29,32 @@
                 buildItems();
             }
         });
+        function setType(type,mode,sort) {
+            itemType = type;
+            itemMode = mode;
+            itemSort = sort;
+            document.getElementById("dvTypes").style.display = "none";
+            document.getElementById("tbItem").placeholder = type;
+            document.getElementById("tbItem").readOnly = false;
+            buildItems();
+        }
         function buildItems() {
-            initialize();
             var items = getCache();
             var dvItems = document.getElementById("dvItems");
             dvItems.innerHTML = "";
-            if(itemType == "") {
-                for(var i=0;i<itemTypes.length;i++){
-                    items.push(itemTypes[i].name);
-                }
-            }
             for (var i = 0; i < items.length; i++) {
                 var dvItem = document.createElement('div');
                 dvItem.innerHTML = items[i];
                 dvItem.setAttribute("index", i);
                 dvItem.appendChild(document.createElement('br'));
                 dvItem.appendChild(document.createElement('br'));
-                if(itemType == "") {
+                if(itemMode == "link") {
                     dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline");
-                    dvItem.addEventListener("click", function () {
-                        var name = this.innerText;
-                        var matches = itemTypes.filter(function(item){                            
-                          return item.name == name;
-                        });
-                        alert(matches.length);
-                        itemType = matches[0];
-                        alert(JSON.stringify(itemType));
-                        buildItems();
-                    });
-                }
-                else if(itemType.type == "view") {                    
-                }
-                else if(itemType.type == "link") {   
-                    dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline;color:blue;");
                     dvItem.addEventListener("click", function () {
                         window.open(this.innerText);
                     });
                 }
-                else if(itemType.type == "edit") {
+                else if(itemMode == "edit") {
                     dvItem.addEventListener("click", function () {
                         var index = parseInt(this.getAttribute("index"));
                         var items = getCache();
@@ -73,22 +64,35 @@
                         document.getElementById("tbItem").value = this.innerText;
                     });
                 }
+                else if(itemMode == "view") {
+                    
+                }
                 dvItems.insertBefore(dvItem, dvItems.firstChild);
             }
         }
-        function initialize(){
-            cacheName = cachePrefix + itemType;
-            document.getElementById("tbItem").placeholder = itemType;
+        function getCacheName(){
+            return cachePrefix + itemType;
         }
         function getCache() {
-            var items = JSON.parse(localStorage.getItem(cacheName));
+            var items = JSON.parse(localStorage.getItem(getCacheName()));
             if (items == null) {
                 items = [];
+            }
+            switch(itemSort) {
+                case "athruz": {
+                    items.sort(function(a,b){return b.localeCompare(a)});break;
+                }
+                case "zthrua": {
+                    items.sort(function(a,b){return a.localeCompare(b)});break;
+                }
+                case "latest": {
+                    break;
+                }
             }
             return items;
         }
         function setCache(items) {
-            localStorage.setItem(cacheName, JSON.stringify(items));
+            localStorage.setItem(getCacheName(), JSON.stringify(items));
         }
         buildItems();
     </script>
