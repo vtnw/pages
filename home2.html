@@ -5,8 +5,8 @@
     <title>Home</title>    
 </head>
 <body>    
-    <div id="dvLinks"></div>
-    <input type="text" id="tbLink" placeholder="title | url" style="border:none;outline:none;font-size: 16px;" />
+    <div id="dvLinks"></div><br/>
+    <input type="text" id="tbLink" placeholder="title | url" style="border:none;outline:none;" />
     <script>
       var key = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
       var cacheName = "home" + key;
@@ -33,6 +33,7 @@
               a.setAttribute("href", links[i].url);
               a.innerHTML = links[i].title;                
               dvLinks.appendChild(a);
+              dvLinks.appendChild(document.createElement('br'));
               dvLinks.appendChild(document.createElement('br'));
           }
       }        
