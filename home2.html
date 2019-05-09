@@ -5,7 +5,7 @@
     <title>Home</title>    
 </head>
 <body>    
-    <div id="dvLinks"></div><br/>
+    <div id="dvLinks"></div>
     <input type="text" id="tbLink" placeholder="title | url" style="border:none;outline:none;" />
     <script>
       var key = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
@@ -32,9 +32,9 @@
               var a = document.createElement('a');                
               a.setAttribute("href", links[i].url);
               a.innerHTML = links[i].title;
-              dvLinks.appendChild(document.createElement('br'));
-              dvLinks.appendChild(document.createElement('br'));
               dvLinks.appendChild(a);
+              dvLinks.appendChild(document.createElement('br'));
+              dvLinks.appendChild(document.createElement('br'));              
           }
       }        
       function getCache() {
