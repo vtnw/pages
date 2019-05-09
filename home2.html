@@ -16,6 +16,7 @@
           var value = document.getElementById("tbLink").value.trim();
           if (event.keyCode == 13 && value != "") {
               if(value == cmdExport){
+                  document.getElementById("tbLink").style.display = "none";
                   buildLinks(value);
               } else {
                   var links = getCache();
