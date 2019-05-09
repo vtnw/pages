@@ -36,20 +36,10 @@
           var dvLinks = document.getElementById("dvLinks");
           dvLinks.innerHTML = "";
           for (var i = 0; i < links.length; i++) {
-              if(mode == cmdExport){
-                  var span1 = document.createElement('span');
-                  span1.innerHTML = links[i].title;
-                  var span2 = document.createElement('span');
-                  span2.innerHTML = links[i].url;
-                  dvLinks.appendChild(span1);
-                  dvLinks.appendChild(document.createElement('br'));
-                  dvLinks.appendChild(span2);
-              } else {
-                  var a = document.createElement('a');                
-                  a.setAttribute("href", links[i].url);
-                  a.innerHTML = links[i].title;
-                  dvLinks.appendChild(a);
-              }
+              var a = document.createElement('a');                
+              a.setAttribute("href", links[i].url);
+              a.innerHTML = (mode == cmdExport) ? links[i].title + "<br/>" + links[i].url : links[i].title;
+              dvLinks.appendChild(a);
               dvLinks.appendChild(document.createElement('br'));
               dvLinks.appendChild(document.createElement('br'));              
           }
