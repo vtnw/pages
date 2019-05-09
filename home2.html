@@ -6,7 +6,7 @@
 </head>
 <body>    
     <div id="dvLinks"></div>
-    <input type="text" id="tbLink" placeholder="title | url" style="border:none;outline:none;" />
+    <input type="text" id="tbLink" placeholder="title | url" style="border:none;outline:none;width:90%" />
     <script>
       var key = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
       var cacheName = "home" + key;
@@ -14,25 +14,39 @@
           event.preventDefault();
           var value = document.getElementById("tbLink").value.trim();
           if (event.keyCode == 13 && value != "") {
-              var links = getCache();
-              var linkData = value.split("|");
-              links.push({"title": linkData[0], "url": linkData[1]});
-              links.sort(function (a, b) { return a.title > b.title });
-              setCache(links);
-              buildLinks();
+              if(value == "export"){
+                  buildLinks(value);
+              } else {
+                  var links = getCache();
+                  var linkData = value.split("|");
+                  links.push({"title": linkData[0], "url": linkData[1]});
+                  links.sort(function (a, b) { return a.title > b.title });
+                  setCache(links);
+                  buildLinks();
+              }
               document.getElementById("tbLink").value = "";
               document.getElementById("tbLink").blur();
           }
       });
-      function buildLinks() {
+      function buildLinks(mode) {
           var links = getCache();
           var dvLinks = document.getElementById("dvLinks");
           dvLinks.innerHTML = "";
           for (var i = 0; i < links.length; i++) {
-              var a = document.createElement('a');                
-              a.setAttribute("href", links[i].url);
-              a.innerHTML = links[i].title;
-              dvLinks.appendChild(a);
+              if(mode == "export"){
+                  var span1 = document.createElement('span');
+                  span1.innerHTML = links[i].title;
+                  var span2 = document.createElement('span');
+                  span2.innerHTML = links[i].url;
+                  dvLinks.appendChild(span1);
+                  dvLinks.appendChild(document.createElement('br'));
+                  dvLinks.appendChild(span2);
+              } else {
+                  var a = document.createElement('a');                
+                  a.setAttribute("href", links[i].url);
+                  a.innerHTML = links[i].title;
+                  dvLinks.appendChild(a);
+              }
               dvLinks.appendChild(document.createElement('br'));
               dvLinks.appendChild(document.createElement('br'));              
           }
