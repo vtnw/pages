@@ -11,7 +11,8 @@
     <script>
       var key = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
       var cacheName = "home" + key;
-      var cmdExport = "export";
+      var cmdExport = ":ex";
+      var cmdEdit = ":ed";
       document.getElementById("tbLink").addEventListener("keyup", function (event) {
           event.preventDefault();
           var value = document.getElementById("tbLink").value.trim();
@@ -19,7 +20,9 @@
               if(value == cmdExport){
                   document.getElementById("tbLink").style.display = "none";
                   buildLinks(value);
-              } else {
+              } else if(value == cmdEdit){
+                  document.getElementById("tbLink").value = JSON.stringify(getCache());
+              } else {                  
                   var links = getCache();
                   var linkData = value.split("|");
                   links.push({"title": linkData[0], "url": linkData[1]});
