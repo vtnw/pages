@@ -6,7 +6,7 @@
 </head>
 <body>    
     <div id="dvLinks"></div>
-    <input type="text" id="tbLink"  style="border:none;outline:none;font-size: 16px;" />
+    <input type="text" id="tbLink" placeholder="title | url" style="border:none;outline:none;font-size: 16px;" />
     <script>
       var key = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("u").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
       var cacheName = "home" + key;
