@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#version 20180103
+#version 20190610
 scripts/touch.js
 scripts/expense.js
 styles/expense.css
