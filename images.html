@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Images</title>
+	<style>
+		#dvOptions {
+			margin: 15px 0px 15px 0px;
+		}
+		#dvImages {
+			height:685px;
+			overflow-y:auto;
+		}
+		.spnSpace {
+			display:inline-block;
+			width:83%;
+		}
+		.spnLabel {
+			font-weight:bold;
+			font-size:28px;
+			padding:5px 5px 5px 5px;
+			vertical-align:bottom;
+		}
+		.img {
+			width:100%;
+			display:block;
+		}
+		::-webkit-scrollbar { 
+        		display: none; 
+        	}
+	</style>
+	<script>
+		var dbName = 'imagesdb';
+		var dbVersion = 1;
+		var storeName = 'images';
+		var imagesDb;
+		
+		function initDb(callback) {
+			var request = indexedDB.open(dbName, dbVersion);
+			request.onupgradeneeded = function() {
+    				var store = request.result.createObjectStore(storeName,{keyPath: "id", autoIncrement: "true"}); 
+				store.createIndex("date", "date");
+ 			}
+			request.onsuccess = function() {
+    				imagesDb = request.result;
+				callback();
+ 			}
+		}
+		function add(imgData, name, date, callback) {
+			var store = imagesDb.transaction(storeName, "readwrite").objectStore(storeName);
+			var request = store.put({"image":imgData, "name": name, date: (date != null) ? date : new Date()});
+			request.onsuccess = function() { callback(request.result); }
+		}
+		function getAll(maxCount, callback) {
+			var count = 0;
+        		var store = imagesDb.transaction(storeName, "readwrite").objectStore(storeName);
+        		var request = store.index("date").openCursor(null, "prev");
+			var images = [];
+        		request.onsuccess = function(event) {				
+      				var cursor = event.target.result;
+          			if (cursor && (maxCount == null || count < maxCount)) {
+					count++;
+                			images.push(cursor.value);
+                			cursor.continue();
+          			}
+				else {
+					callback(images);
+				}
+        		};   
+		}
+		function remove(id, callback) {
+			var store = imagesDb.transaction(storeName, "readwrite").objectStore(storeName);
+			var request = store.delete(id);
+			request.onsuccess = function() { callback(request.result); }
+		}
+		function clear(callback) {
+			var store = imagesDb.transaction(storeName, "readwrite").objectStore(storeName);
+    			var request = store.clear(); 
+    			request.onsuccess = function() { callback(request.result); } 		
+		}
+		function deleteDb() {
+			imagesDb.close();
+			var request = indexedDB.deleteDatabase(dbName);
+			request.onsuccess = function(event) {
+  				alert("Delete successful");
+			};
+		}
+		var imgHeight = 750;
+		var imgQuality = 0.8;
+		var pageSize = 10;
+		function initialize() {			
+			initDb(function(){getAll(pageSize, loadList)});
+		}		
+		function loadList(images) {
+			var dvImage = document.getElementById("dvImages");
+			dvImage.innerHTML = "";
+			for(var i=0;i< images.length;i++){
+				var dvImage = document.createElement("div");
+				dvImage.id = images[i].id;
+				dvImage.innerText = images[i].name;
+				dvImage.addEventListener("click", function () {
+					if(confirm("Delete?")) { remove(parseInt(this.getAttribute("id")), function() { getAll(pageSize, loadList); }); }
+                		});
+				
+				var img = document.createElement("img");
+				img.className = "img";
+				img.src = images[i].image;
+				
+				dvImages.appendChild(dvImage);
+				dvImages.appendChild(img);
+			}
+        	}
+		function createImage() {
+			document.getElementById('fileImage').click();
+		}
+		function importImage() {
+			var fileReader = new FileReader();
+		      	fileReader.onload = function(e) {
+				var image = new Image();
+        			image.onload = function() {
+                			var canvas = document.createElement('canvas');
+                			var ctx = canvas.getContext('2d');
+					var w = image.width;
+					var h = image.height;
+					w = imgHeight/h*w;
+					h = imgHeight;
+					canvas.width = w;
+                			canvas.height = h;
+					ctx.drawImage(this, 0, 0, w, h);
+					var name = prompt("Name?");
+                			add(canvas.toDataURL("image/jpeg", imgQuality), (name) ? name : "temp", null, function(){getAll(pageSize, loadList);});
+            			};
+        			image.src = e.target.result;
+				document.getElementById("fileImage").value = "";
+			};
+			setTimeout(function(){fileReader.readAsDataURL(document.getElementById("fileImage").files[0], "UTF-8");}, 1);
+		}
+		function exportImages() {
+			getAll(null, function(images) {
+				exportToFile("imagesBackup_" + getFormattedDate(), JSON.stringify(images));
+			});
+		}
+		function downloadImages() {
+			getAll(null, function(images) {
+				for(var i=0;i<images.length;i++) {
+					var a = document.createElement("a");
+					a.download = "IMG_" + getFormattedDate(images[i].date) + "_" + images[i].name + ".jpg";
+      					a.innerHTML = "export";
+      					a.href = images[i].image;
+      					a.style.display = "none";
+      					a.onclick = function (event) { document.body.removeChild(event.target); };
+      					document.body.appendChild(a);a.click();
+					delete a;
+				}
+			});
+		}
+		function importImages() {
+			document.getElementById('fileImport').click();
+		}
+		function clearImages() {
+			if(confirm("Clear?")) {
+				clear(function() { getAll(pageSize, loadList); });
+			}
+		}
+		function importFile() {
+			var fileReader = new FileReader();
+		      	fileReader.onload = function(event) {
+				if(confirm("Import?")) {
+          				var data = event.target.result;
+					var images = JSON.parse(data);
+					var addedCount = 0;
+					for(var i=0;i<images.length;i++) {
+						add(images[i].image, images[i].name, new Date(images[i].date), function() { 
+							addedCount++; 
+							if(addedCount == images.length) {
+								getAll(pageSize, loadList); 
+							}
+						});
+					}
+				}
+				document.getElementById("fileImport").value = "";				
+      			};
+			fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
+		}
+		function showOptions() {
+			var option = prompt("Export/Import/Clear/Download?");
+			if (option == "e") { exportImages(); } 
+			else if (option == "i") { importImages(); }
+			else if (option == "c") { clearImages(); } 
+			else if (option == "d") { downloadImages(); } 
+		}
+		function exportToFile(name, data, type) {
+			var a = document.createElement("a");
+			var name = prompt("Name?", name + ".txt");
+			a.download = name;
+      			a.innerHTML = "export";
+      			a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+      			a.style.display = "none";
+      			a.onclick = function (event) { document.body.removeChild(event.target); };
+      			if (name) { document.body.appendChild(a);a.click(); }
+		}
+		function getFormattedDate(d) {
+            		d = (d != null) ? new Date(d) : new Date();
+            		d = d.getFullYear()    
+				+ ('0' + (d.getMonth() + 1)).slice(-2)
+                		+ ('0' + d.getDate()).slice(-2)
+                		+ ('0' + d.getHours()).slice(-2)
+                		+ ('0' + d.getMinutes()).slice(-2)
+                		+ ('0' + d.getSeconds()).slice(-2);
+            		return d;
+        	}
+    </script>
+</head>
+<body onload="initialize();">
+	<div id="dvOptions">
+		<span id="spnSettings" class="spnLabel" onclick="showOptions();">=</span>
+		<span class="spnSpace"></span>
+		<span class="spnLabel" onclick="createImage();">+</span>
+		<input type="file" id="fileImport" onchange="importFile();" style="display:none;" />
+		<input type="file" id="fileImage" onchange="importImage();" style="display:none;" />
+    	</div>
+	<div id="dvImages">
+	</div>
+</body>
+</html>
