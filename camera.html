@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Camera</title>
+	<script>
+		var imgHeight = 750;
+		var imgQuality = 0.8;
+		
+		document.onclick = function () {
+			document.getElementById("fileImage").click();
+		};
+		function downloadImage() {
+			var name = prompt("Name?");
+			var a = document.createElement("a");
+			a.download = "IMG_" + getFormattedDate() + "_" + ((name) ? name : "temp") + ".jpg";
+      			a.innerHTML = "export";
+      			a.href = document.getElementById("img").src;
+      			a.style.display = "none";
+      			a.onclick = function (event) { event.stopPropagation(); document.body.removeChild(event.target); };
+      			document.body.appendChild(a);
+			a.click();
+			delete a;
+		}
+		function importImage() {
+			var fileReader = new FileReader();
+		      	fileReader.onload = function(e) {
+				var image = new Image();
+        			image.onload = function() {
+                			var canvas = document.createElement('canvas');
+					var ctx = canvas.getContext('2d');
+					var w = image.width;
+					var h = image.height;
+					w = imgHeight/h*w;
+					h = imgHeight;
+					canvas.width = w;
+                			canvas.height = h;
+					ctx.drawImage(this, 0, 0, w, h);
+                			document.getElementById("img").src = canvas.toDataURL("image/jpeg", imgQuality);
+            			};
+        			image.src = e.target.result;
+			};
+			fileReader.readAsDataURL(document.getElementById("fileImage").files[0], "UTF-8");
+		}
+		function getFormattedDate() {
+            		d = new Date();
+            		d = d.getFullYear()    
+				+ ('0' + (d.getMonth() + 1)).slice(-2)
+                		+ ('0' + d.getDate()).slice(-2)
+                		+ ('0' + d.getHours()).slice(-2)
+                		+ ('0' + d.getMinutes()).slice(-2)
+                		+ ('0' + d.getSeconds()).slice(-2);
+            		return d;
+        	}
+    </script>
+</head>
+<body>
+	<input type="file" id="fileImage" accept="image/*" capture onchange="importImage();" style="display:none;" />
+	<img id="img" style="width:100%;" onclick="event.stopPropagation();downloadImage();" />
+</body>
+</html>
