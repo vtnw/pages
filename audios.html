@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Audio</title>
+	<style>
+		#dvOptions {
+			margin: 15px 0px 15px 0px;
+		}
+		#dvAudios {
+			height:685px;
+			overflow-y:auto;
+		}
+		.spnSpace {
+			display:inline-block;
+			width:83%;
+		}
+		.spnLabel {
+			font-weight:bold;
+			font-size:28px;
+			padding:5px 5px 5px 5px;
+			vertical-align:bottom;
+		}
+		::-webkit-scrollbar { 
+        		display: none; 
+        	}
+		audio::-webkit-media-controls-play-button,audio::-webkit-media-controls-panel {
+			background-color:white;
+		}
+		audio::-webkit-media-controls-volume-slider, audio::-webkit-media-controls-mute-button, audio::-webkit-media-controls-volume-slider-container {
+			display:none;
+		}
+	</style>
+	<script>
+		var dbName = 'audiosdb';
+		var dbVersion = 1;
+		var storeName = 'audios';
+		var audiosDb;
+		
+		function initDb(callback) {
+			var request = indexedDB.open(dbName, dbVersion);
+			request.onupgradeneeded = function() {
+    				var store = request.result.createObjectStore(storeName,{keyPath: "id", autoIncrement: "true"}); 
+				store.createIndex("date", "date");
+ 			}
+			request.onsuccess = function() {
+    				audiosDb = request.result;
+				callback();
+ 			}
+		}
+		function add(audioData, name, date, callback) {
+			var store = audiosDb.transaction(storeName, "readwrite").objectStore(storeName);
+			var request = store.put({"audio":audioData, "name": name, date: (date != null) ? date : new Date()});
+			request.onsuccess = function() { callback(request.result); }
+		}
+		function getAll(maxCount, callback) {
+			var count = 0;
+        		var store = audiosDb.transaction(storeName, "readwrite").objectStore(storeName);
+        		var request = store.index("date").openCursor(null, "prev");
+			var audios = [];
+        		request.onsuccess = function(event) {				
+      				var cursor = event.target.result;
+          			if (cursor && (maxCount == null || count < maxCount)) {
+					count++;
+                			audios.push(cursor.value);
+                			cursor.continue();
+          			}
+				else {
+					callback(audios);
+				}
+        		};   
+		}
+		function remove(id, callback) {
+			var store = audiosDb.transaction(storeName, "readwrite").objectStore(storeName);
+			var request = store.delete(id);
+			request.onsuccess = function() { callback(request.result); }
+		}
+		function clear(callback) {
+			var store = audiosDb.transaction(storeName, "readwrite").objectStore(storeName);
+    			var request = store.clear(); 
+    			request.onsuccess = function() { callback(request.result); } 		
+		}
+		function deleteDb() {
+			audiosDb.close();
+			var request = indexedDB.deleteDatabase(dbName);
+			request.onsuccess = function(event) {
+  				alert("Delete successful");
+			};
+		}
+
+		var bitRate = 32000;
+		var mimeType = "audio/webm";
+		var pageSize = 10;
+
+		window.addEventListener("DOMContentLoaded", async () => {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true,video: false });
+			let chunks = [];
+          		var recorder = new MediaRecorder(stream, { type: mimeType, bitsPerSecond: 32000});
+			recorder.addEventListener("dataavailable", event => {
+	     			if (typeof event.data === "undefined") return;
+	       			if (event.data.size === 0) return;
+	       			chunks.push(event.data);
+	     		});
+	   		recorder.addEventListener("stop", () => {
+	     			var recording = new Blob(chunks, { type: mimeType });
+				var name = prompt("Name?");
+	     			var reader = new FileReader();
+				reader.onload = function(event) {
+  					add(event.target.result, (name) ? name : "temp", null, function(){getAll(pageSize, loadList);});
+  				};
+				reader.readAsDataURL(recording);
+	     			chunks = [];
+	   		});
+			var spnRecord = document.getElementById("spnRecord");
+         		spnRecord.addEventListener("click", () => {
+           			if (recorder.state === "inactive") {
+             				recorder.start();
+             				spnRecord.innerText = "#";
+           			} else {
+             				recorder.stop();
+             				spnRecord.innerText = "+";
+           			}
+         		});
+		});
+		function initialize() {			
+			initDb(function(){getAll(pageSize, loadList)});
+		}
+		function loadList(audios) {
+			var dvAudios = document.getElementById("dvAudios");
+			dvAudios.innerHTML = "";
+			for(var i=0;i< audios.length;i++){
+				var dvAudio = document.createElement("div");
+				dvAudio.id = audios[i].id;
+				dvAudio.innerText = audios[i].name;
+				dvAudio.addEventListener("click", function () {
+					if(confirm("Delete?")) { remove(parseInt(this.getAttribute("id")), function() { getAll(pageSize, loadList); }); }
+                		});
+
+				var audio = document.createElement("audio");
+    				audio.setAttribute("src", audios[i].audio);
+    				audio.setAttribute("controls", "controls");
+				audio.setAttribute("controlsList", "nofullscreen nodownload noremoteplayback");
+				
+				dvAudios.appendChild(dvAudio);
+				dvAudios.appendChild(audio);
+			}
+        	}		
+		function exportAudios() {
+			getAll(null, function(audios) {
+				exportToFile("audiosBackup_" + getFormattedDate(), JSON.stringify(audios));
+			});
+		}
+		function downloadAudios() {
+			getAll(null, function(audios) {
+				for(var i=0;i<audios.length;i++) {
+					var a = document.createElement("a");
+					a.download = "AUD_" + getFormattedDate(audios[i].date) + "_" + audios[i].name + ".webm";
+      					a.innerHTML = "export";
+      					a.href = audios[i].audio;
+      					a.style.display = "none";
+      					a.onclick = function (event) { document.body.removeChild(event.target); };
+      					document.body.appendChild(a);a.click();
+					delete a;
+				}
+			});
+		}
+		function importAudios() {
+			document.getElementById('fileImport').click();
+		}
+		function clearAudios() {
+			if(confirm("Clear?")) {
+				clear(function() { getAll(pageSize, loadList); });
+			}
+		}
+		function importFile() {
+			var fileReader = new FileReader();
+		      	fileReader.onload = function(event) {
+				if(confirm("Import?")) {
+          				var data = event.target.result;
+					var audios = JSON.parse(data);
+					var addedCount = 0;
+					for(var i=0;i<audios.length;i++) {
+						add(audios[i].audio, audios[i].name, new Date(audios[i].date), function() { 
+							addedCount++; 
+							if(addedCount == audios.length) {
+								getAll(pageSize, loadList); 
+							}
+						});
+					}
+				}
+				document.getElementById("fileImport").value = "";				
+      			};
+			fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
+		}
+		function showOptions() {
+			var option = prompt("Export/Import/Clear/Download?");
+			if (option == "e") { exportAudios(); } 
+			else if (option == "i") { importAudios(); }
+			else if (option == "c") { clearAudios(); } 
+			else if (option == "d") { downloadAudios(); } 
+		}
+		function exportToFile(name, data, type) {
+			var a = document.createElement("a");
+			var name = prompt("Name?", name + ".txt");
+			a.download = name;
+      			a.innerHTML = "export";
+      			a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+      			a.style.display = "none";
+      			a.onclick = function (event) { document.body.removeChild(event.target); };
+      			if (name) { document.body.appendChild(a);a.click(); }
+		}
+		function getFormattedDate(d) {
+            		d = (d != null) ? new Date(d) : new Date();
+            		d = d.getFullYear()    
+				+ ('0' + (d.getMonth() + 1)).slice(-2)
+                		+ ('0' + d.getDate()).slice(-2)
+                		+ ('0' + d.getHours()).slice(-2)
+                		+ ('0' + d.getMinutes()).slice(-2)
+                		+ ('0' + d.getSeconds()).slice(-2);
+            		return d;
+        	}
+    </script>
+</head>
+<body onload="initialize();">
+	<div id="dvOptions">
+		<span id="spnSettings" class="spnLabel" onclick="showOptions();">=</span>
+		<span class="spnSpace"></span>
+		<span class="spnLabel" id="spnRecord">+</span>
+		<input type="file" id="fileImport" onchange="importFile();" style="display:none;" />
+    	</div>
+      	<div id="dvAudios"></div>
+</body>
+</html>
