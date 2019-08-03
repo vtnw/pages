@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Notes</title>
+	<style>
+		textarea {
+            		width:97%;
+            		height:675px;
+            		border:none;
+            		outline: none;
+            		padding: 5px;
+            		font-size:16px;
+            		font-family:inherit;
+            		resize:none;
+        	}
+		.dvOptions {
+			margin: 15px 0px 15px 0px;
+		}
+		.dvNote {
+			margin-left:15px;
+			height:60px;
+		}
+		.dvNotes {
+			height:685px;
+			overflow-y:auto;
+		}
+		.spnLabel {
+			font-weight:bold;
+			font-size:28px;
+			padding:5px 5px 5px 5px;
+			vertical-align:bottom;
+		}
+		.tbSearch {
+			border:1px solid #cccccc;
+			border-radius:25px;
+			width:83%;
+			padding: 5px 10px 5px 10px;
+			outline:none;
+			font-size:16px;
+			font-family:inherit;
+		}
+		.dvDesc {
+			font-style:italic;
+			font-size:14px;
+			margin-top:5px;
+			width:370px;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			white-space:nowrap;
+			color:#888888;
+		}
+        	::-webkit-scrollbar { 
+        		display: none; 
+        	}
+	</style>
+	<script>
+		var dbName = 'notesdb';
+		var dbVersion = 1;
+		var storeName = 'notes';
+		var notesDb;
+		
+		function initDb(callback) {
+			var request = indexedDB.open(dbName, dbVersion);
+			request.onupgradeneeded = function() {
+    				var store = request.result.createObjectStore(storeName,{keyPath: "id", autoIncrement: "true"}); 
+				store.createIndex("date", "date");
+ 			}
+			request.onsuccess = function() {
+    				notesDb = request.result;
+				callback();
+ 			}
+		}
+		function add(note, date, callback) {
+			var store = notesDb.transaction(storeName, "readwrite").objectStore(storeName);
+			var request = store.put({"note":note, "date": (date != null) ? date : new Date()});
+			request.onsuccess = function() { callback(request.result); }
+		}
+		function update(id, note, callback) {
+			var store = notesDb.transaction(storeName, "readwrite").objectStore(storeName);
+			var request = store.put({"note":note,"date": new Date(), "id": id});
+			request.onsuccess = function() { callback(request.result); }
+		}
+		function remove(id, callback) {
+			var store = notesDb.transaction(storeName, "readwrite").objectStore(storeName);
+			var request = store.delete(id);
+			request.onsuccess = function() { callback(request.result); }
+		}
+		function get(id, callback) {
+    			var store = notesDb.transaction(storeName, "readwrite").objectStore(storeName);
+    			var request = store.get(id); 
+    			request.onsuccess = function() { callback(request.result); } 
+ 		}
+		function getAll(callback) {
+        		var store = notesDb.transaction(storeName, "readwrite").objectStore(storeName);
+        		var request = store.index("date").openCursor(null, "prev");
+			var notes = [];
+        		request.onsuccess = function(event) {				
+      				var cursor = event.target.result;
+          			if (cursor) {
+                			notes.push(cursor.value);
+                			cursor.continue();
+          			}
+				else {
+					callback(notes);
+				}
+        		};   
+		}
+		function clear(callback) {
+			var store = notesDb.transaction(storeName, "readwrite").objectStore(storeName);
+    			var request = store.clear(); 
+    			request.onsuccess = function() { callback(request.result); } 		
+		}
+		function deleteDb() {
+			notesDb.close();
+			var request = indexedDB.deleteDatabase(dbName);
+			request.onsuccess = function(event) {
+  				alert("Delete successful");
+			};
+		}
+
+		var noteId, noteText, searchMode;
+		var descLength = 100;
+
+		function initialize() {			
+			initDb(function(){getAll(loadList)});
+		}
+        	function loadNote(data) {
+			switchMode("edit");
+			noteId = data.id;
+			noteText = data.note;
+			document.getElementById("tbNote").value = data.note;
+			document.getElementById("tbNote").scrollTop = 0;
+		}
+        	function loadList(notes) {
+			switchMode();
+			var query = document.getElementById("tbSearch").value.toLowerCase();
+			var filterNotes = [];
+			var title, desc;
+			for(var i=0;i<notes.length;i++){
+				title = notes[i].note.split("\n")[0];
+				desc = notes[i].note.substring(title.length, descLength).replace(new RegExp("\n", 'g'), " ");
+				if((searchMode != "title" || title.toLowerCase().indexOf(query) >= 0)
+					&& (searchMode != "content" || notes[i].note.toLowerCase().indexOf(query) >= 0)){
+					filterNotes.push({id: notes[i].id, note: notes[i].note, title: title, desc: desc});
+				}
+			}
+			var dvNotes = document.getElementById("dvNotes");
+			dvNotes.innerHTML = "";
+			dvNotes.scrollTop = 0;
+			for(var i=0;i<filterNotes.length;i++){
+				var dvNote = document.createElement('div');
+				dvNote.className = "dvNote";
+				dvNote.id = filterNotes[i].id;
+				dvNote.innerText = filterNotes[i].title;
+				var dvDesc = document.createElement('div');
+				dvDesc.className = "dvDesc";
+				dvDesc.innerText = filterNotes[i].desc;
+				dvNote.appendChild(dvDesc);
+				dvNote.addEventListener("click", function () {
+					get(parseInt(this.getAttribute("id")), function(note) { loadNote(note) });
+                		});
+				dvNotes.appendChild(dvNote);
+			}
+        	}
+		function createNote() {
+			var newNote = function() {
+				noteId = 0;
+				noteText = "";
+				switchMode("edit");
+				document.getElementById("tbNote").value = "";
+				document.getElementById("tbNote").focus();
+			};
+			if(document.getElementById("dvNote").style.display == "block") {
+				saveNote(newNote);
+			} else {
+				newNote();
+			}
+		}
+		function saveNote(callback) {
+			var data = document.getElementById("tbNote").value;
+			if (data.length > 0 && data != noteText) {
+				if(noteId > 0) {
+					update(noteId, data, callback);
+				} else {
+					add(data, null, callback);
+				}
+			} else if (noteId > 0 && data != noteText){				
+				remove(noteId, callback);
+			} else {
+				callback();
+			}
+		}
+		function searchNotes(isFullText) {
+			if (document.getElementById("tbSearch").value != "") {
+	            		searchMode = isFullText ? "content" : "title";
+			}
+			else {
+				searchMode = "";
+			}
+			if(document.getElementById("dvNote").style.display == "block") {
+				saveNote(function() { getAll(loadList); });
+			} else {
+				getAll(loadList);
+			}
+		}
+		function exportNotes() {
+			var data = document.getElementById("tbNote").value;
+			var title = data.split("\n")[0]
+			if (title != "" && confirm("Export - " + title + "?")) {
+				exportToFile(title, data);
+			} 
+			else if (confirm("Export all?")) {
+				getAll(function(notes) {
+					exportToFile("notesBackup_" + getFormattedDate(), JSON.stringify(notes));
+				});
+			}
+		}
+		function importNotes() {
+			document.getElementById('fileImport').click();
+		}
+		function clearNotes() {
+			if(confirm("Clear?")) {
+				clear(function() { getAll(loadList); });
+			}
+		}
+		function importFile() {
+			var fileReader = new FileReader();
+		      	fileReader.onload = function(event) {
+				var notes = [];
+				if(confirm("Import note?")) {
+          				notes.push({note: event.target.result, date: new Date()});
+				}
+				else if(confirm("Import all?")) {
+					notes = JSON.parse(event.target.result);
+				}
+				var addedCount = 0;
+				for(var i=0;i<notes.length;i++) {
+					add(notes[i].note, new Date(notes[i].date), function() { 
+						addedCount++; 
+						if(addedCount == notes.length) {
+							getAll(loadList); 
+						}
+					});
+				}
+				document.getElementById("fileImport").value = "";				
+      			};
+			fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
+		}
+		function switchMode(mode) {
+			if(mode == "edit") {
+				document.getElementById("dvNote").style.display = "block";
+				document.getElementById("dvNotes").style.display = "none";
+				document.getElementById("tbSearch").value = "";
+			}
+			else {
+				document.getElementById("dvNote").style.display = "none";
+				document.getElementById("dvNotes").style.display = "block";
+			}
+		}
+		function showOptions() {
+			if(document.getElementById("dvNote").style.display == "block") {
+				saveNote(function(){ getAll(loadList); });
+			}
+			else if (document.getElementById("tbSearch").value != "") {
+				document.getElementById("tbSearch").value = "";
+				getAll(loadList);
+			}
+			else {
+				var option = prompt("Export/Import/Clear?");
+				if (option == "e") { exportNotes(); } 
+				else if (option == "i") { importNotes(); }
+				else if (option == "c") { clearNotes(); } 
+			}
+		}
+		function setSize() {
+			document.getElementById("tbNote").style.height = (window.innerHeight  > 600) ? "675px" : "415px";
+			document.getElementById("dvNotes").style.height = (window.innerHeight  > 600) ? "685px" : "425px";
+		}
+		function exportToFile(name, data) {
+			var a = document.createElement("a");
+			var name = prompt("Name?", name + ".txt");
+			a.download = name;
+      			a.innerHTML = "export";
+      			a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+      			a.style.display = "none";
+      			a.onclick = function (event) { document.body.removeChild(event.target); };
+      			if (name) { document.body.appendChild(a);a.click(); }
+		}
+		function getFormattedDate() {
+            		var d = new Date();
+            		d = d.getFullYear()    
+				+ ('0' + (d.getMonth() + 1)).slice(-2)
+                		+ ('0' + d.getDate()).slice(-2)
+                		+ ('0' + d.getHours()).slice(-2)
+                		+ ('0' + d.getMinutes()).slice(-2)
+                		+ ('0' + d.getSeconds()).slice(-2);
+            		return d;
+        	}
+    </script>
+</head>
+<body onload="initialize();" onresize="setSize();">
+	<div id="dvOptions" class="dvOptions">
+		<span id="spnSettings" class="spnLabel" onclick="showOptions();">=</span>
+		<input type="search" class="tbSearch" id="tbSearch" onkeyup="searchNotes(false);" onsearch="searchNotes(true);" autocapitalize="off"/>
+		<span class="spnLabel" onclick="createNote();">+</span>
+		<input type="file" id="fileImport" onchange="importFile();" style="display:none;" />
+    	</div>
+	<div id="dvNotes" class="dvNotes">
+	</div>
+	<div id="dvNote">
+        	<textarea id="tbNote"></textarea>
+    	</div>
+</body>
+</html>
