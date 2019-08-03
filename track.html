@@ -1,100 +1,109 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html manifest="web.appcache">
 <head>
-    <meta name="viewport" content="width =device-width, initial-scale=1.0">
-    <title>Track</title>    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List</title>
+    <style>.tb::-webkit-scrollbar {display: none;}</style>
 </head>
 <body>
-    <input type="text" id="tbItem" readonly style="border:1px solid #cccccc;border-radius:25px; width:94%;
-            padding: 5px 10px 5px 10px;outline: none;font-size: 16px;" />
+    <textarea id="tbItem" class="tb" style="border:1px solid #cccccc;border-radius:25px;width:94%;padding:10px;outline:none;font-size:16px;height:15px;max-height:200px;resize:none;font-family:inherit;"></textarea>
     <br /><br />
-    <div id="dvTypes">
-        <a href='javascript:setType("notes","view","latest");'>notes</a><br/><br/>
-        <a href='javascript:setType("internet","edit","latest");'>internet</a><br/><br/>
-        <a href='javascript:setType("tasks","edit","athruz");'>tasks</a><br/><br/>
-        <a href='javascript:setType("links","link","athruz");'>links</a>
-    </div>
-    <div id="dvItems"></div>
+    <div id="dvItems" style="word-wrap:break-word;"></div>
     <script>
-        var cacheName,itemType,itemMode,itemSort;
-        var cachePrefix = "item";
+        var key = getParam("k");
+        var mode = getParam("m");
+        var sort = getParam("s");
+        var date = getParam("d");
+        var cacheName = "list" + ((key == "") ? "" : "_" + key);
+        document.title = (key == "") ? "List" : key.charAt(0).toUpperCase() + key.slice(1);
         document.getElementById("tbItem").addEventListener("keyup", function (event) {
             event.preventDefault();
-            if (event.keyCode == 13 && document.getElementById("tbItem").value.trim() != "") {
+            var tbItem = document.getElementById("tbItem");
+            var value = (date ? (getDateString() + "\r\n") : "") + tbItem.value;
+            if (event.keyCode == 13 && value != "" && value[value.length-2] != " ") {
                 var items = getCache();
-                items.push(document.getElementById("tbItem").value);
-                document.getElementById("tbItem").value = "";
-                document.getElementById("tbItem").blur();
+                items.push(value.trim());
                 setCache(items);
-                buildItems();
+                tbItem.value = "";
+                tbItem.blur();
+                buildList();
             }
+            adjustText();
         });
-        function setType(type,mode,sort) {
-            itemType = type;
-            itemMode = mode;
-            itemSort = sort;
-            document.getElementById("dvTypes").style.display = "none";
-            document.getElementById("tbItem").placeholder = type;
-            document.getElementById("tbItem").readOnly = false;
-            buildItems();
+        document.getElementById("tbItem").addEventListener("input", function (event) {
+            adjustText();
+        });
+        function adjustText(){
+            if (tbItem.value == ""){
+                tbItem.style.height = "15px";
+            } else {
+                tbItem.style.height = "auto";
+                tbItem.style.height = tbItem.scrollHeight + 'px';
+            }
         }
-        function buildItems() {
+        function buildList() {
             var items = getCache();
             var dvItems = document.getElementById("dvItems");
             dvItems.innerHTML = "";
             for (var i = 0; i < items.length; i++) {
                 var dvItem = document.createElement('div');
-                dvItem.innerHTML = items[i];
-                dvItem.setAttribute("index", i);
-                dvItem.appendChild(document.createElement('br'));
-                dvItem.appendChild(document.createElement('br'));
-                if(itemMode == "link") {
-                    dvItem.setAttribute("style", "cursor:pointer;text-decoration:underline");
+                dvItem.innerHTML = items[i].replace(/(?:\r\n|\r|\n)/g, "<br/>");
+                dvItem.setAttribute("index", i);                
+                if(mode == "l") {
+                    var linkData = items[i].split("|");
+                    dvItem.innerHTML = linkData[0];
+                    dvItem.setAttribute("url", linkData[1]);
+                    dvItem.setAttribute("style", "text-decoration:underline;");
                     dvItem.addEventListener("click", function () {
-                        window.open(this.innerText);
+                        location.href = this.getAttribute("url");
                     });
                 }
-                else if(itemMode == "edit") {
+                else if(mode == "e") {
                     dvItem.addEventListener("click", function () {
                         var index = parseInt(this.getAttribute("index"));
                         var items = getCache();
                         items.splice(index, 1);
                         setCache(items);
-                        buildItems();
-                        document.getElementById("tbItem").value = this.innerText;
+                        buildList();
+                        document.getElementById("tbItem").value = this.innerHTML.replace(/(?:\<br\>)/g, "\r\n");
+                        adjustText();
                     });
                 }
-                else if(itemMode == "view") {
-                    
-                }
+                dvItems.insertBefore(document.createElement("br"), dvItems.firstChild);
                 dvItems.insertBefore(dvItem, dvItems.firstChild);
             }
         }
-        function getCacheName(){
-            return cachePrefix + itemType;
-        }
         function getCache() {
-            var items = JSON.parse(localStorage.getItem(getCacheName()));
+            var items = JSON.parse(localStorage.getItem(cacheName));
             if (items == null) {
                 items = [];
             }
-            switch(itemSort) {
-                case "athruz": {
+            switch(sort) {
+                case "a": {
                     items.sort(function(a,b){return b.localeCompare(a)});break;
                 }
-                case "zthrua": {
+                case "z": {
                     items.sort(function(a,b){return a.localeCompare(b)});break;
                 }
-                case "latest": {
-                    break;
+                case "o": {
+                    if(mode != "e") {items.reverse();}break;
                 }
             }
             return items;
         }
         function setCache(items) {
-            localStorage.setItem(getCacheName(), JSON.stringify(items));
+            localStorage.setItem(cacheName, JSON.stringify(items));
         }
-        buildItems();
+        function getParam(name){
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(name).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        }
+        function getDateString() {
+            var d = new Date();
+            return d.getFullYear()
+                    + ('0' + (d.getMonth() + 1)).slice(-2)
+                    + ('0' + d.getDate()).slice(-2);
+        }
+        buildList();
     </script>
 </body>
 </html>
