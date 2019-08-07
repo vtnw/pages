@@ -10,7 +10,7 @@
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
     <button id="signout_button" style="display: none;">Sign Out</button>
-    <button id="new" style="" onclick="addFile('hello', 'my data', function(){alert('done');});">New</button>
+    <button id="new" style="" onclick="addFile('hello', 'my data', function(){alert('done');});">Add</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -24,7 +24,7 @@
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
-      var SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+      var SCOPES = 'https://www.googleapis.com/auth/drive,https://www.googleapis.com/auth/drive.file';
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
