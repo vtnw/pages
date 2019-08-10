@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Note</title>
+	<style>
+		textarea {
+            		width:97%;
+            		height:675px;
+            		border:none;
+            		outline: none;
+            		padding: 5px;
+            		font-size:16px;
+            		font-family:inherit;
+            		resize:none;
+        	}
+		.dvOptions {
+			margin: 15px 0px 15px 0px;
+		}
+		.dvNote {
+			margin-left:15px;
+			height:60px;
+		}
+		.spnLabel {
+			font-weight:bold;
+			font-size:28px;
+			padding:5px 5px 5px 5px;
+			vertical-align:bottom;
+		}
+		.spnSpace {
+			display:inline-block;
+			width:83%;
+		}
+		::-webkit-scrollbar { 
+        		display: none; 
+        	}
+	</style>
+	<script>
+		function exportNote() {
+			var data = document.getElementById("tbNote").value;
+			var a = document.createElement("a");
+			var name = prompt("Name?", data.split("\n")[0] + ".txt");
+			a.download = name;
+      			a.innerHTML = "export";
+      			a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+      			a.style.display = "none";
+      			a.onclick = function (event) { document.body.removeChild(event.target); };
+      			if (name) { document.body.appendChild(a);a.click(); }
+		}
+		function importNote() {
+			document.getElementById('fileImport').click();
+		}
+		function importFile() {
+			var fileReader = new FileReader();
+		      	fileReader.onload = function(event) {
+				document.getElementById("tbNote").value = event.target.result;				
+      			};
+			fileReader.readAsText(document.getElementById("fileImport").files[0], "UTF-8");
+		}
+		function setSize() {
+			document.getElementById("tbNote").style.height = (window.innerHeight  > 600) ? "675px" : "415px";
+		}
+    </script>
+</head>
+<body onresize="setSize();">
+	<div id="dvOptions" class="dvOptions">
+		<span id="spnSettings" class="spnLabel" onclick="exportNote();">=</span>
+		<span class="spnSpace"></span>
+		<span class="spnLabel" onclick="importNote();">+</span>
+		<input type="file" id="fileImport" onchange="importFile();" style="display:none;" />
+    	</div>
+	<div id="dvNote">
+        	<textarea id="tbNote"></textarea>
+    	</div>
+</body>
+</html>
