@@ -1,0 +1,181 @@
+Notes DDL
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Notes</title>
+	<style>
+		textarea {
+			width:97%;
+			height:675px;
+			border:none;
+			outline: none;
+			padding: 5px;
+			font-size:16px;
+			font-family:inherit;
+			resize:none;
+		}
+		.dvOptions {
+			margin: 15px 0px 15px 0px;
+		}
+		.spnLabel {
+			font-weight:bold;
+			font-size:28px;
+			padding:5px 5px 5px 5px;
+			vertical-align:bottom;
+		}
+		.spnSpace {
+			display:inline-block;
+			width:83%;
+		}
+		select {
+			margin-bottom: 10px;
+			outline: none;
+			font-size: 16px;			
+			font-family:inherit;
+			border:none;
+			background: white;
+			width:100%;
+			text-align-last:center;
+			-webkit-appearance: none;
+			font-weight:bold;
+		}
+		::-webkit-scrollbar { 
+			display: none; 
+		}
+	</style>
+	<script>
+		var cacheName = "notes";
+		var bkpEnd = "\n<backup" + "end>\n";
+		function loadNotes(currNote) {
+			showChanges(false);
+			caches.open(cacheName).then((cache) => {
+				cache.keys().then(function(keys) {
+					for(var i=ddl().length-1;i>0;i--) {
+						ddl().remove(i);
+					}
+					keys.sort(function(a, b){return a.url.localeCompare(b.url);});
+					for(var key of keys) {
+						var opt = document.createElement("option");
+						opt.value = key.url.substring(27);
+						opt.innerHTML = opt.value.replace(/%20/g, " ")
+						ddl().appendChild(opt);
+					}
+					ddl().value = currNote ? currNote.replace(/ /g, "%20") : ddl().value;
+				});
+			});
+		}
+		function loadNote() {
+			showChanges(false);
+			if (ddl().selectedIndex > 0) {
+				caches.open(cacheName).then((cache) => {
+					var key = ddl().value;
+					cache.match(key).then((response) => {
+						response.text().then((data) => {
+							tb().value = data;
+						});				
+					});			
+				});
+			} else {
+				tb().value = "";
+			}
+		}
+		async function exportNotes() {
+			var name = ddl().options[ddl().selectedIndex].text;
+			var data = tb().value;
+			if (confirm("All?")) {
+				const cache = await caches.open(cacheName);
+				const keys = await cache.keys();
+				keys.sort(function(a, b){return a.url.localeCompare(b.url);});
+				for(var key of keys) {
+					var text = await (await cache.match(key)).text();
+					data = (data) ? data + bkpEnd + text : text;
+				}
+				var d = new Date();
+				d = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2);
+				name = "notes_" + d;				
+			}
+			var a = document.createElement("a");
+			name = prompt("Name?", name + ".txt");
+			a.download = name;
+			a.innerHTML = "export";
+			a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+			a.style.display = "none";
+			a.onclick = function (event) { document.body.removeChild(event.target); };
+			if (name) { document.body.appendChild(a);a.click(); }
+		}
+		function importNotes() {
+			var reader = new FileReader();
+			reader.onload = async function(event) {
+				if (confirm("All?")) {
+					var notes = event.target.result.split(bkpEnd);
+					const cache = await caches.open(cacheName);
+					for(note of notes) {					
+						await cache.put(note.split("\n")[0], new Response(note));						
+					}
+					loadNotes(ddl().value);
+				} else {
+					tb().value = event.target.result;
+					showChanges(true);
+				}
+			};
+			reader.readAsText(event.target.files[0], "UTF-8");
+		}
+		function clearNotes() {
+			caches.delete(cacheName).then((cache) => {
+				alert("Cleared");
+			});
+		}
+		function showOptions() {
+			var isNew = (ddl().selectedIndex == 0);
+			var title = ddl().value;
+			if (spn().style.color == "") {
+				var op = prompt("Export/Import/Clear?");
+				if (op == "e") { exportNotes(); }
+				else if (op == "i") { elm("fileImport").click(); }
+				else if (op == "c") { clearNotes(); }
+			} else if (tb().value != "") {
+				title = isNew? tb().value.split("\n")[0] : title;
+				caches.open(cacheName).then((cache) => {
+					cache.put(title, new Response(tb().value)).then(() => { loadNotes(title); });
+				});
+			} else if (!isNew) {
+				caches.open(cacheName).then((cache) => {
+					cache.delete(title).then(() => { loadNotes(); });
+				});
+			} else {
+				loadNotes();
+			}
+		}
+		function createNote() {
+			ddl().selectedIndex = 0;
+			tb().value = "";
+			tb().focus();
+		}
+		function ddl() { return elm("ddlNotes"); }
+		function tb() { return elm("tbNote"); }
+		function spn() { return elm("spnOptions"); }
+		function elm(id) { return document.getElementById(id); }
+		function showChanges(status) {
+			spn().style.color = status ? "red" : "";
+		}
+		function setSize() {
+			tb().style.height = (window.innerHeight > 600) ? "675px" : "415px";
+		}
+	</script>
+</head>
+<body onresize="setSize();" onload="loadNotes();">
+	<div class="dvOptions">
+		<span id="spnOptions" class="spnLabel" onclick="showOptions();">=</span>
+		<span class="spnSpace">
+			<select id="ddlNotes" onchange="loadNote();"><option>Notes</option></select>
+		</span>
+		<span class="spnLabel" onclick="createNote();">+</span>
+		<input type="file" id="fileImport" onchange="importNotes();" style="display:none;" />
+	</div>
+	<div>
+		<textarea id="tbNote" onfocus="showChanges(true);"></textarea>
+	</div>
+</body>
+</html>
