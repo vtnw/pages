@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Picture</title>
+	<style>
+		textarea {
+            		width:97%;
+            		height:675px;
+            		border:none;
+            		outline: none;
+            		padding: 5px;
+            		font-size:16px;
+            		font-family:inherit;
+            		resize:none;
+        	}
+		.dvOptions {
+			margin: 15px 0px 15px 0px;
+		}
+		.img {
+			width:100%;
+		}
+		.spnLabel {
+			font-weight:bold;
+			font-size:28px;
+			padding:5px 5px 5px 5px;
+			vertical-align:bottom;
+		}
+		.spnSpace {
+			display:inline-block;
+			width:83%;
+		}
+		::-webkit-scrollbar { 
+        		display: none; 
+        	}
+	</style>
+	<script>
+		var imgHeight = 750;
+		var imgQuality = 0.8;		
+		function exportPicture() {
+			var a = document.createElement("a");
+			var data = document.getElementById("tbNote").value;
+			if(data != null) {
+				a.download = data.split("\n")[0] + ".txt";
+      				a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }));
+			} else {
+				a.download = prompt("Name?", "IMG_" + getFormattedDate() + ".jpg");
+				a.href = document.getElementById("img").src;
+			}
+      			a.innerHTML = "export";      			
+      			a.style.display = "none";
+      			a.onclick = function (event) { document.body.removeChild(event.target); };
+      			document.body.appendChild(a);
+			a.click();
+		}
+		function importFile() {
+			var fileReader = new FileReader();
+		      	fileReader.onload = function(e) {
+				if(document.getElementById("fileImport").files[0].type == "image/jpeg") {
+					var image = new Image();
+					image.onload = function() {
+						var canvas = document.createElement('canvas');
+						var ctx = canvas.getContext('2d');
+						var w = image.width;
+						var h = image.height;
+						w = imgHeight/h*w;
+						h = imgHeight;
+						canvas.width = w;
+						canvas.height = h;
+						ctx.drawImage(this, 0, 0, w, h);
+						document.getElementById("img").src = canvas.toDataURL("image/jpeg", imgQuality);
+					};
+					image.src = e.target.result;
+				} else {
+					document.getElementById("tbNote").value = e.target.result;
+				}
+			};
+			fileReader.readAsDataURL(document.getElementById("fileImport").files[0], "UTF-8");
+		}
+		function setSize() {
+			document.getElementById("tbNote").style.height = (window.innerHeight  > 600) ? "675px" : "415px";
+		}
+		function getFormattedDate() {
+            		var d = new Date();
+            		d = d.getFullYear()    
+				+ ('0' + (d.getMonth() + 1)).slice(-2)
+                		+ ('0' + d.getDate()).slice(-2)
+                		+ ('0' + d.getHours()).slice(-2)
+                		+ ('0' + d.getMinutes()).slice(-2)
+                		+ ('0' + d.getSeconds()).slice(-2);
+            		return d;
+        	}
+    </script>
+</head>
+<body onresize="setSize();">
+	<div id="dvOptions" class="dvOptions">
+		<span id="spnSettings" class="spnLabel" onclick="exportPicture();">=</span>
+		<span class="spnSpace"></span>
+		<span class="spnLabel" onclick="document.getElementById('fileImport').click();">+</span>
+		<input type="file" id="fileImport" onchange="importFile();" style="display:none;" />
+	</div>
+	<img id="img" class="img" />
+</body>
+</html>
