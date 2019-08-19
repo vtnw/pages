@@ -1,51 +1,42 @@
 <!DOCTYPE html>
-<html manifest="notify.appcache">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE =edge">
     <meta name="viewport" content="width =device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="images/icon.png" />
-    <link rel="manifest" href="manifest.json">
     <title>Notify</title>
-</head>
-<body onload="initialize();">
-    <div>
-        <div>
-            <textarea id="tbData"></textarea>
-            <input type="button" value="Add" onclick="show(document.getElementById('tbData').value);" />
-        </div>
-    </div>
+    <style>
+        textarea {
+			width:97%;
+			height:97%;
+			border:none;
+			outline: none;
+			padding: 5px;
+			font-size:16px;
+			font-family:inherit;
+			resize:none;
+		}
+    </style>
     <script>
-    function show(data){
-        Notification.requestPermission().then(function (result) {
-            alert(JSON.stringify(result));
-            if (result === 'granted') {
-                return navigator.serviceWorker.register('sw.js')
-                .then(function(registration) {
-                    registration.showNotification(data);
-                })
-                .then(function(r) {
-                    self.addEventListener('notificationclick', function(event) {
-                        //event.notification.close();
-                        event.waitUntil(clients.openWindow("https://vtnw.github.io/pages/notify.html?hey&data=" + event.notification.title));
+        function show(data){
+            Notification.requestPermission().then(function (result) {
+                if (result === 'granted') {
+                    return navigator.serviceWorker.register('sw.js')
+                    .then(function(registration) {
+                        registration.showNotification(data);
                     });
-                });
-            } else {
-                alert(data);
-            }
-        });
-    }
-    function initialize(){
-      var data = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("data").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-        if(data != ''){
-            document.getElementById('tbData').value = data;
-        } else {
-            data = prompt("Add");
-            if(data != null){
-                show(data);
+                } else {
+                    alert(data);
+                }
+            });
+        }
+        function init(){
+          var data = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("data").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+            if(data != ''){
+                document.getElementById('tbData').value = data;
             }
         }
-    }
     </script>
+</head>
+<body onload="init();">
+    <textarea id="tbData"></textarea>
+    <input type="button" value="Add" onclick="show(document.getElementById('tbData').value);" />
 </body>
 </html>
