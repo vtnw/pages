@@ -23,6 +23,12 @@
                 return navigator.serviceWorker.register('sw.js')
                 .then(function(registration) {
                     registration.showNotification(data);
+                })
+                .then(function(r) {
+                    self.addEventListener('notificationclick', function(event) {
+                        //event.notification.close();
+                        event.waitUntil(clients.openWindow("https://vtnw.github.io/pages/notify.html?hey&data=" + event.notification.title));
+                    });
                 });
             } else {
                 alert(data);
