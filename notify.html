@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <head>
-    <meta name="viewport" content="width =device-width, initial-scale=1.0">
-    <title>Notify</title>
-    <style>
-        textarea {
-		width:97%;
-		height:97vh;
-		border:none;
-		outline: none;
-		padding: 5px;
-		font-size:16px;
-		font-family:inherit;
-		resize:none;
-	}
-    </style>
-    <script>
-        function show(data){
-            Notification.requestPermission().then(function (result) {
-                if (result === 'granted') {
-                    return navigator.serviceWorker.register('sw.js')
-                    .then(function(registration) {
-                        registration.showNotification(data);
-                    });
-                } else {
-                    alert(data);
-                }
-            });
-        }
-        function init(){
-          var data = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("data").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-            if(data != ''){
-                document.getElementById('tbData').value = data;
-            }
-        }
-    </script>
+	<meta name="viewport" content="width =device-width, initial-scale=1.0">
+	<title>Task</title>
+ 	<style>
+ 		textarea {
+			width:97%;
+			height:97vh;
+			border:none;
+			outline: none;
+			padding: 5px;
+			font-size:16px;
+			font-family:inherit;
+			resize:none;
+		}
+	</style>
+	<script>
+		function show(data){
+			Notification.requestPermission().then(function (result) {
+				if (result === 'granted') {
+					return navigator.serviceWorker.register('sw.js')
+					.then(function(registration) { registration.showNotification(data); });
+				} else {
+					alert(data);
+				}
+			});
+		}
+		function init(){
+			document.getElementById('tbData').value = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("data").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+		}
+	</script>
 </head>
 <body onload="init();">
-    <textarea id="tbData"></textarea>
-    <input type="button" value="Add" onclick="show(document.getElementById('tbData').value);" />
+	<textarea id="tbData"></textarea>
+ 	<input type="button" value="Add" onclick="show(document.getElementById('tbData').value);" />
 </body>
 </html>
