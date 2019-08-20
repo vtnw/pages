@@ -22,9 +22,9 @@
 			if (event.keyCode == 13) {
 				navigator.serviceWorker.getRegistration().then(function(r) { 
 					r.showNotification("Task", {body: d.substring(0, d.length-1)});
+					tb().value = "";
+					tb().blur();
 			   	});
-				tb().value = "";
-				tb().blur();
 			}
 		}
 		function init(){
