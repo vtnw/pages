@@ -15,7 +15,7 @@
 		}
 	</style>
 	<script>
-		function show(event, data){
+		function show(data){console.log(event);
 			if (event.keyCode == 13) {
 				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification(data); });
 			}
@@ -33,6 +33,6 @@
 	</script>
 </head>
 <body onload="init();">
-	<textarea id="tbData"></textarea>
+	<textarea id="tbData" onkeyup="show(this.value);"></textarea>
 </body>
 </html>
