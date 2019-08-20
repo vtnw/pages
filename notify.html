@@ -22,7 +22,7 @@
 			if (event.keyCode == 13) {
 				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification("Task", {body: d}); });
 				tb().value = "";
-				tb().focus();
+				tb().blur();
 			}
 		}
 		function init(){
