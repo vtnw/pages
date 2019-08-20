@@ -18,16 +18,19 @@
 		function show(d){
 			if (event.keyCode == 13) {
 				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification("Task", {body: d}); });
+				tb().value = "";
+				tb().focus();
 			}
 		}
 		function init(){
-			document.getElementById("tbData").value = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("d").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+			tb().value = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("d").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 			navigator.serviceWorker.register("sw.js").then(function(r) {
 				Notification.requestPermission().then(function (result) {
 					if (result != "granted") { alert("failed"); }
 				});
 			});
 		}
+		function tb() { return document.getElementById("tbData"); }
 	</script>
 </head>
 <body onload="init();"><textarea id="tbData" onkeypress="show(this.value);"></textarea></body>
