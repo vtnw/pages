@@ -20,7 +20,9 @@
 	<script>
 		function show(d){
 			if (event.keyCode == 13) {
-				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification("Task", {body: d}); });
+				navigator.serviceWorker.getRegistration().then(function(r) { 
+					r.showNotification("Task", {body: d.split("\n")[0]});
+			   	});
 				tb().value = "";
 				tb().blur();
 			}
@@ -37,6 +39,6 @@
 	</script>
 </head>
 <body onload="init();">
-	<textarea id="tbData" onkeypress="show(this.value);"></textarea>
+	<textarea id="tbData" onkeyup="show(this.value);"></textarea>
 </body>
 </html>
