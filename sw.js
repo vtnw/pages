@@ -20,7 +20,7 @@ self.addEventListener("activate", function(event) {
         console.log("re-adding all");
         return cache.addAll(["notify.html"]);
       })
-    });
+    })
   );
 });
 
