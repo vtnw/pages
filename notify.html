@@ -16,7 +16,7 @@
 	</style>
 	<script>
 		function show(data){
-			if (event.keyCode == 13 && data.substring(data.length-1) == "\n") {
+			if (event.keyCode == 13 && data.substring(data.length-2) == "\n\n\n") {
 				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification(data, {body: data}); });
 			}
 		}
