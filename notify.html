@@ -23,7 +23,6 @@
 				navigator.serviceWorker.getRegistration().then(function(r) { 
 					r.showNotification("Task", {body: d.substring(0, d.length-1)});
 					tb().value = "";
-					tb().blur();
 			   	});
 			}
 		}
@@ -39,6 +38,6 @@
 	</script>
 </head>
 <body onload="init();">
-	<textarea id="tbData" onkeyup="show(this.value);"></textarea>
+	<textarea id="tbData" onkeyup="show(this.value);" placeholder="Add"></textarea>
 </body>
 </html>
