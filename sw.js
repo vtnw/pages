@@ -1,4 +1,4 @@
-var CACHE_NAME = "web";
+var CACHE_NAME = "web1";
 
 self.addEventListener("install", function(event) {
   console.log("at install");
@@ -7,6 +7,20 @@ self.addEventListener("install", function(event) {
       console.log("adding all");
         return cache.addAll(["notify.html"]);
       })
+  );
+});
+
+self.addEventListener("activate", function(event) {
+  console.log("at activate");
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {console.log("clearing all");
+      return Promise.all( cacheNames.map(function(cacheName) { return caches.delete(cacheName); }) );
+    }).then(function(){
+      caches.open(CACHE_NAME).then(function(cache) {
+        console.log("re-adding all");
+        return cache.addAll(["notify.html"]);
+      })
+    });
   );
 });
 
