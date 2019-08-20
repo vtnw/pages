@@ -1,20 +1,21 @@
+//Version 1
 var CACHE_NAME = "web";
 
 self.addEventListener("install", function(event) {
   console.log("at install");
-  event.waitUntil(
+  /*event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       console.log("adding all");
         return cache.addAll(["notify.html"]);
       })
-  );
+  );*/
 });
 
 self.addEventListener("activate", function(event) {
   console.log("at activate");
   event.waitUntil(
     caches.keys().then(function(cacheNames) {console.log("clearing all");
-      return Promise.all( cacheNames.map(function(cacheName) { return caches.delete(cacheName); }) );
+      return Promise.all( cacheNames.map(function(cacheName) { console.log("clearing " + cacheName); return caches.delete(cacheName); }) );
     }).then(function(){
       caches.open(CACHE_NAME).then(function(cache) {
         console.log("re-adding all");
