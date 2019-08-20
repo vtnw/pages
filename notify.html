@@ -13,6 +13,9 @@
 			font-family:inherit;
 			resize:none;
 		}
+		::-webkit-scrollbar { 
+			display: none;
+		}
 	</style>
 	<script>
 		function show(d){
@@ -33,5 +36,7 @@
 		function tb() { return document.getElementById("tbData"); }
 	</script>
 </head>
-<body onload="init();"><textarea id="tbData" onkeypress="show(this.value);"></textarea></body>
+<body onload="init();">
+	<textarea id="tbData" onkeypress="show(this.value);"></textarea>
+</body>
 </html>
