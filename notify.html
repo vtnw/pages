@@ -7,8 +7,8 @@
 			width:97%;
 			height:97vh;
 			border:none;
-			outline: none;
-			padding: 5px;
+			outline:none;
+			padding:5px;
 			font-size:16px;
 			font-family:inherit;
 			resize:none;
@@ -24,9 +24,7 @@
 			document.getElementById("tbData").value = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("d").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 			navigator.serviceWorker.register("sw.js").then(function(r) {
 				Notification.requestPermission().then(function (result) {
-					if (result != "granted") {
-						alert("failed");
-					}
+					if (result != "granted") { alert("failed"); }
 				});
 			});
 		}
