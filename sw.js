@@ -1,8 +1,8 @@
 var CACHE_NAME = "web";
 self.addEventListener("activate", function(event) {
 	event.waitUntil(
-		caches.keys().then(function(k) {
-			return Promise.all( cacheNames.map(function(k) { return caches.delete(k); }) );
+		caches.keys().then(function(keys) {
+			return Promise.all( keys.map(function(k) { return caches.delete(k); }) );
 		}).then(function(){
 			caches.open(CACHE_NAME).then(function(cache) { return cache.addAll(["notify.html"]); })
 		})
