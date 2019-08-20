@@ -1,4 +1,4 @@
-var CACHE_NAME = "web1";
+var CACHE_NAME = "web";
 
 self.addEventListener("install", function(event) {
   console.log("at install");
