@@ -15,7 +15,7 @@
 		}
 	</style>
 	<script>
-		function show(data){
+		function show(event, data){
 			if (event.keyCode == 13) {
 				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification(data); });
 			}
