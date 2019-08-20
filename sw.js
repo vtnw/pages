@@ -13,7 +13,7 @@ self.addEventListener("install", function(event) {
 self.addEventListener("fetch", function(event) {
   console.log("at fetch");
   event.respondWith(
-    caches.match(event.request).then(function(response) {
+    caches.match(event.request, {ignoreSearch: true}).then(function(response) {
       if (response) {console.log("cache match");
         return response;
       }
