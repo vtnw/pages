@@ -5,7 +5,7 @@ self.addEventListener("install", function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       console.log("adding all");
-        return cache.addAll("notify.html");
+        return cache.addAll(["notify.html"]);
       })
   );
 });
