@@ -5,9 +5,7 @@ self.addEventListener("activate", function(event) {
 		caches.keys().then(function(cacheNames) {
 			return Promise.all( cacheNames.map(function(cacheName) { return caches.delete(cacheName); }) );
 		}).then(function(){
-			caches.open(CACHE_NAME).then(function(cache) {
-				return cache.addAll(["notify.html"]);
-			})
+			caches.open(CACHE_NAME).then(function(cache) { return cache.addAll(["notify.html"]); })
 		})
 	);
 });
@@ -18,9 +16,7 @@ self.addEventListener("fetch", function(event) {
 			return fetch(event.request).then(function(response) {
 				if(!response || response.status !== 200 || response.type !== "basic") { return response; }
 				var responseToCache = response.clone();
-				caches.open(CACHE_NAME).then(function(cache) {
-					cache.put(event.request, responseToCache);
-				});
+				caches.open(CACHE_NAME).then(function(cache) { cache.put(event.request, responseToCache); });
 				return response;
 			});
 		})
