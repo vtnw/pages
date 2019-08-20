@@ -17,7 +17,7 @@
 	<script>
 		function show(data){
 			if (event.keyCode == 13 && data.substring(data.length-3) == "\n\n\n") {
-				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification(data, {body: data}); });
+				navigator.serviceWorker.getRegistration().then(function(r) { r.showNotification("", {body: data}); });
 			}
 		}
 		function init(){
