@@ -1,37 +1,164 @@
 <!DOCTYPE html>
 <html manifest="launch.appcache">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE =edge">
-    <meta name="viewport" content="width =device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/icon.png" />
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="styles/launch.css">
-    <title>Launch</title>
+	<title>Links</title>
+	<style>
+		.spnLink {
+			display:inline-block;
+			margin:8px;
+			text-align:center;
+		}
+		.spnIcon {
+			font-size:40px;
+			border:1px solid blue;
+			display:inline-block;
+			width:70px;
+			border-radius: 15px;
+			color: blue;
+			line-height:70px;
+		}
+		.spnText {
+			display:block;
+			margin-top:5px;
+			font-size:12px;
+			text-overflow: clip;
+			white-space:nowrap;
+			overflow:hidden;
+			width:80px;
+			font-family:arial;
+		}
+		hr {
+			border:1px solid #eeeeee;
+		}
+		::-webkit-scrollbar {
+			display: none;
+		}
+	</style>
+	<script>
+		var dbName = "links";
+		var dbVersion = 1;
+		var storeName = "links";
+		var linksDb;
+		function initDb(cb) {
+			var r = indexedDB.open(dbName, dbVersion)
+			r.onupgradeneeded = (e) => { e.target.result.createObjectStore(storeName,{keyPath: "id",autoIncrement: "true"}); }
+			r.onsuccess = (e) => { linksDb = e.target.result; cb(); }
+		}
+		function getLinks(cb) {
+			var links = [];
+			linksDb.transaction(storeName, "readwrite").objectStore(storeName)
+			.openCursor().onsuccess = (e) => {
+				var cursor = e.target.result;
+				if(cursor) { links.push(cursor.value); cursor.continue();
+				} else { cb(links); }
+			};
+		}
+		function loadLinks() {
+			getLinks((links) => {
+				buildLinks(links);
+			});
+		}
+		function buildLinks(links) {
+            list().innerText = "";
+            list().appendChild(document.createElement("hr"));
+            links.sort(function(a,b){return a.name.localeCompare(b.name);});
+            links.push({id: "", name: "+"});
+			for (var l of links) {
+				var spnLink = spn();
+				var spnText = spn();
+				var spnIcon = spn();
+				spnIcon.innerText = l.name.substring(0,2);
+				spnIcon.className = "spnIcon";
+				spnText.innerText = (l.name == "+") ? "Add" : l.name;
+				spnText.className = "spnText";
+				spnLink.dataset.id = l.id;
+				spnLink.dataset.url = l.url;
+				spnLink.className = "spnLink";
+				spnLink.appendChild(spnIcon);
+				spnLink.appendChild(spnText);
+				spnLink.addEventListener("click", function() {
+					loadLink(this.dataset.id, this.dataset.url);
+				});
+				list().appendChild(spnLink);
+			}
+		}
+		function loadLink(id, url) {
+			if(id == "") {
+				showOptions();
+			} else {
+				linksDb.transaction(storeName, "readwrite").objectStore(storeName)
+				.get(parseInt(id)).onsuccess = function(e){
+					var l = e.target.result;
+					l.visits++;
+					linksDb.transaction(storeName, "readwrite").objectStore(storeName)
+					.put(l).onsuccess = function() { location.href = url; };
+				};
+			}
+		}
+		function exportLinks() {
+			getLinks((links) => {
+				links.sort(function(a,b){return a.name.localeCompare(b.name);});
+				var d = new Date();
+				d = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2)
+					+ ('0' + d.getHours()).slice(-2) + ('0' + d.getMinutes()).slice(-2) + ('0' + d.getSeconds()).slice(-2);
+				var a = document.createElement("a");
+				var name = prompt("Name?", "links_" + d + ".txt");
+				var data;
+				for(var l of links) {
+					data = data ? data + "\n\n" : "";
+					data += l.name + "\n" + l.url;
+				}
+				a.download = name;
+				a.href = window.URL.createObjectURL(new Blob([data], { type: "text/plain" }))
+				a.style.display = "none";
+				a.onclick = (event) => { document.body.removeChild(event.target); };
+				if (name) { document.body.appendChild(a);a.click(); }
+			});
+		}
+		function importLinks() {
+			var fr = new FileReader();
+			fr.onload = function() {
+				var links = event.target.result.split("\n\n");
+				var a = 0;
+				for(var link of links) {
+					var l = link.split("\n");
+					linksDb.transaction(storeName, "readwrite").objectStore(storeName)
+					.put({name:l[0],url:l[1],visits:0})
+					.onsuccess = () => {a++; if(a == links.length) { loadLinks(); }};
+				}
+				fl().value = "";
+			};
+			fr.readAsText(fl().files[0], "UTF-8");
+		}
+		function clearLinks() {
+			linksDb.close();
+			indexedDB.deleteDatabase(dbName).onsuccess = () => { alert("Deleted"); }
+		}
+		function addLink(l) {
+			l = l ? l.split("|") : "";
+			if(l.length == 2) {
+				linksDb.transaction(storeName, "readwrite").objectStore(storeName)
+				.put({name:l[0], url:l[1], visits:0}).onsuccess = loadLinks();
+			}
+		}
+		function showOptions() {
+			var o = prompt("Add/Export/Import/Clear?");
+			if(o == "e") { exportLinks(); }
+			else if(o == "i") { fl().click(); }
+			else if(o == "c") { clearLinks(); }
+			else { addLink(o); }
+		}
+		function list() { return elm("dvLinks"); }
+		function fl() { return elm("fileImport"); }
+		function elm(id) { return document.getElementById(id); }
+		function spn() { return document.createElement("span"); }
+	</script>
 </head>
-<body onload="loadLinks();">
-    <div>
-        <input type="text" value="" id="tbSearch" />
-        <input type="button" value="Dictionary" id="btnDict" />
-        <input type="button" value="Translate" id="btnTran" />
-        <input type="button" value="Search" id="btnSearch" />
-        <input type="button" value="Manage" id="btnManage" />
-        <hr />
-    </div>
-    <div id="dvLinkAdd" style="display:none;">
-        <input type="text" value="" id="tbName" />
-        <input type="text" value="" id="tbLink" />
-        <input type="button" value="Add" id="btnAdd" />
-        <input type="button" value="Edit" id="btnEdit" />
-        <input type="button" value="Clear" id="btnClear" />
-        <div id="dvEdit" style="display:none";>
-            <input type="button" value="Save" id="btnSave" />
-            <input type="button" value="Cancel" id="btnCancel" />
-            <textarea id="tbData"></textarea>
-        </div>
-        <hr />
-    </div>
-    <div id="dvLinks"></div>
-    <script src="scripts/launch.js" async></script>
+<body onload="initDb(loadLinks);">
+	<div id="dvLinks"></div>
+	<input type="file" id="fileImport" onchange="importLinks();" style="display:none" />
 </body>
 </html>
