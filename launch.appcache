@@ -1,5 +1,3 @@
 CACHE MANIFEST
-#version 20170716
-scripts/launch.js
-styles/launch.css
+#version 20180824
 images/icon.png
