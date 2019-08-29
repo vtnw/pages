@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<html>
 <head>
 	<meta name="viewport" content="width =device-width, initial-scale=1.0">
-	<title>Task</title>
+	<title>Notify</title>
  	<style>
  		textarea {
 			width:97%;
-			height:97vh;
+			height:735px;
 			border:none;
 			outline:none;
 			padding:5px;
@@ -13,31 +14,40 @@
 			font-family:inherit;
 			resize:none;
 		}
-		::-webkit-scrollbar { 
+		::-webkit-scrollbar {
 			display: none;
 		}
 	</style>
 	<script>
-		function show(d){
-			if (event.keyCode == 13) {
-				navigator.serviceWorker.getRegistration().then(function(r) { 
-					r.showNotification("Task", {body: d.substring(0, d.length-1)});
+		navigator.serviceWorker.addEventListener("message", function(event) {
+			tb().value = event.data;
+		});
+		function show(d) {
+			if (event.keyCode == 13 && d.replace(/\n/g, "") != "") {
+				navigator.serviceWorker.getRegistration().then((r) => { 
+					r.showNotification("Task", {
+						body: d.substring(0, d.length-1),
+						actions: [{action: "https://dictionary.cambridge.org/search/english/direct/", title: "Dictionary"},
+							  {action: "https://duckduckgo.com/", title: "Search"}]
+					});
 					tb().value = "";
-			   	});
+				});
 			}
 		}
-		function init(){
-			tb().value = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("d").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-			navigator.serviceWorker.register("sw.js").then(function(r) {
-				Notification.requestPermission().then(function (result) {
-					if (result != "granted") { alert("failed"); }
-				});
-			});
+		function init() {
+			tb().value = decodeURIComponent(location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("q").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+			navigator.serviceWorker.register("sw.js").then((r) => { Notification.requestPermission(); });
 		}
-		function tb() { return document.getElementById("tbData"); }
+		function clearCache() {
+			navigator.serviceWorker.controller.postMessage("clearCache");
+		}
+		function setSize() {
+			tb().style.height = (window.innerHeight > 600) ? "735px" : "480px";
+		}
+		function tb() { return document.getElementById("tb"); }
 	</script>
 </head>
-<body onload="init();">
-	<textarea id="tbData" onkeyup="show(this.value);" placeholder="Add"></textarea>
+<body onload="init();" onresize="setSize();">
+	<textarea id="tb" onkeyup="show(this.value);" placeholder="Add"></textarea>
 </body>
 </html>
