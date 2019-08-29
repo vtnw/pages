@@ -1,10 +1,6 @@
-var CACHE_NAME = "web";
+var CACHE_NAME = "pages";
 self.addEventListener("activate", function(event) {
-	event.waitUntil(
-		caches.keys().then(function(keys) {
-			return Promise.all( keys.map(function(k) { return caches.delete(k); }) );
-		})
-	);
+	event.waitUntil(caches.delete(CACHE_NAME));
 });
 self.addEventListener("fetch", function(event) {
 	event.respondWith(
@@ -21,5 +17,21 @@ self.addEventListener("fetch", function(event) {
 });
 self.addEventListener("notificationclick", function(event) {
 	event.notification.close();
-	event.waitUntil(clients.openWindow("notify.html?d=" + event.notification.body));
+	var page = event.action ? event.action : "notify.html";
+	event.waitUntil(clients.matchAll({type: "window"}).then(function(clientList) {
+		for (var client of clientList) {
+			if (client.url.endsWith(page)) {
+				client.postMessage(event.notification.body);
+				return client.focus();
+			}
+		}
+		return clients.openWindow(page + "?q=" + event.notification.body);
+	}));
+});
+self.addEventListener("message", function(event){
+	if(event.data == "clearCache") {
+		event.waitUntil(caches.delete(CACHE_NAME).then(function() {
+			event.source.postMessage("Cleared");
+		}));
+	}
 });
