@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Notes</title>
+	<style>
+		textarea {
+			width:97%;
+			height:690px;
+			border:none;
+			outline: none;
+			padding: 5px;
+			font-size:16px;
+			font-family:inherit;
+			resize:none;
+			margin-top:11px;
+		}
+		.spnLabel {
+			font-weight:bold;
+			font-size:28px;
+			padding:5px;
+		}
+		#spnTitle {
+			display:inline-block;
+			padding:5px;
+			line-height:10px;
+			width:82%;
+			font-size: 16px;
+			text-align:center;
+			font-weight:bold;
+			text-overflow: clip;
+			white-space:nowrap;
+			overflow:hidden;
+		}
+		#dvNotes {
+			margin: 0px 5px 0px 5px;
+			height:710px;
+			overflow-y:auto;
+		}
+		.dvNote {
+			line-height:50px;
+			text-overflow: clip;
+			white-space:nowrap;
+			overflow:hidden;
+			width:100%;
+		}
+		.dvOptions {
+			margin-top: 10px;
+		}
+		img {
+			width:100%;
+			display:none
+		}
+		::-webkit-scrollbar {
+			display: none;
+		}
+	</style>
+	<script>
+		var title = "All Notes";
+		var dbName = "notes";
+		var dbVersion = 1;
+		var storeName = "notes";
+		var notesDb;
+		var bkpEnd = "<bkp" + "end>";
+		function initDb(callback) {
+			var r = indexedDB.open(dbName, dbVersion)
+			r.onupgradeneeded = function(e) { e.target.result.createObjectStore(storeName,{keyPath: "id", autoIncrement: "true"}); }
+			r.onsuccess = function(e) { notesDb = e.target.result; callback(); }
+		}
+		function getNotes(cb) {
+			var notes = [];
+			notesDb.transaction(storeName, "readwrite").objectStore(storeName)
+			.openCursor(null, "prev").onsuccess = function(e) {
+				var cursor = e.target.result;
+				if(cursor) { notes.push(cursor.value); cursor.continue();
+				} else { cb(notes); }
+			};		
+		}
+		function loadNotes(query) {
+			ttl().innerText = title;
+			showNote(false);
+			var notes = getNotes(function (notes) {
+				list().innerText = "";
+				list().scrollTop = 0;
+				notes.sort(function(a, b){return a.content.localeCompare(b.content);});
+				for (var n of notes) {
+					var dv = document.createElement("div");
+					dv.id = n.id;
+					dv.className = "dvNote";
+					dv.innerText = n.content.split("\n")[0];
+					dv.dataset.text = n.content;
+					dv.addEventListener("click", function () {
+						tb().value = "";
+						tb().value = this.getAttribute("data-text");
+						tb().dataset.id = this.getAttribute("id");
+						ttl().innerText = tb().value.split("\n")[0];
+						showNote(true);
+						tb().scrollTop = 0;
+					});
+					list().appendChild(dv);
+				}
+			});
+		}
+		function exportFile() {
+			var exp = function(name, data) {
+				var a = document.createElement("a");
+				name = prompt("Name?", name);
+				a.download = name;
+				a.href = data;
+				a.style.display = "none";
+				a.onclick = function (event) { document.body.removeChild(event.target); };
+				document.body.appendChild(a);
+				if(name) { a.click(); }
+			};
+			var d = new Date();
+			d = d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2)
+				+ ('0' + d.getHours()).slice(-2) + ('0' + d.getMinutes()).slice(-2) + ('0' + d.getSeconds()).slice(-2);
+			if(im().style.display == "block") {
+				exp("IMG_" + d + ".jpg", im().src);
+			} else if (ttl().innerText == title) {
+				getNotes(function(notes) {
+					var data;
+					for(var n of notes) {
+						data = data ? data + bkpEnd : "";
+						data += n.content;
+					}
+					exp("notes_" + d + ".txt", objUrl(data));
+				});
+			} else {
+				exp(tb().value.split("\n")[0] + ".txt", objUrl(tb().value));
+			}
+		}
+		function importFile() {
+			var fr = new FileReader();
+			fr.onload = function(e) {
+				if(isImg()) {
+					createNote();
+					var image = new Image();
+					image.onload = function() {
+						var cvs = document.createElement("canvas");
+						var w = image.width;
+						var h = image.height;
+						w = 750/h*w;
+						h = 750;
+						cvs.width = w;
+						cvs.height = h;
+						cvs.getContext("2d").drawImage(this, 0, 0, w, h);
+						im().src = cvs.toDataURL("image/jpeg", 0.8);
+					};
+					image.src = e.target.result;
+				} else if (ttl().innerText == title) {
+					var notes = event.target.result.split(bkpEnd);
+					var a = 0;
+					for(var n of notes) {					
+						notesDb.transaction(storeName, "readwrite").objectStore(storeName).put({content: n})
+						.onsuccess = function () {a++;if(a == notes.length) { loadNotes(); }};
+					}
+				} else {
+					tb().value = e.target.result;
+				}
+				show(tb(), !isImg());
+				show(im(), isImg());
+				fl().value = "";
+			};
+			if(isImg()) { fr.readAsDataURL(fl().files[0], "UTF-8");
+			} else { fr.readAsText(fl().files[0], "UTF-8"); }
+		}
+		function clearNotes() {
+			notesDb.close();
+			indexedDB.deleteDatabase(dbName).onsuccess = function() { alert("Deleted"); }
+		}
+		function titleClicked() {
+			var id = tb().dataset.id;
+			if (ttl().innerText == title) {
+				createNote();
+			} else if (tb().value != "") {
+				var n = {"content": tb().value};
+				if (id != "") { n.id = parseInt(id); }
+				notesDb.transaction(storeName, "readwrite").objectStore(storeName)
+				.put(n).onsuccess = loadNotes();
+			} else if (id != "") {
+				notesDb.transaction(storeName, "readwrite").objectStore(storeName)
+				.delete(parseInt(id)).onsuccess = loadNotes();
+			} else {
+				loadNotes();
+			}
+		}
+		function createNote() {
+			ttl().innerText = "New";
+			showNote(true);
+			tb().value = "";
+			tb().dataset.id = "";
+			tb().focus();
+		}
+		function showNote(status) {
+			show(im(), false);
+			show(list(), !status);
+			show(tb(), status);
+		}
+		function list() { return elm("dvNotes"); }
+		function tb() { return elm("tbNote"); }
+		function ttl() { return elm("spnTitle"); }
+		function fl() { return elm("fileImport"); }
+		function im() { return elm("img"); }
+		function elm(id) { return document.getElementById(id); }
+		function show(elm, status) { elm.style.display = status ? "block" : "none"; }
+		function isImg() { return fl().files[0].type == "image/jpeg"; }
+		function objUrl(d) {return window.URL.createObjectURL(new Blob([d], { type: "text/plain" })); }
+		function setSize(elm, ma, mi) { elm.style.height = ((window.innerHeight > 600) ? ma : mi) + "px"; }
+	</script>
+</head>
+<body onresize="setSize(tb(), 690, 435);setSize(list(), 710, 455);" onload="initDb(loadNotes);">
+	<div class="dvOptions">
+		<span class="spnLabel" onclick="exportFile();">=</span>
+		<span id="spnTitle" onclick="titleClicked();">Notes</span>
+		<span class="spnLabel" onclick="fl().click();">+</span>
+		<input type="file" id="fileImport" onchange="importFile();" style="display:none" />
+	</div>
+	<div id="dvNotes"></div>
+	<textarea id="tbNote"></textarea>
+	<img id="img" />
+</body>
+</html>
