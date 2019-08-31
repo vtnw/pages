@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="launch.appcache">
+<html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     	<link rel="icon" type="image/png" href="images/icon.png" />
@@ -30,9 +30,6 @@
 			width:70px;
 			font-family:arial;
 		}
-		hr {
-			border:1px solid #eeeeee;
-		}
 		::-webkit-scrollbar {
 			display: none;
 		}
@@ -62,15 +59,14 @@
 			});
 		}
 		function buildLinks(links) {
-            list().innerText = "";
-            list().appendChild(document.createElement("hr"));
-            links.sort(function(a,b){return a.name.localeCompare(b.name);});
-            links.push({id: "", name: "+"});
+            		list().innerText = "";
+            		links.sort(function(a,b){return a.name.localeCompare(b.name);});
+            		links.push({id: "", name: "+"});
 			for (var l of links) {
 				var spnLink = spn();
 				var spnText = spn();
 				var spnIcon = spn();
-				spnIcon.innerText = l.name.substring(0,2);
+				spnIcon.innerText = l.name;
 				spnIcon.className = "spnIcon";
 				spnText.innerText = (l.name == "+") ? "Add" : l.name;
 				spnText.className = "spnText";
