@@ -14,21 +14,11 @@
 		.spnIcon {
 			font-size:40px;
 			border:1px solid blue;
-			display:inline-block;
-			width:60px;
+			display:block;
+			width:90%;
 			border-radius: 15px;
 			color: blue;
 			line-height:60px;
-		}
-		.spnText {
-			display:block;
-			margin-top:5px;
-			font-size:12px;
-			text-overflow: clip;
-			white-space:nowrap;
-			overflow:hidden;
-			width:70px;
-			font-family:arial;
 		}
 		::-webkit-scrollbar {
 			display: none;
@@ -64,17 +54,13 @@
             		links.push({id: "", name: "+"});
 			for (var l of links) {
 				var spnLink = spn();
-				var spnText = spn();
 				var spnIcon = spn();
 				spnIcon.innerText = l.name;
 				spnIcon.className = "spnIcon";
-				spnText.innerText = (l.name == "+") ? "Add" : l.name;
-				spnText.className = "spnText";
 				spnLink.dataset.id = l.id;
 				spnLink.dataset.url = l.url;
 				spnLink.className = "spnLink";
 				spnLink.appendChild(spnIcon);
-				spnLink.appendChild(spnText);
 				spnLink.addEventListener("click", function() {
 					loadLink(this.dataset.id, this.dataset.url);
 				});
