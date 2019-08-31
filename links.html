@@ -10,8 +10,6 @@
 			display:inline-block;
 			margin:8px;
 			text-align:center;
-		}
-		.spnIcon {
 			font-size:40px;
 			border:1px solid blue;
 			display:block;
@@ -57,13 +55,10 @@
             		links.push({id: "", name: "+"});
 			for (var l of links) {
 				var spnLink = spn();
-				var spnIcon = spn();
-				spnIcon.innerText = l.name;
-				spnIcon.className = "spnIcon";
+				spnLink.innerText = l.name;
 				spnLink.dataset.id = l.id;
 				spnLink.dataset.url = l.url;
 				spnLink.className = "spnLink";
-				spnLink.appendChild(spnIcon);
 				spnLink.addEventListener("click", function() {
 					loadLink(this.dataset.id, this.dataset.url);
 				});
