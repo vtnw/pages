@@ -68,6 +68,7 @@ document.getElementById("btnAddCat").addEventListener("click", function () {
     }
 });
 document.getElementById("ddlMonth").addEventListener("change", function () {
+    warnEnd();
     loadList();
 });
 document.getElementById("ddlMode").addEventListener("change", function () {
@@ -242,6 +243,12 @@ function getMonth() {
 function getPrevMonth() {
     var ddl = document.getElementById("ddlMonth");
     return (ddl.selectedIndex == 0) ? ddl.options[ddl.selectedIndex].value : ddl.options[ddl.selectedIndex-1].value;
+}
+function warnEnd() {
+    var ddl = document.getElementById("ddlMonth");
+    if (ddl.selectedIndex == ddl.length -1) {
+        alert("Last month!");
+    }
 }
 function getCache() {
     var items = JSON.parse(localStorage.getItem("expenses_" + getMonth()));
