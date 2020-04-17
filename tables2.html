@@ -83,11 +83,11 @@
 			return (expected == actual);
 		}
 		function storeResult(result) {
-			var prevResults = localStorage.getItem("tables");
-			localStorage.setItem("tables",  currDate() + ": " + result + "\n" + (prevResults ? prevResults : ""));
+			var prevResults = localStorage.getItem("tables2");
+			localStorage.setItem("tables2",  currDate() + ": " + result + "\n" + (prevResults ? prevResults : ""));
 		}
 		function showAllResults() {
-			var prevResults = localStorage.getItem("tables");
+			var prevResults = localStorage.getItem("tables2");
 			document.getElementById("dvAllResults").innerText = prevResults ? "Previous Results:\n\n" + prevResults : "";
 		}
 		function currDate() {
