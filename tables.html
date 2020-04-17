@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tables Test</title>
+	<title>Tables Test V1</title>
 	<style>
 	</style>
 	<script>
@@ -87,11 +87,14 @@
 				spn.style.color = isRight ? "green" : "red";
 				await new Promise(r => setTimeout(r, 50));
 			}
-			var dv = document.getElementById("dvResult");
-			dv.innerText = correct + " / " + count + " in " + document.getElementById("spnTime").innerText + "m";
-			dv.style.display = "inline-block";
-			storeResult(dv.innerText);
-			showAllResults();
+			if (correct == count) {
+				var dv = document.getElementById("dvResult");
+				dv.innerText = correct + " / " + count + " in " + document.getElementById("spnTime").innerText + "m";
+				dv.style.display = "inline-block";
+				storeResult(dv.innerText);
+			} else {
+				alert("Aren't you ashamed? Please study the tables well :-/");
+			}
 		}
 		function storeResult(result) {
 			var prevResults = localStorage.getItem("tables");
