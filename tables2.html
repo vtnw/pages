@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tables Test V2</title>
+	<style>
+	</style>
+	<script>
+		var allTables = [];
+		var count = 0;
+		var seconds = 0;
+		var timer;
+		var correct = 0;
+		function initialize() {
+			for(var i=12;i<20;i++){
+				for(var j=2;j<10;j++){
+					allTables.push({a: i, b: j});
+				}
+			}
+			showAllResults();
+		}
+		function startTest() {
+			document.getElementById("dvAllResults").style.display = "none";
+			addItem();
+			timer = setInterval(function() {
+				seconds++;
+				var time = (seconds >= 60) ? Math.floor(seconds/60) + ":" + ("0" + seconds%60).slice(-2) : "0:" + ("0" + seconds).slice(-2);
+				document.getElementById("spnTime").innerText = time;
+			}, 1000);
+			document.getElementById("spnTimeLabel").style.display = "inline-block";
+		}
+		function addItem() {
+			var dvItem = document.createElement('div');
+			dvItem.id = "dvItem" + count;
+			dvItem.style = "height:25px;";
+			var spnNo = document.createElement('span');
+			spnNo.innerText = (count+1) + ". ";
+			spnNo.style = "display:inline-block;width:25px;color:blue;";
+			var dvQ = document.createElement('span');
+			dvQ.id = "dvQ" + count;
+			dvQ.innerText = getQuestion();
+			dvItem.appendChild(spnNo);
+			dvItem.appendChild(dvQ);
+			var tb = document.createElement('input');
+			tb.id = "tb" + count;
+			tb.style = "width:30px;margin-bottom:5px;padding-left:4px;border:1px solid blue";
+			tb.type = "number";
+			tb.addEventListener("keyup", function (event) {
+				var i = parseInt(this.id.replace("tb",""));
+				if (isCorrect(tb, i)) {
+					tb.style.borderColor = "green";
+					tb.disabled = true;
+					var spn = document.getElementById("spn"+i);
+					spn.innerText = "✔";
+					spn.style.color = "green";
+					if (count < 20) {
+						addItem();
+					} else {
+						clearInterval(timer);
+						storeResult(document.getElementById("spnTime").innerText + "s");
+					}
+				}
+       			});
+			dvItem.appendChild(tb);
+			var spn = document.createElement('span');
+			spn.id = "spn" + count;
+			spn.style="margin-left: 5px;";
+			dvItem.appendChild(spn);
+			document.getElementById("dvItems").appendChild(dvItem);
+			tb.focus();
+			count++;
+		}
+		function getQuestion() {
+			let randomIndex = Math.floor(Math.random() * allTables.length + 1);
+			let q = allTables[randomIndex];
+			allTables.splice(randomIndex, 1);
+			return q.a + " ✕ " + q.b + " = ";			
+		}
+		function isCorrect(tb, count) {
+			var actual = parseInt(tb.value);
+			var q = document.getElementById("dvQ"+count).innerText.split(" ✕ ");
+			var expected = parseInt(q[0]) * parseInt(q[1]);
+			return (expected == actual);
+		}
+		function storeResult(result) {
+			var prevResults = localStorage.getItem("tables");
+			localStorage.setItem("tables",  currDate() + ": " + result + "\n" + (prevResults ? prevResults : ""));
+		}
+		function showAllResults() {
+			var prevResults = localStorage.getItem("tables");
+			document.getElementById("dvAllResults").innerText = prevResults ? "Previous Results:\n\n" + prevResults : "";
+		}
+		function currDate() {
+            		var d = new Date();
+            		d =    ('0' + d.getDate()).slice(-2)
+				+ "/" + ('0' + (d.getMonth() + 1)).slice(-2)
+                		+ "/" + d.getFullYear() 
+                		+ " " + ('0' + d.getHours()).slice(-2)
+                		+ ":" + ('0' + d.getMinutes()).slice(-2);
+            		return d;
+        	}
+	</script>
+</head>
+<body onload="initialize();">
+	<div style="height:20px;">
+		<input type="button" value="Start" onclick="this.disabled = true;startTest();"/>
+		<input type="button" value="Reset" onclick="location.reload();"/>
+		<span id="spnTimeLabel" style="display:none;">Time: <span id="spnTime">0:00</span></span>
+	</div>
+	<br/><br/>
+	<div>
+	<div id="dvItems">
+	</div>
+	<div id="dvAllResults">
+	</div>
+	</div>
+</body>
+</html>
