@@ -52,6 +52,7 @@
 					} else {
 						clearInterval(timer);
 						alert("Complete!");
+						startResult();
 					}
 				}
        			});
@@ -80,10 +81,11 @@
 				var isRight = (expected == actual);
 				correct = isRight ? correct + 1: correct;
 				tb.style.borderColor = isRight ? "green" : "red";
+				tb.disabled = true;
 				var spn = document.getElementById("spn"+i);
 				spn.innerText = isRight ? "✔" : "✖";
 				spn.style.color = isRight ? "green" : "red";
-				await new Promise(r => setTimeout(r, 500));
+				await new Promise(r => setTimeout(r, 50));
 			}
 			var dv = document.getElementById("dvResult");
 			dv.innerText = correct + " / " + count + " in " + document.getElementById("spnTime").innerText + "m";
@@ -112,8 +114,7 @@
 </head>
 <body onload="initialize();">
 	<div style="height:20px;">
-		<input type="button" value="Start" onclick="startTest();"/>
-		<input type="button" value="Result" onclick="startResult();"/>
+		<input type="button" value="Start" onclick="this.disabled = true;startTest();"/>
 		<input type="button" value="Reset" onclick="location.reload();"/>
 		<span id="spnTimeLabel" style="display:none;">Time: <span id="spnTime">0:00</span></span>
 		<div id="dvResult" style="border:2px solid deeppink;padding: 0px 5px 0px 5px;display:none;"></div>
