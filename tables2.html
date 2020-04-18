@@ -11,15 +11,19 @@
 		var seconds = 0;
 		var timer;
 		var correct = 0;
+		var results;
 		function initialize() {
 			for(var i=12;i<20;i++){
 				for(var j=2;j<10;j++){
 					allTables.push({a: i, b: j});
 				}
 			}
+			results = getResults();
 			showAllResults();
 		}
 		function startTest() {
+			this.name = results.length > 0 ? results[results.length-1].name : "";
+			this.name = prompt("Confirm your name:", this.name);
 			document.getElementById("dvAllResults").style.display = "none";
 			addItem();
 			timer = setInterval(function() {
@@ -87,15 +91,11 @@
 			return (results == null) ? [] : JSON.parse(results);
 		}
 		function storeResult(t) {
-			var results = getResults();
-			var name = results.length > 0 ? results[results.length-1].name : "";
-			name = prompt("Completed in " + t + "s, by?", name);
-			results.push({date: currDate(), time: t, name: name ? name : "unknown"});
+			results.push({date: currDate(), time: t, name: this.name ? this.name : "unknown"});
 			localStorage.setItem("tables",  JSON.stringify(results));
 			location.reload();
 		}
 		function showAllResults() {
-			var results = getResults();
 			var times = results.map(r => r.time);
 			var best = times.length > 0 ? times.sort()[0] : "";
 			var resultString = "";
