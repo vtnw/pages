@@ -87,13 +87,13 @@
 			return (expected == actual);
 		}
 		function getResults() {
-			var results = localStorage.getItem("tables");
+			var results = localStorage.getItem("tables2");
 			return (results == null) ? [] : JSON.parse(results);
 		}
 		function storeResult(t) {
 			var name = document.getElementById("tbName").value;
 			results.push({date: currDate(), time: t, name: name ? name : "unknown"});
-			localStorage.setItem("tables",  JSON.stringify(results));
+			localStorage.setItem("tables2",  JSON.stringify(results));
 			location.reload();
 		}
 		function showAllResults() {
