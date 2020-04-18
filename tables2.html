@@ -80,7 +80,7 @@
 			var actual = parseInt(tb.value);
 			var q = document.getElementById("dvQ"+count).innerText.split(" ✕ ");
 			var expected = parseInt(q[0]) * parseInt(q[1]);
-			return (expected == actual || true);
+			return (expected == actual);
 		}
 		function getResults() {
 			var results = localStorage.getItem("tables");
