@@ -66,7 +66,7 @@
 			count++;
 		}
 		function getQuestion() {
-			let randomIndex = Math.floor(Math.random() * allTables.length + 1);
+			let randomIndex = Math.floor(Math.random() * allTables.length);
 			let q = allTables[randomIndex];
 			allTables.splice(randomIndex, 1);
 			return q.a + " ✕ " + q.b + " = ";
