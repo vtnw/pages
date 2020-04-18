@@ -12,7 +12,6 @@
 		var timer;
 		var correct = 0;
 		var results;
-		var name = "";
 		function initialize() {
 			for(var i=12;i<20;i++){
 				for(var j=2;j<10;j++){
@@ -23,8 +22,8 @@
 			showAllResults();
 		}
 		function startTest() {
-			this.name = results.length > 0 ? results[results.length-1].name : "";
-			this.name = prompt("Confirm your name:", this.name);
+			this.disabled = true;
+			document.getElementById("tbName").disabled = true;
 			document.getElementById("dvAllResults").style.display = "none";
 			addItem();
 			timer = setInterval(function() {
@@ -92,7 +91,8 @@
 			return (results == null) ? [] : JSON.parse(results);
 		}
 		function storeResult(t) {
-			results.push({date: currDate(), time: t, name: this.name ? this.name : "unknown"});
+			var name = document.getElementById("tbName").value;
+			results.push({date: currDate(), time: t, name: name ? name : "unknown"});
 			localStorage.setItem("tables",  JSON.stringify(results));
 			location.reload();
 		}
@@ -106,6 +106,7 @@
 				resultString += r;
 			}
 			document.getElementById("dvAllResults").innerHTML = resultString;
+			document.getElementById("tbName").value = results.length > 0 ? results[results.length-1].name : ""
 		}
 		function currDate() {
             		var d = new Date();
@@ -120,7 +121,8 @@
 </head>
 <body onload="initialize();">
 	<div style="height:20px;">
-		<input type="button" value="Start" onclick="this.disabled = true;startTest();"/>
+		<input type="text" id="tbName" style="width:70px;" />
+		<input type="button" value="Start" onclick="startTest();"/>
 		<input type="button" value="Reset" onclick="location.reload();"/>
 		<span id="spnTimeLabel" style="display:none;">Time: <span id="spnTime">0:00</span></span>
 	</div>
