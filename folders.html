@@ -1,4 +1,5 @@
 <html>
+
 <head>
 <style>
 #dropzone {
@@ -25,8 +26,23 @@ body {
   font: 14px "Arial", sans-serif;
 }
 </style>
+</head>
+<body>
+<p>Drag files and/or directories to the box below!</p>
+
+<div id="dropzone">
+  <div id="boxtitle">
+    Drop Files Here
+  </div>
+</div>
+
+<h2>Directory tree:</h2>
+
+<ul id="listing">
+</ul>
+</body>
+
 <script>
-alert("hi");
 let dropzone = document.getElementById("dropzone");
 let listing = document.getElementById("listing");
 //handle files dropped in
@@ -66,19 +82,4 @@ dropzone.addEventListener("drop", function(event) {
   }
 }, false);
 </script>
-</head>
-<body>
-<p>Drag files and/or directories to the box below!</p>
-
-<div id="dropzone">
-  <div id="boxtitle">
-    Drop Files Here
-  </div>
-</div>
-
-<h2>Directory tree:</h2>
-
-<ul id="listing">
-</ul>
-</body>
 </html>
