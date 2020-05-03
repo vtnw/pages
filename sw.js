@@ -1,4 +1,4 @@
-var version = "20200503";
+var version = "20200503.1";
 var CACHE_NAME = "pages";
 self.addEventListener("activate", function(event) {
 	event.waitUntil(caches.delete(CACHE_NAME));
