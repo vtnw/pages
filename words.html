@@ -6,22 +6,22 @@
 	<style>
 	</style>	
 </head>
-<body onload="initialize();">
+<body onload="initialize();" style="background-color:black;">
 	<div id="dvControls">
-		<input type="text" id="tbName" placeholder="name" style="width:70px;" />
-		<input type="button" value="Start" onclick="startTest(this);"/>
-		<input type="button" value="Reset" onclick="location.reload();"/>
+		<input type="text" id="tbName" placeholder="name" style="width:70px;background-color:black;color:orange;border:transparent" />
+		<input type="button" value="Start" style="background-color:black;color:white;border:1px solid" onclick="startTest(this);"/>
+		<input type="button" value="Reset" style="background-color:black;color:white;border:1px solid" onclick="location.reload();"/>
 	</div>
 	<br/><br/>
-	<div id="dvAllResults">
+	<div id="dvAllResults" style="color:purple">
 	</div>
 	<div style="width:100%;text-align:center;">
-	<div id="dvResult" style="display:none;font-size:90px;">
+	<div id="dvResult" style="display:none;font-size:90px;color:red;">
 	</div>
-	<div id="dvQuestion" style="font-size:40px;display:none;letter-spacing:5px;">
+	<div id="dvQuestion" style="font-size:40px;display:none;letter-spacing:5px;color:blue">
 	</div>
 	<div id="dvAnswer" style="display:none;">
-		<input type="text" id="tbWord" style="font-size:40px;border:transparent;outline:none;text-align:center;width:100%;text-transform:uppercase;letter-spacing:5px;" />
+		<input type="text" id="tbWord" style="font-size:40px;border:transparent;outline:none;text-align:center;width:100%;text-transform:uppercase;letter-spacing:5px;color:green;background-color:black;" />
 	</div>
 	</div>
 <script>
@@ -99,7 +99,7 @@
 			var resultString = "";
 			for(var i=results.length-1;i>=0;i--){
 				var r = results[i].words + " words by " + results[i].name + " (" + results[i].date + ")<br>";
-				r = (results[i].words == best) ? "<b>" + r + "</b>" : r;
+				r = (results[i].words == best) ? "<b style='color:yellow'>" + r + "</b>" : r;
 				resultString += r;
 			}
 			document.getElementById("dvAllResults").innerHTML = resultString;
