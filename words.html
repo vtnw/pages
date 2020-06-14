@@ -18,10 +18,10 @@
 	<div style="width:100%;text-align:center;">
 	<div id="dvResult" style="display:none;font-size:90px;">
 	</div>
-	<div id="dvQuestion" style="font-size:40px;display:none">
+	<div id="dvQuestion" style="font-size:40px;display:none;letter-spacing:5px;">
 	</div>
 	<div id="dvAnswer" style="display:none;">
-		<input type="text" id="tbWord" style="font-size:40px;border:transparent;outline:none;width:10px;text-align:center;" />
+		<input type="text" id="tbWord" style="font-size:40px;border:transparent;outline:none;text-align:center;width:100%;text-transform:uppercase;letter-spacing:5px;" />
 	</div>
 	</div>
 <script>
@@ -57,11 +57,11 @@
       isTimeup = false;
 			timer = setInterval(function() {
 				isTimeup = true;
-			}, 30*1000);
+			}, 60*1000);
 		}
     
 		function showQuestion() {
-      currWord = getLetter();
+      currWord = getLetter()+getLetter()+getLetter()+getLetter()+getLetter();
 		  document.getElementById("dvQuestion").innerText = currWord;
       document.getElementById("tbWord").value = "";
       document.getElementById("tbWord").focus();
@@ -98,7 +98,7 @@
 			var best = words.length > 0 ? words.sort((a,b)=>b-a)[0] : "";
 			var resultString = "";
 			for(var i=results.length-1;i>=0;i--){
-				var r = results[i].words + " letters by " + results[i].name + " (" + results[i].date + ")<br>";
+				var r = results[i].words + " words per minute by " + results[i].name + " (" + results[i].date + ")<br>";
 				r = (results[i].words == best) ? "<b>" + r + "</b>" : r;
 				resultString += r;
 			}
