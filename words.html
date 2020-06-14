@@ -21,7 +21,7 @@
 	<div id="dvQuestion" style="font-size:40px;display:none">
 	</div>
 	<div id="dvAnswer" style="display:none;">
-		<input type="text" id="tbWord" style="font-size:40px;" />
+		<input type="text" id="tbWord" style="font-size:40px;border:transparent;outline:none;width:10px;text-align:center;" />
 	</div>
 	</div>
 <script>
@@ -57,7 +57,7 @@
       isTimeup = false;
 			timer = setInterval(function() {
 				isTimeup = true;
-			}, 5*1000);
+			}, 30*1000);
 		}
     
 		function showQuestion() {
