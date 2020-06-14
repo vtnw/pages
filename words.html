@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Words Test</title>
+	<style>
+	</style>	
+</head>
+<body onload="initialize();">
+	<div id="dvControls">
+		<input type="text" id="tbName" placeholder="name" style="width:70px;" />
+		<input type="button" value="Start" onclick="startTest(this);"/>
+		<input type="button" value="Reset" onclick="location.reload();"/>
+	</div>
+	<br/><br/>
+	<div id="dvAllResults">
+	</div>
+	<div style="width:100%;text-align:center;">
+	<div id="dvResult" style="display:none;font-size:90px;">
+	</div>
+	<div id="dvQuestion" style="font-size:40px;display:none">
+	</div>
+	<div id="dvAnswer" style="display:none;">
+		<input type="text" id="tbWord" style="font-size:40px;" />
+	</div>
+	</div>
+<script>
+		var letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    var count = 0;
+		var timer;
+    var isTimeup = false;
+    var currWord = "";
+    
+		document.getElementById("tbWord").addEventListener("keyup", function (event) {
+      if (this.value.toUpperCase() == currWord && !isTimeup) {
+        count++;
+        showQuestion();
+      }
+      if (isTimeup) {
+        showResult();
+      }
+    });
+    
+    function initialize() {
+		  showAllResults();
+		}
+    
+		function startTest(btnStart) {
+			btnStart.disabled = true;
+			document.getElementById("tbName").disabled = true;
+			document.getElementById("dvAllResults").style.display = "none";
+      document.getElementById("dvResult").style.display = "none";
+      document.getElementById("dvQuestion").style.display = "block";
+      document.getElementById("dvAnswer").style.display = "block";
+			showQuestion();
+      count = 0;
+      isTimeup = false;
+			timer = setInterval(function() {
+				isTimeup = true;
+			}, 5*1000);
+		}
+    
+		function showQuestion() {
+      currWord = getLetter();
+		  document.getElementById("dvQuestion").innerText = currWord;
+      document.getElementById("tbWord").value = "";
+      document.getElementById("tbWord").focus();
+		}
+    
+		function getLetter() {
+			let randomIndex = Math.floor(Math.random() * 26);
+			return letters[randomIndex];		
+		}
+    
+		function showResult() {
+      document.getElementById("dvResult").style.display = "block";
+      document.getElementById("dvQuestion").style.display = "none";
+      document.getElementById("dvAnswer").style.display = "none";      
+      document.getElementById("dvResult").innerText = count;
+      storeResult(count);			
+		}
+    
+    function getCache() {
+      var results = localStorage.getItem("words");
+			return (results == null) ? [] : JSON.parse(results);
+    }
+    
+		function storeResult(r) {
+			var name = document.getElementById("tbName").value;
+      var results = getCache();
+			results.push({date: currDate(), words: r, name: name ? name : "unknown"});
+			localStorage.setItem("words",  JSON.stringify(results));
+		}
+    
+		function showAllResults() {
+      var results = getCache();
+			var words = results.map(r => r.words);
+			var best = words.length > 0 ? words.sort()[words.length-1] : "";
+			var resultString = "";
+			for(var i=results.length-1;i>=0;i--){
+				var r = results[i].words + " letters by " + results[i].name + " (" + results[i].date + ")<br>";
+				r = (results[i].words == best) ? "<b>" + r + "</b>" : r;
+				resultString += r;
+			}
+			document.getElementById("dvAllResults").innerHTML = resultString;
+			document.getElementById("tbName").value = results.length > 0 ? results[results.length-1].name : ""
+		}
+    
+		function currDate() {
+            		var d = new Date();
+            		d =    ('0' + d.getDate()).slice(-2)
+				+ "/" + ('0' + (d.getMonth() + 1)).slice(-2)
+                		+ "/" + d.getFullYear() 
+                		+ " " + ('0' + d.getHours()).slice(-2)
+                		+ ":" + ('0' + d.getMinutes()).slice(-2);
+            		return d;
+        	}
+	</script>
+</body
+</html>
